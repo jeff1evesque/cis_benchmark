@@ -1,4 +1,10 @@
-class cis::auditd_rules {
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v1.0.0 - 01-07-2015
+##
+## https://benchmarks.cisecurity.org/tools2/linux/CIS_Ubuntu_14.04_LTS_Server_Benchmark_v1.0.0.pdf
+##
+
+class cis::trusty64::auditd_rules {
   ## local variables
   ##
   ## @node_architecture, the following are assumed possible values:
