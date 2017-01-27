@@ -19,7 +19,7 @@ class cis::trusty64::auditd_rules {
   $node_architecture = $architecture
 
   ## local variables: conditionally load hiera
-  $hiera_node = hiera($node_reference, 'utility')
+  $hiera_node = hiera($node_reference, 'trusty64')
 
   ## local variables: stig items
   $cis_8_1_4 = $hiera_node['cis_8_1_4']
