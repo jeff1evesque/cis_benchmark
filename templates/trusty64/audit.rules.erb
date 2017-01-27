@@ -18,7 +18,7 @@
 -w /etc/localtime -p wa -k time-change
 
 <% if @cis_8_1_6 %>
-## 8.1.6 Record Events That Modify the System's Network Environment
+## CIS 8.1.6 Record Events That Modify the System's Network Environment
 -a exit,always -F arch=b32 -S sethostname -S setdomainname -k system-locale
 -w /etc/issue -p wa -k system-locale
 -w /etc/issue.net -p wa -k system-locale
@@ -27,30 +27,30 @@
 <% end %>
 
 <% if @cis_8_1_10 %>
-## 8.1.10 Collect Discretionary Access Control Permission Modification Events (Scored)
+## CIS 8.1.10 Collect Discretionary Access Control Permission Modification Events (Scored)
 -a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod
 <% end %>
 
 <% if @cis_8_1_11 %>
-## 8.1.11 Collect Unsuccessful Unauthorized Access Attempts to Files (Scored)
+## CIS 8.1.11 Collect Unsuccessful Unauthorized Access Attempts to Files (Scored)
 -a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access
 -a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access
 <% end %>
 
 <% if @cis_8_1_13 %>
-## 8.1.13 Collect Successful File System Mounts (Scored)
+## CIS 8.1.13 Collect Successful File System Mounts (Scored)
 -a always,exit -F arch=b32 -S mount -F auid>=500 -F auid!=4294967295 -k mounts
 <% end %>
 
 <% if @cis_8_1_15 %>
-## 8.1.14 Collect File Deletion Events by User (Scored)
+## CIS 8.1.14 Collect File Deletion Events by User (Scored)
 -a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
 <% end %>
 
 <% if @cis_8_1_17 %>
-## 8.1.17 Collect Kernel Module Loading and Unloading (Scored)
+## CIS 8.1.17 Collect Kernel Module Loading and Unloading (Scored)
 -a always,exit -F arch=b32 -S init_module -S delete_module -k modules
 <% end %>
 <% end %>
@@ -69,7 +69,7 @@
 <% end %>
 
 <% if @cis_8_1_6 %>
-## 8.1.6 Record Events That Modify the System's Network Environment
+## CIS 8.1.6 Record Events That Modify the System's Network Environment
 -a exit,always -F arch=b64 -S sethostname -S setdomainname -k system-locale
 -a exit,always -F arch=b32 -S sethostname -S setdomainname -k system-locale
 -w /etc/issue -p wa -k system-locale
@@ -79,7 +79,7 @@
 <% end %>
 
 <% if @cis_8_1_10 %>
-## 8.1.10 Collect Discretionary Access Control Permission Modification Events (Scored)
+## CIS 8.1.10 Collect Discretionary Access Control Permission Modification Events (Scored)
 -a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod
@@ -89,7 +89,7 @@
 <% end %>
 
 <% if @cis_8_1_11 %>
-## 8.1.11 Collect Unsuccessful Unauthorized Access Attempts to Files (Scored)
+## CIS 8.1.11 Collect Unsuccessful Unauthorized Access Attempts to Files (Scored)
 -a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access
 -a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access
 -a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access
@@ -97,19 +97,19 @@
 <% end %>
 
 <% if @cis_8_1_13 %>
-## 8.1.13 Collect Successful File System Mounts (Scored)
+## CIS 8.1.13 Collect Successful File System Mounts (Scored)
 -a always,exit -F arch=b64 -S mount -F auid>=500 -F auid!=4294967295 -k mounts
 -a always,exit -F arch=b32 -S mount -F auid>=500 -F auid!=4294967295 -k mounts
 <% end %>
 
 <% if @cis_8_1_15 %>
-## 8.1.14 Collect File Deletion Events by User (Scored)
+## CIS 8.1.14 Collect File Deletion Events by User (Scored)
 -a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
 -a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
 <% end %>
 
 <% if @cis_8_1_17 %>
-## 8.1.17 Collect Kernel Module Loading and Unloading (Scored)
+## CIS 8.1.17 Collect Kernel Module Loading and Unloading (Scored)
 -a always,exit -F arch=b64 -S init_module -S delete_module -k modules
 <% end %>
 <% end %>
@@ -119,7 +119,7 @@
 ###############################################################################
 
 <% if @cis_8_1_5 %>
-## 8.1.5 Record Events That Modify User/Group Information (Scored)
+## CIS 8.1.5 Record Events That Modify User/Group Information (Scored)
 -w /etc/group -p wa -k identity
 -w /etc/passwd -p wa -k identity
 -w /etc/gshadow -p wa -k identity
@@ -128,43 +128,43 @@
 <% end %>
 
 <% if @cis_8_1_7 %>
-## 8.1.7 Record Events That Modify the System's Mandatory Access
+## CIS 8.1.7 Record Events That Modify the System's Mandatory Access
 -w /etc/selinux/ -p wa -k MAC-policy
 <% end %>
 
 <% if @cis_8_1_8 %>
-## 8.1.8 Collect Login and Logout Events (Scored)
+## CIS 8.1.8 Collect Login and Logout Events (Scored)
 -w /var/log/faillog -p wa -k logins
 -w /var/log/lastlog -p wa -k logins
 -w /var/log/tallylog -p wa -k logins
 <% end %>
 
 <% if @cis_8_1_9 %>
-## 8.1.9 Collect Session Initiation Information (Scored)
+## CIS 8.1.9 Collect Session Initiation Information (Scored)
 -w /var/run/utmp -p wa -k session
 -w /var/log/wtmp -p wa -k session
 -w /var/log/btmp -p wa -k session
 <% end %>
 
 <% if @cis_8_1_15 %>
-## 8.1.15 Collect Changes to System Administration Scope (sudoers)
+## CIS 8.1.15 Collect Changes to System Administration Scope (sudoers)
 -w /etc/sudoers -p wa -k scope
 <% end %>
 
 <% if @cis_8_1_16 %>
-## 8.1.16 Collect System Administrator Actions (sudolog) (Scored)
+## CIS 8.1.16 Collect System Administrator Actions (sudolog) (Scored)
 -w /var/log/sudo.log -p wa -k actions
 <% end %>
 
 <% if @cis_8_1_17 %>
-## 8.1.17 Collect Kernel Module Loading and Unloading (Scored)
+## CIS 8.1.17 Collect Kernel Module Loading and Unloading (Scored)
 -w /sbin/insmod -p x -k modules
 -w /sbin/rmmod -p x -k modules
 -w /sbin/modprobe -p x -k modules
 <% end %>
 
 <% if @cis_8_1_18 %>
-## 8.1.18 Make the Audit Configuration Immutable (Scored)
+## CIS 8.1.18 Make the Audit Configuration Immutable (Scored)
 ##
 ## Note: this must be the last line in the file.
 ##
