@@ -11,7 +11,14 @@ class cis::auditd_rules {
   ##
   $node_reference    = $node_name_value
   $node_architecture = $architecture
-  $hiera_node        = hiera($node_reference)
+
+  ## local variables: conditionally implement hiera
+  if hiera($node_reference) {
+    $hiera_node = hiera($node_reference)
+  }
+  else {
+    $hiera_node = hiera('utility')
+  }
 
   ## local variables: stig items
   $cis_8_1_4 = $hiera_node['cis_8_1_4']
