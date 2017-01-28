@@ -22,12 +22,12 @@ class cis::trusty64::auditd_rules {
   $hiera_node = hiera($node_reference, 'trusty64')
 
   ## local variables: stig items
-  $cis_4_1_4 = $hiera_node['cis_4_1_4']
-  $cis_4_1_5 = $hiera_node['cis_4_1_5']
-  $cis_4_1_6 = $hiera_node['cis_4_1_6']
-  $cis_4_1_7 = $hiera_node['cis_4_1_7']
-  $cis_4_1_8 = $hiera_node['cis_4_1_8']
-  $cis_4_1_9 = $hiera_node['cis_4_1_9']
+  $cis_4_1_4  = $hiera_node['cis_4_1_4']
+  $cis_4_1_5  = $hiera_node['cis_4_1_5']
+  $cis_4_1_6  = $hiera_node['cis_4_1_6']
+  $cis_4_1_7  = $hiera_node['cis_4_1_7']
+  $cis_4_1_8  = $hiera_node['cis_4_1_8']
+  $cis_4_1_9  = $hiera_node['cis_4_1_9']
   $cis_4_1_10 = $hiera_node['cis_4_1_10']
   $cis_4_1_11 = $hiera_node['cis_4_1_11']
   $cis_4_1_13 = $hiera_node['cis_4_1_13']
@@ -41,6 +41,7 @@ class cis::trusty64::auditd_rules {
     ensure   => present,
     mode     => '0640',
     owner    => 'root',
+    group    => 'root',
     template => dos2unix(template('cis/trusty64/audit.rules.erb')),
     notify   => Exec['restart-auditd'],
   }
