@@ -6,6 +6,6 @@
 Facter.add(:apparmor_enabled) do
   confine :osfamily => 'Debian'
   setcode do
-    Facter::Core::Execution.exec('cat /sys/module/apparmor/parameters/enabled')
+    Facter::Core::Execution.exec("if [ -f '/sys/module/apparmor/parameters/enabled' ]; then cat /sys/module/apparmor/parameters/enabled; else echo 'N'; fi")
   end
 end
