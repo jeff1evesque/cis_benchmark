@@ -41,6 +41,14 @@ class cis::trusty64::auditd_rules {
     ensure   => present,
     mode     => '0640',
     owner    => 'root',
-    template => dos2unix(template('cis/trusty64/audit.rules.erb'))
+    template => dos2unix(template('cis/trusty64/audit.rules.erb')),
+    notify   => Exec['restart-auditd'],
+  }
+
+  ## restart auditd
+  exec { 'restart-auditd':
+      command      => 'pkill -P 1-HUP auditd',
+      path         => '/usr/bin',
+      refresh_only => true,
   }
 }
