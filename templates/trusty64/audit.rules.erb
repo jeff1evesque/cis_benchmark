@@ -139,7 +139,7 @@
 <% if @selinux and @selinux_policyversion %>
 -w /etc/selinux/ -p wa -k MAC-policy
 <% end %>
-<% if $::apparmor_enabled %>
+<% if $::apparmor_enabled == 'Y' %>
 -w /etc/apparmor/ -p wa -k MAC-policy
 -w /etc/apparmor.d -p wa -k MAC-policy
 <% end %>
