@@ -1,7 +1,7 @@
 ## CIS Ubuntu 14.04 LTS Server Benchmark
 ## v1.0.0 - 01-07-2015
 ##
-## https://benchmarks.cisecurity.org/tools2/linux/CIS_Ubuntu_14.04_LTS_Server_Benchmark_v1.0.0.pdf
+## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
 class cis::trusty64::auditd_rules {
@@ -22,19 +22,19 @@ class cis::trusty64::auditd_rules {
   $hiera_node = hiera($node_reference, 'trusty64')
 
   ## local variables: stig items
-  $cis_8_1_4 = $hiera_node['cis_8_1_4']
-  $cis_8_1_4 = $hiera_node['cis_8_1_5']
-  $cis_8_1_4 = $hiera_node['cis_8_1_6']
-  $cis_8_1_4 = $hiera_node['cis_8_1_7']
-  $cis_8_1_4 = $hiera_node['cis_8_1_8']
-  $cis_8_1_4 = $hiera_node['cis_8_1_9']
-  $cis_8_1_4 = $hiera_node['cis_8_1_10']
-  $cis_8_1_4 = $hiera_node['cis_8_1_11']
-  $cis_8_1_4 = $hiera_node['cis_8_1_13']
-  $cis_8_1_4 = $hiera_node['cis_8_1_15']
-  $cis_8_1_4 = $hiera_node['cis_8_1_16']
-  $cis_8_1_4 = $hiera_node['cis_8_1_17']
-  $cis_8_1_4 = $hiera_node['cis_8_1_18']
+  $cis_4_1_4 = $hiera_node['cis_4_1_4']
+  $cis_4_1_5 = $hiera_node['cis_4_1_5']
+  $cis_4_1_6 = $hiera_node['cis_4_1_6']
+  $cis_4_1_7 = $hiera_node['cis_4_1_7']
+  $cis_4_1_8 = $hiera_node['cis_4_1_8']
+  $cis_4_1_9 = $hiera_node['cis_4_1_9']
+  $cis_4_1_10 = $hiera_node['cis_4_1_10']
+  $cis_4_1_11 = $hiera_node['cis_4_1_11']
+  $cis_4_1_13 = $hiera_node['cis_4_1_13']
+  $cis_4_1_15 = $hiera_node['cis_4_1_15']
+  $cis_4_1_16 = $hiera_node['cis_4_1_16']
+  $cis_4_1_17 = $hiera_node['cis_4_1_17']
+  $cis_4_1_18 = $hiera_node['cis_4_1_18']
 
   ## apply cis rules
   file { '/etc/audit/audit.rules':
