@@ -36,6 +36,17 @@ class cis::trusty64::auditd_rules {
   $cis_4_1_17 = $hiera_node['cis_4_1_17']
   $cis_4_1_18 = $hiera_node['cis_4_1_18']
 
+  ## ensure auditd installed
+  package { 'auditd':
+    ensure => 'present',
+  }
+
+  ## ensure auditd running
+  service { 'start-auditd':
+    ensure => true,
+    enable => true,
+  }
+
   ## apply cis stigs
   file { '/etc/audit/audit.rules':
     ensure  => present,
