@@ -54,7 +54,7 @@ class cis::trusty64::rsyslog {
     }
   }
 
-  ## apply remaining cis rules
+  ## apply remaining cis stigs
   file { '/etc/rsyslog.d/50-default.conf':
     ensure   => present,
     mode     => '0644',

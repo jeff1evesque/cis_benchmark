@@ -36,7 +36,7 @@ class cis::trusty64::auditd_rules {
   $cis_4_1_17 = $hiera_node['cis_4_1_17']
   $cis_4_1_18 = $hiera_node['cis_4_1_18']
 
-  ## apply cis rules
+  ## apply cis stigs
   file { '/etc/audit/audit.rules':
     ensure   => present,
     mode     => '0640',
