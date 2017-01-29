@@ -30,7 +30,7 @@ class cis::trusty64::rsyslog {
     enable => true,
   }
 
-  ## 4.2.1.1 Ensure logging is configured (Not Scored)
+  ## CIS 4.2.1.1 Ensure logging is configured (Not Scored)
   if ($cis_4_2_1_1) {
     file { '/etc/init/rsyslog.conf':
       ensure  => present,
@@ -41,7 +41,7 @@ class cis::trusty64::rsyslog {
     }
   }
 
-  ## 4.2.1.3 Ensure rsyslog default file permissions configured (Scored)
+  ## CIS 4.2.1.3 Ensure rsyslog default file permissions configured (Scored)
   if ($cis_4_2_1_3) {
     file { '/etc/rsyslog.conf':
       ensure  => present,
