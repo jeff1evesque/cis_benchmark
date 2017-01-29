@@ -9,9 +9,9 @@
 ## Note: default logging rules can be found in /etc/rsyslog.d/50-default.conf
 ##
 
-#################
-#### MODULES ####
-#################
+###############################################################################
+## MODULES                                                                   ##
+###############################################################################
 
 $ModLoad imuxsock # provides support for local system logging
 $ModLoad imklog   # provides kernel logging support
@@ -19,9 +19,9 @@ $ModLoad imklog   # provides kernel logging support
 ## Enable non-kernel facility klog messages
 $KLogPermitNonKernelFacility on
 
-###########################
-#### GLOBAL DIRECTIVES ####
-###########################
+###############################################################################
+## GLOBAL DIRECTIVES                                                         ##
+###############################################################################
 
 ## Use traditional timestamp format.
 ## 
