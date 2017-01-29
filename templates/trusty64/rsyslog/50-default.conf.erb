@@ -9,21 +9,21 @@
 
 <% if @cis_4_2_1_2 %>
 ## CIS Ensure logging is configured (Not Scored)
-*.emerg					:omusrmsg:*
-mail.*					-/var/log/mail
-mail.info				-/var/log/mail.info
-mail.warn				-/var/log/mail.warn
-mail.err				/var/log/mail.err
-news.crit				-/var/log/news/news.crit
-news.err				-/var/log/news/news.err
-news.notice				-/var/log/news/news.notice
-*.=warning;*.=err		-/var/log/warn
-*.crit					/var/log/warn
-*.*;mail.none;news.none	-/var/log/messages
-local0,local1.*			-/var/log/localmessages
-local2,local3.*			-/var/log/localmessages
-local4,local5.*			-/var/log/localmessages
-local6,local7.*			-/var/log/localmessages
+*.emerg                    :omusrmsg:*
+mail.*                     -/var/log/mail
+mail.info                  -/var/log/mail.info
+mail.warn                  -/var/log/mail.warn
+mail.err                   /var/log/mail.err
+news.crit                  -/var/log/news/news.crit
+news.err                   -/var/log/news/news.err
+news.notice                -/var/log/news/news.notice
+*.=warning;*.=err          -/var/log/warn
+*.crit                     /var/log/warn
+*.*;mail.none;news.none    -/var/log/messages
+local0,local1.*            -/var/log/localmessages
+local2,local3.*            -/var/log/localmessages
+local4,local5.*            -/var/log/localmessages
+local6,local7.*            -/var/log/localmessages
 <% end %>
 
 <% if @cis_4_2_1_4 %>
@@ -38,9 +38,9 @@ $InputTCPServerRun 514
 <% end %>
 
 ## General
-auth,authpriv.*			/var/log/auth.log
-*.*;auth,authpriv.none	-/var/log/syslog
-kern.*					-/var/log/kern.log
+auth,authpriv.*            /var/log/auth.log
+*.*;auth,authpriv.none-    /var/log/syslog
+kern.*                     -/var/log/kern.log
 
 ## The named pipe /dev/xconsole is for the `xconsole' utility.  To use it,
 ## you must invoke `xconsole' with the `-file' option:
