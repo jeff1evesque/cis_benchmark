@@ -19,6 +19,17 @@ class cis::trusty64::rsyslog {
   $cis_4_2_1_4 = $hiera_node['cis_4_2_1_4']
   $cis_4_2_1_5 = $hiera_node['cis_4_2_1_5']
 
+  ## ensure auditd installed
+  package { 'rsyslog':
+    ensure => 'present',
+  }
+
+  ## ensure auditd running
+  service { 'rsyslog':
+    ensure => true,
+    enable => true,
+  }
+
   ## 4.2.1.1 Ensure logging is configured (Not Scored)
   if ($cis_4_2_1_1) {
     file { '/etc/init/rsyslog.conf':
