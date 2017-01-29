@@ -38,12 +38,12 @@ class cis::trusty64::auditd_rules {
 
   ## apply cis stigs
   file { '/etc/audit/audit.rules':
-    ensure   => present,
-    mode     => '0640',
-    owner    => 'root',
-    group    => 'root',
-    template => dos2unix(template('cis/trusty64/audit.rules.erb')),
-    notify   => Exec['restart-auditd'],
+    ensure  => present,
+    mode    => '0640',
+    owner   => 'root',
+    group   => 'root',
+    content => dos2unix(template('cis/trusty64/audit.rules.erb')),
+    notify  => Exec['restart-auditd'],
   }
 
   ## restart auditd
