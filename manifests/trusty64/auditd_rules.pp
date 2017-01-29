@@ -15,11 +15,11 @@ class cis::trusty64::auditd_rules {
   ##
   ## Note: https://projects.puppetlabs.com/issues/11511#note-6
   ##
-  $node_reference    = $node_name_value
   $node_architecture = $architecture
 
   ## local variables: conditionally load hiera
-  $hiera_node = hiera($node_reference, 'trusty64')
+  $node_reference = $node_name_value
+  $hiera_node     = hiera($node_reference, 'trusty64')
 
   ## local variables: stig items
   $cis_4_1_4  = $hiera_node['cis_4_1_4']
