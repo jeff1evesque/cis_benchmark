@@ -22,30 +22,30 @@ class cis::trusty64::rsyslog {
   ## 4.2.1.1 Ensure logging is configured (Not Scored)
   if ($cis_4_2_1_1) {
     file { '/etc/init/rsyslog.conf':
-      ensure   => present,
-      mode     => '0644',
-      owner    => 'root',
-      group    => 'root',
-      template => dos2unix(template('cis/trusty64/rsyslog/init_rsyslog.conf.erb')),
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => dos2unix(template('cis/trusty64/rsyslog/init_rsyslog.conf.erb')),
     }
   }
 
   ## 4.2.1.3 Ensure rsyslog default file permissions configured (Scored)
   if ($cis_4_2_1_3) {
     file { '/etc/rsyslog.conf':
-      ensure   => present,
-      mode     => '0644',
-      owner    => 'root',
-      group    => 'root',
-      template => dos2unix(template('cis/trusty64/rsyslog/rsyslog.conf.erb')),
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => dos2unix(template('cis/trusty64/rsyslog/rsyslog.conf.erb')),
     }
   }
   else {
     file { '/etc/rsyslog.conf':
-      ensure   => present,
-      mode     => '0644',
-      owner    => 'root',
-      group    => 'root',
+      ensure => present,
+      mode   => '0644',
+      owner  => 'root',
+      group  => 'root',
     }
 
     file_line { 'rsyslog-include-config':
@@ -56,11 +56,11 @@ class cis::trusty64::rsyslog {
 
   ## apply remaining cis stigs
   file { '/etc/rsyslog.d/50-default.conf':
-    ensure   => present,
-    mode     => '0644',
-    owner    => 'root',
-    group    => 'root',
-    template => dos2unix(template('cis/trusty64/rsyslog/50-default.conf.erb')),
+    ensure  => present,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => dos2unix(template('cis/trusty64/rsyslog/50-default.conf.erb')),
   }
 
   ## restart rsyslogd
