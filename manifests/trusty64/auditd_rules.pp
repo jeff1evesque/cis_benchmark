@@ -42,7 +42,7 @@ class cis::trusty64::auditd_rules {
   }
 
   ## ensure auditd running
-  service { 'start-auditd':
+  service { 'auditd':
     ensure => true,
     enable => true,
   }
