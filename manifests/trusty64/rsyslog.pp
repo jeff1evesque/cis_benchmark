@@ -19,12 +19,12 @@ class cis::trusty64::rsyslog {
   $cis_4_2_1_4 = $hiera_node['cis_4_2_1_4']
   $cis_4_2_1_5 = $hiera_node['cis_4_2_1_5']
 
-  ## ensure auditd installed
+  ## ensure rsyslog installed
   package { 'rsyslog':
     ensure => 'present',
   }
 
-  ## ensure auditd running
+  ## ensure rsyslog running
   service { 'rsyslog':
     ensure => true,
     enable => true,
