@@ -37,14 +37,13 @@ class cis::trusty64::auditd_rules {
   $cis_4_1_17 = $hiera_node['cis_4_1_17']
   $cis_4_1_18 = $hiera_node['cis_4_1_18']
 
+  ## ensure auditd installed
+  package { 'auditd':
+    ensure => 'present',
+  }
+
   ## CIS 4.1.2 Ensure auditd service is enabled (Scored)
   if ($cis_4_1_2) {
-    ## ensure auditd installed
-    package { 'auditd':
-      ensure => 'present',
-    }
-
-    ## ensure auditd running
     service { 'auditd':
       ensure => true,
       enable => true,
