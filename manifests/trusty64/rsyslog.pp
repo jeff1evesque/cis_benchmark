@@ -24,20 +24,21 @@ class cis::trusty64::rsyslog {
     ensure => 'present',
   }
 
-  ## ensure rsyslog running
-  service { 'rsyslog':
-    ensure => true,
-    enable => true,
-  }
-
   ## CIS 4.2.1.1 Ensure logging is configured (Not Scored)
   if ($cis_4_2_1_1) {
+    ## ensure configuration
     file { '/etc/init/rsyslog.conf':
       ensure  => present,
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
       content => dos2unix(template('cis/trusty64/rsyslog/init_rsyslog.conf.erb')),
+    }
+
+    ## ensure rsyslog running
+    service { 'rsyslog':
+      ensure => true,
+      enable => true,
     }
   }
 
