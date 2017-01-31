@@ -22,6 +22,7 @@ class cis::trusty64::auditd_rules {
   $hiera_node     = hiera($node_reference, 'trusty64')
 
   ## local variables: stig items
+  $cis_4_1_2  = $hiera_node['cis_4_1_2']
   $cis_4_1_4  = $hiera_node['cis_4_1_4']
   $cis_4_1_5  = $hiera_node['cis_4_1_5']
   $cis_4_1_6  = $hiera_node['cis_4_1_6']
@@ -41,10 +42,12 @@ class cis::trusty64::auditd_rules {
     ensure => 'present',
   }
 
-  ## ensure auditd running
-  service { 'auditd':
-    ensure => true,
-    enable => true,
+  ## CIS 4.1.2 Ensure auditd service is enabled (Scored)
+  if ($cis_4_1_2) {
+    service { 'auditd':
+      ensure => true,
+      enable => true,
+    }
   }
 
   ## apply cis stigs
