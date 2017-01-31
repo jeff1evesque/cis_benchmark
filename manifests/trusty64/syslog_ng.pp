@@ -12,14 +12,13 @@ class cis::trusty64::syslog_ng {
   ## local variables: stig items
   $cis_4_2_2_1 = $hiera_node['cis_4_2_2_1']
 
+  ## ensure syslog-ng installed
+  package { 'syslog-ng':
+    ensure => 'present',
+  }
+
   ## CIS 4.2.2.1 Ensure syslog-ng service is enabled (Scored)
   if ($cis_4_2_2_1) {
-    ## ensure syslog-ng installed
-    package { 'syslog-ng':
-      ensure => 'present',
-    }
-
-    ## ensure syslog-ng running
     service { 'syslog-ng':
       ensure => true,
       enable => true,
