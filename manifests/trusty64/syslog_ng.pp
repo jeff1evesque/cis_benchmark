@@ -15,6 +15,7 @@ class cis::trusty64::syslog_ng {
   ## local variables: stig items
   $cis_4_2_2_1 = $hiera_node['cis_4_2_2_1']
   $cis_4_2_2_2 = $hiera_node['cis_4_2_2_2']
+  $cis_4_2_2_3 = $hiera_node['cis_4_2_2_3']
   $cis_4_2_2_4 = $hiera_node['cis_4_2_2_4']
   $cis_4_2_2_5 = $hiera_node['cis_4_2_2_5']
 
@@ -34,13 +35,32 @@ class cis::trusty64::syslog_ng {
     }
   }
 
+  ## CIS 4.2.2.3 Ensure syslog-ng default file permissions configured (Scored)
+  if ($cis_4_2_2_3) {
+    file { '/etc/syslog-ng/conf.d/syslog-ng.conf':
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => dos2unix(template('cis/trusty64/syslog-ng/syslog-ng.conf.erb')),
+    }
+  }
+  else {
+    file { '/etc/syslog-ng/conf.d/custom-syslog-ng.conf':
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+    }
+  }
+
   ## apply remaining cis stigs
-  file { '/etc/syslog-ng/conf.d/custom-syslog-ng.conf':
+  file { '/etc/syslog-ng/custom-syslog-ng.conf':
     ensure  => present,
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    content => dos2unix(template('cis/trusty64/custom-syslog-ng.conf.erb')),
+    content => dos2unix(template('cis/trusty64/syslog-ng/custom-syslog-ng.conf.erb')),
   }
 
   ## restart syslog-ng
