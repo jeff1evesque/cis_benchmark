@@ -16,10 +16,6 @@ Vagrant.configure(2) do |config|
   plugin_installed  = false
   ENV['TEST_ENV']  = 'Trusty64'
 
-  required_plugins = %w(vagrant-r10k vagrant-triggers vagrant-puppet-install)
-  plugin_installed = false
-  environment      = 'vagrant'
-
   ## Install Vagrant Plugins
   required_plugins.each do |plugin|
     unless Vagrant.has_plugin? plugin
@@ -35,8 +31,8 @@ Vagrant.configure(2) do |config|
 
   ## ensure puppet modules directory on the host before 'vagrant up'
   config.trigger.before :up do
-    run "mkdir -p puppet/environment/#{environment}/modules"
-    run "mkdir -p puppet/environment/#{environment}/modules_contrib"
+    run "mkdir -p puppet/environment/vagrant/modules"
+    run "mkdir -p puppet/environment/vagrant/modules_contrib"
   end
 
  if ENV['TEST_ENV'] == 'Trusty64'
@@ -61,8 +57,8 @@ Vagrant.configure(2) do |config|
   end
 
   ## Run r10k
-  config.r10k.puppet_dir      = "puppet/environment/#{environment}"
-  config.r10k.puppetfile_path = "puppet/environment/#{environment}/Puppetfile"
+  config.r10k.puppet_dir      = "puppet/environment/vagrant"
+  config.r10k.puppetfile_path = "puppet/environment/vagrant/Puppetfile"
 
   ## clean up files on the host after 'vagrant destroy'
   config.trigger.after :destroy do
