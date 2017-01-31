@@ -6,14 +6,15 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure(2) do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
-
-  ## Variables (ruby syntax)
-  atlas_repo       = 'jeff1evesque'
-  atlas_box        = 'trusty64'
-  box_version      = '1.0.0'
+  ## variables
+  ##
+  ## Note: multiple vagrant plugins follow the following syntax:
+  ##
+  ##        required_plugins = %w(plugin1 plugin2 plugin3)
+  ##
+  required_plugins  = %w(vagrant-r10k vagrant-triggers)
+  plugin_installed  = false
+  ENV['TEST_ENV']  = 'Trusty64'
 
   required_plugins = %w(vagrant-r10k vagrant-triggers vagrant-puppet-install)
   plugin_installed = false
@@ -38,12 +39,18 @@ Vagrant.configure(2) do |config|
     run "mkdir -p puppet/environment/#{environment}/modules_contrib"
   end
 
-  ## Every Vagrant development environment requires a box. You can search for
-  #  boxes at https://atlas.hashicorp.com/search.
-  config.vm.box                        = "#{atlas_repo}/#{atlas_box}"
-  config.vm.box_download_checksum      = 'c26da6ba1c169bdc6e9168125ddb0525'
-  config.vm.box_url                    = "https://atlas.hashicorp.com/#{atlas_repo}/boxes/#{atlas_box}/versions/#{box_version}/providers/virtualbox.box"
-  config.vm.box_download_checksum_type = 'md5'
+ if ENV['TEST_ENV'] == 'Trusty64'
+
+    atlas_repo  = 'jeff1evesque'
+    atlas_box   = 'trusty64'
+    box_version = '1.0.0'
+
+    config.vm.box                        = "#{atlas_repo}/#{atlas_box}"
+    config.vm.box_url                    = "https://atlas.hashicorp.com/#{atlas_repo}/boxes/#{atlas_box}/versions/#{box_version}/providers/virtualbox.box"
+    config.vm.box_download_checksum      = 'c26da6ba1c169bdc6e9168125ddb0525'
+    config.vm.box_download_checksum_type = 'md5'
+
+  end
 
   ## Ensure puppet installed within guest
   config.puppet_install.puppet_version = '4.3.2'
@@ -57,7 +64,7 @@ Vagrant.configure(2) do |config|
   config.r10k.puppet_dir      = "puppet/environment/#{environment}"
   config.r10k.puppetfile_path = "puppet/environment/#{environment}/Puppetfile"
 
-  # clean up files on the host after 'vagrant destroy'
+  ## clean up files on the host after 'vagrant destroy'
   config.trigger.after :destroy do
     run 'rm -Rf puppet/environment/*/modules_contrib'
   end
