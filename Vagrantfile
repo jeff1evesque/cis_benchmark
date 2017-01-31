@@ -1,0 +1,64 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  ## Variables (ruby syntax)
+  atlas_repo       = 'jeff1evesque'
+  atlas_box        = 'trusty64'
+  box_version      = '1.0.0'
+
+  required_plugins = %w(vagrant-r10k vagrant-triggers vagrant-puppet-install)
+  plugin_installed = false
+  environment      = 'vagrant'
+
+  ## Install Vagrant Plugins
+  required_plugins.each do |plugin|
+    unless Vagrant.has_plugin? plugin
+      system "vagrant plugin install #{plugin}"
+      plugin_installed = true
+    end
+  end
+
+  ## Restart Vagrant: if new plugin installed
+  if plugin_installed == true
+    exec "vagrant #{ARGV.join(' ')}"
+  end
+
+  ## ensure puppet modules directory on the host before 'vagrant up'
+  config.trigger.before :up do
+    run "mkdir -p puppet/environment/#{environment}/modules"
+    run "mkdir -p puppet/environment/#{environment}/modules_contrib"
+  end
+
+  ## Every Vagrant development environment requires a box. You can search for
+  #  boxes at https://atlas.hashicorp.com/search.
+  config.vm.box                        = "#{atlas_repo}/#{atlas_box}"
+  config.vm.box_download_checksum      = 'c26da6ba1c169bdc6e9168125ddb0525'
+  config.vm.box_url                    = "https://atlas.hashicorp.com/#{atlas_repo}/boxes/#{atlas_box}/versions/#{box_version}/providers/virtualbox.box"
+  config.vm.box_download_checksum_type = 'md5'
+
+  ## Ensure puppet installed within guest
+  config.puppet_install.puppet_version = '4.3.2'
+
+  ## increase RAM to ensure scrypt doesn't exhaust memory
+  config.vm.provider 'virtualbox' do |v|
+    v.customize ['modifyvm', :id, '--memory', '512']
+  end
+
+  ## Run r10k
+  config.r10k.puppet_dir      = "puppet/environment/#{environment}"
+  config.r10k.puppetfile_path = "puppet/environment/#{environment}/Puppetfile"
+
+  # clean up files on the host after 'vagrant destroy'
+  config.trigger.after :destroy do
+    run 'rm -Rf puppet/environment/*/modules_contrib'
+  end
+end
