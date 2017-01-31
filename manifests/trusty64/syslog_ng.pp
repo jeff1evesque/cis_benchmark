@@ -5,14 +5,23 @@
 ##
 
 class cis::trusty64::syslog_ng {
+  ## local variables
+  $centralized_log_host = 'loghost.example.com'
+
   ## local variables: conditionally load hiera
   $node_reference = $node_name_value
   $hiera_node     = hiera($node_reference, 'trusty64')
 
   ## local variables: stig items
   $cis_4_2_2_1 = $hiera_node['cis_4_2_2_1']
+  $cis_4_2_2_2 = $hiera_node['cis_4_2_2_2']
+  $cis_4_2_2_4 = $hiera_node['cis_4_2_2_4']
+  $cis_4_2_2_5 = $hiera_node['cis_4_2_2_5']
 
   ## ensure syslog-ng installed
+  package { 'syslog-ng-core':
+    ensure => 'present',
+  }
   package { 'syslog-ng':
     ensure => 'present',
   }
@@ -24,3 +33,24 @@ class cis::trusty64::syslog_ng {
       enable => true,
     }
   }
+
+  ## apply remaining cis stigs
+  file { '/etc/syslog-ng/conf.d/custom-syslog-ng.conf':
+    ensure  => present,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => dos2unix(template('cis/trusty64/custom-syslog-ng.conf.erb')),
+  }
+
+  ## restart syslog-ng
+  exec { 'restart-syslog-ng':
+      command      => 'pkill -HUP syslog-ng',
+      path         => '/usr/bin',
+      subscribe    => [
+        '/etc/syslog-ng/syslog-ng.conf',
+        '/etc/syslog-ng/conf.d/custom-syslog-ng.conf',
+      ],
+      refresh_only => true,
+  }
+}
