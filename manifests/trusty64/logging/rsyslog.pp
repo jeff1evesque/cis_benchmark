@@ -4,7 +4,7 @@
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-class cis::trusty64::rsyslog {
+class cis::trusty64::logging::rsyslog {
   ## local variables
   $centralized_log_host = 'loghost.example.com'
 
