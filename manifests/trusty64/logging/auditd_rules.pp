@@ -4,7 +4,7 @@
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-class cis::trusty64::auditd_rules {
+class cis::trusty64::logging::auditd_rules {
   ## local variables
   ##
   ## @node_architecture, the following are assumed possible values:
