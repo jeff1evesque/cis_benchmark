@@ -29,3 +29,4 @@ class cis::trusty64::cis_logging {
       unless => "find ${log_dir} -type f ! -perm ${log_perm}",
     }
   }
+}
