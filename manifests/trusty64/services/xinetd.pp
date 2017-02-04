@@ -18,7 +18,7 @@ class cis::trusty64::services::xinetd {
   $cis_2.1.10 = $hiera_node['cis_2.1.10']
 
   ## apply rules if xinetd installed
-  if ($xinetd_installed) {
+  if ($xinetd_installed == 'true') {
 
     ## ensure base level configurations
     file { '/etc/xinetd.conf':
