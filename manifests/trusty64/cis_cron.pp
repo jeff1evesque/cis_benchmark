@@ -13,6 +13,7 @@ class cis::trusty64::cis_cron {
   $cis_5_1_5 = $hiera_node['cis_5_1_5']
   $cis_5_1_6 = $hiera_node['cis_5_1_6']
   $cis_5_1_7 = $hiera_node['cis_5_1_7']
+  $cis_5_1_8 = $hiera_node['cis_5_1_8']
 
   ## ensure cron installed
   package { 'cron':
@@ -49,7 +50,7 @@ class cis::trusty64::cis_cron {
   ## 5.1.3 Ensure permissions on /etc/cron.hourly are configured (Scored)
   if ($cis_5_1_3) {
     file { '/etc/cron.hourly':
-      ensure  => present,
+      ensure  => directory,
       mode    => '0600',
       owner   => 'root',
       group   => 'root',
@@ -59,7 +60,7 @@ class cis::trusty64::cis_cron {
   ## 5.1.4 Ensure permissions on /etc/cron.daily are configured (Scored)
   if ($cis_5_1_4) {
     file { '/etc/cron.daily':
-      ensure  => present,
+      ensure  => directory,
       mode    => '0600',
       owner   => 'root',
       group   => 'root',
@@ -69,7 +70,7 @@ class cis::trusty64::cis_cron {
   ## 5.1.5  Ensure permissions on /etc/cron.weekly are configured (Scored)
   if ($cis_5_1_5) {
     file { '/etc/cron.weekly':
-      ensure  => present,
+      ensure  => directory,
       mode    => '0600',
       owner   => 'root',
       group   => 'root',
@@ -79,7 +80,7 @@ class cis::trusty64::cis_cron {
   ## 5.1.6 Ensure permissions on /etc/cron.monthly are configured (Scored)
   if ($cis_5_1_6) {
     file { '/etc/cron.monthly':
-      ensure  => present,
+      ensure  => directory,
       mode    => '0600',
       owner   => 'root',
       group   => 'root',
@@ -89,6 +90,31 @@ class cis::trusty64::cis_cron {
   ## 5.1.7 Ensure permissions on /etc/cron.d are configured (Scored)
   if ($cis_5_1_7) {
     file { '/etc/cron.d':
+      ensure  => directory,
+      mode    => '0600',
+      owner   => 'root',
+      group   => 'root',
+    }
+  }
+
+  ## 5.1.8 Ensure at/cron is restricted to authorized users (Scored)
+  if ($cis_5_1_8) {
+    ## ensure absent
+    file { '/etc/cron.deny':
+      ensure  => absent,
+    }
+    file { '/etc/at.deny':
+      ensure  => absent,
+    }
+
+    ## ensure present
+    file { '/etc/cron.allow':
+      ensure  => present,
+      mode    => '0600',
+      owner   => 'root',
+      group   => 'root',
+    }
+    file { '/etc/at.allow':
       ensure  => present,
       mode    => '0600',
       owner   => 'root',
