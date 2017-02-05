@@ -28,4 +28,15 @@ class cis::trusty64::cis_cron {
       enable => true,
     }
   }
+
+  ## 5.1.2 Ensure permissions on /etc/crontab are configured (Scored)
+  if ($cis_5_1_2) {
+    file { '/etc/crontab':
+      ensure  => present,
+      mode    => '0600',
+      owner   => 'root',
+      group   => 'root',
+      content => dos2unix(template('cis/trusty64/cron/crontab.erb')),
+    }
+  }
 }
