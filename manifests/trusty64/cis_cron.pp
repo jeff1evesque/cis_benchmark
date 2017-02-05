@@ -15,6 +15,14 @@ class cis::trusty64::cis_cron {
 
   ## 5.1.1 Ensure cron daemon is enabled (Scored)
   if ($cis_5_1_1) {
+    file { '/etc/init/cron.conf':
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => dos2unix(template('cis/trusty64/cron/init_cron.conf.erb')),
+    }
+
     service { 'cron':
       ensure => true,
       enable => true,
