@@ -39,3 +39,4 @@ trusty64:
     cis_4_2_2_5: false
     cis_4_2_4: true
     cis_5_1_1: true
+    cis_5_1_2: true
