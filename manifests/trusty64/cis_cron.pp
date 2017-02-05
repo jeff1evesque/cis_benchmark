@@ -8,6 +8,11 @@ class cis::trusty64::cis_cron {
   ## local variables: stig items
   $cis_5_1_1 = $hiera_node['cis_5_1_1']
   $cis_5_1_2 = $hiera_node['cis_5_1_2']
+  $cis_5_1_3 = $hiera_node['cis_5_1_3']
+  $cis_5_1_4 = $hiera_node['cis_5_1_4']
+  $cis_5_1_5 = $hiera_node['cis_5_1_5']
+  $cis_5_1_6 = $hiera_node['cis_5_1_6']
+  $cis_5_1_7 = $hiera_node['cis_5_1_7']
 
   ## ensure cron installed
   package { 'cron':
@@ -38,6 +43,56 @@ class cis::trusty64::cis_cron {
       owner   => 'root',
       group   => 'root',
       content => dos2unix(template('cis/trusty64/cron/crontab.erb')),
+    }
+  }
+
+  ## 5.1.3 Ensure permissions on /etc/cron.hourly are configured (Scored)
+  if ($cis_5_1_3) {
+    file { '/etc/cron.hourly':
+      ensure  => present,
+      mode    => '0600',
+      owner   => 'root',
+      group   => 'root',
+    }
+  }
+
+  ## 5.1.4 Ensure permissions on /etc/cron.daily are configured (Scored)
+  if ($cis_5_1_4) {
+    file { '/etc/cron.daily':
+      ensure  => present,
+      mode    => '0600',
+      owner   => 'root',
+      group   => 'root',
+    }
+  }
+
+  ## 5.1.5  Ensure permissions on /etc/cron.weekly are configured (Scored)
+  if ($cis_5_1_5) {
+    file { '/etc/cron.weekly':
+      ensure  => present,
+      mode    => '0600',
+      owner   => 'root',
+      group   => 'root',
+    }
+  }
+
+  ## 5.1.6 Ensure permissions on /etc/cron.monthly are configured (Scored)
+  if ($cis_5_1_6) {
+    file { '/etc/cron.monthly':
+      ensure  => present,
+      mode    => '0600',
+      owner   => 'root',
+      group   => 'root',
+    }
+  }
+
+  ## 5.1.7 Ensure permissions on /etc/cron.d are configured (Scored)
+  if ($cis_5_1_7) {
+    file { '/etc/cron.d':
+      ensure  => present,
+      mode    => '0600',
+      owner   => 'root',
+      group   => 'root',
     }
   }
 }
