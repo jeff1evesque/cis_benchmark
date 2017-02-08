@@ -1,4 +1,4 @@
-## is_installed_xinetd.rb, 
+## xinetd_installed.rb,
 ##
 ## Note: http://wiki.apparmor.net/index.php/AppArmor_Failures#Is_AppArmor_enabled.3F
 ##
