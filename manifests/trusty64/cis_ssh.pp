@@ -5,6 +5,10 @@
 ##
 
 class cis::trusty64::cis_services {
+  ## local variables: conditionally load hiera
+  $node_reference = $node_name_value
+  $hiera_node     = hiera($node_reference, 'trusty64')
+
   ## local variables: stig items
   $cis_5_2_1 = $hiera_node['cis_5_2_1']
   $cis_5_2_2 = $hiera_node['cis_5_2_2']
