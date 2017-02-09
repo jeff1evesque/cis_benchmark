@@ -43,7 +43,7 @@ class cis::trusty64::cis_services {
     '## Description: this file is enforced by puppet.',
     '##',
   ]
-  file_line { 'cis_5_2_2':
+  file_line { 'sshd_config_docstring':
     path  => '/etc/ssh/sshd_config',
     line  => $docstring,
     after => '#',
@@ -66,7 +66,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_2':
       path  => '/etc/ssh/sshd_config',
       line  => 'Protocol 2',
-      match => '^Protocol[[:space:]].*[^1]',
+      match => '^Protocol[[:space:]]*(?!1\b)\S+$',
     }
   }
 
@@ -75,7 +75,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_3':
       path  => '/etc/ssh/sshd_config',
       line  => 'LogLevel INFO',
-      match => '^LOGLEVEL[[:space:]]*((?!INFO).)*$',
+      match => '^LOGLEVEL[[:space:]]*(?!INFO\b)\S+$',
     }
   }
 
@@ -84,7 +84,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_4':
       path  => '/etc/ssh/sshd_config',
       line  => 'X11Forwarding no',
-      match => '^X11Forwarding[[:space:]]*((?!no).)*$',
+      match => '^X11Forwarding[[:space:]]*(?!no\b)\S+$',
     }
   }
 
@@ -93,7 +93,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_5':
       path  => '/etc/ssh/sshd_config',
       line  => 'MaxAuthTries 4',
-      match => '^MaxAuthTries[[:space:]].*[^4]',
+      match => '^MaxAuthTries[[:space:]]*(?!4\b)\S+$',
     }
   }
 
@@ -102,7 +102,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_6':
       path  => '/etc/ssh/sshd_config',
       line  => 'IgnoreRhosts yes',
-      match => '^IgnoreRhosts[[:space:]]*((?!yes).)*$',
+      match => '^IgnoreRhosts[[:space:]]*(?!yes\b)\S+$',
     }
   }
 
@@ -111,7 +111,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_7':
       path  => '/etc/ssh/sshd_config',
       line  => 'HostbasedAuthentication no',
-      match => '^HostbasedAuthentication[[:space:]]*((?!no).)*$',
+      match => '^HostbasedAuthentication[[:space:]]*(?!no\b)\S+$',
     }
   }
 
@@ -120,7 +120,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_8':
       path  => '/etc/ssh/sshd_config',
       line  => 'PermitRootLogin no',
-      match => '^PermitRootLogin[[:space:]]*((?!no).)*$',
+      match => '^PermitRootLogin[[:space:]]*(?!no\b)\S+$',
     }
   }
 
@@ -129,7 +129,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_9':
       path  => '/etc/ssh/sshd_config',
       line  => 'PermitEmptyPasswords no',
-      match => '^PermitEmptyPasswords[[:space:]]*((?!no).)*$',
+      match => '^PermitEmptyPasswords[[:space:]]*(?!no\b)\S+$',
     }
   }
 
@@ -138,7 +138,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_10':
       path  => '/etc/ssh/sshd_config',
       line  => 'PermitUserEnvironment no',
-      match => '^PermitUserEnvironment[[:space:]]*((?!no).)*$',
+      match => '^PermitUserEnvironment[[:space:]]*(?!no\b)\S+$',
     }
   }
 
@@ -156,12 +156,12 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_12_ClientAliveInterval':
       path  => '/etc/ssh/sshd_config',
       line  => 'ClientAliveInterval 300',
-      match => '^ClientAliveInterval[[:space:]]*((?!300).)*$',
+      match => '^ClientAliveInterval[[:space:]]*(?!300\b)\S+',
     }
     file_line { 'cis_5_2_12_ClientAliveCountMax':
       path  => '/etc/ssh/sshd_config',
       line  => 'ClientAliveCountMax 0',
-      match => '^ClientAliveCountMax[[:space:]].*[^0]',
+      match => '^ClientAliveCountMax[[:space:]]*(?!0\b)\S+$',
     }
   }
 
@@ -170,7 +170,7 @@ class cis::trusty64::cis_services {
     file_line { 'cis_5_2_11':
       path  => '/etc/ssh/sshd_config',
       line  => 'LoginGraceTime 60',
-      match => '^LoginGraceTime[[:space:]]*((?!60).)*$',
+      match => '^LoginGraceTime[[:space:]]*(?!60\b)\S+',
     }
   }
 }
