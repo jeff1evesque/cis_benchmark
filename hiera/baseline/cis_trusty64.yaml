@@ -59,3 +59,7 @@ trusty64:
     cis_5_2_11: true
     cis_5_2_12: true
     cis_5_2_13: true
+    cis_5_3_1: true
+    cis_5_3_2: true
+    cis_5_3_3: true
+    cis_5_3_4: true
