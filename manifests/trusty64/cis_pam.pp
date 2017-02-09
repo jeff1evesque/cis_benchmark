@@ -22,7 +22,7 @@ class cis::trusty64::cis_pam {
     require => Package['openssh-server'],
   }
 
-  ## docstring for common-password
+  ## docstring for configuration files
   $docstring = [
     '##',
     '## CIS Ubuntu 14.04 LTS Server Benchmark',
