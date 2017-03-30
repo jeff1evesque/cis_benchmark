@@ -9,8 +9,15 @@ class cis::trusty64::logging::syslog_ng {
   $centralized_log_host = 'loghost.example.com'
 
   ## local variables: conditionally load hiera
-  $node_reference = $node_name_value
-  $hiera_node     = hiera($node_reference, 'trusty64')
+  ##
+  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
+  ##       corresponding yaml key, implements underscores instead of '.' for
+  ##       nodes certificate name.
+  ##
+  $hiera_node = lookup([
+      regsubst($trusted['certname'], '\.', '_', 'G'),
+      'trusty64'
+  ])
 
   ## local variables: stig items
   $cis_4_2_2_1 = $hiera_node['cis_4_2_2_1']
@@ -43,6 +50,7 @@ class cis::trusty64::logging::syslog_ng {
       owner   => 'root',
       group   => 'root',
       content => dos2unix(template('cis/trusty64/syslog-ng/syslog-ng.conf.erb')),
+      notify  => Exec['restart-syslog-ng'],
     }
   }
   else {
@@ -51,6 +59,7 @@ class cis::trusty64::logging::syslog_ng {
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
+      notify  => Exec['restart-syslog-ng'],
     }
   }
 
@@ -61,16 +70,13 @@ class cis::trusty64::logging::syslog_ng {
     owner   => 'root',
     group   => 'root',
     content => dos2unix(template('cis/trusty64/syslog-ng/custom-syslog-ng.conf.erb')),
+    notify  => Exec['restart-syslog-ng'],
   }
 
   ## restart syslog-ng
   exec { 'restart-syslog-ng':
-      command      => 'pkill -HUP syslog-ng',
-      path         => '/usr/bin',
-      subscribe    => [
-        '/etc/syslog-ng/syslog-ng.conf',
-        '/etc/syslog-ng/conf.d/custom-syslog-ng.conf',
-      ],
-      refresh_only => true,
+      command     => 'pkill -HUP syslog-ng',
+      path        => '/usr/bin',
+      refreshonly => true,
   }
 }

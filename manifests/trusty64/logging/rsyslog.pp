@@ -9,8 +9,15 @@ class cis::trusty64::logging::rsyslog {
   $centralized_log_host = 'loghost.example.com'
 
   ## local variables: conditionally load hiera
-  $node_reference = $node_name_value
-  $hiera_node     = hiera($node_reference, 'trusty64')
+  ##
+  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
+  ##       corresponding yaml key, implements underscores instead of '.' for
+  ##       nodes certificate name.
+  ##
+  $hiera_node = lookup([
+      regsubst($trusted['certname'], '\.', '_', 'G'),
+      'trusty64'
+  ])
 
   ## local variables: stig items
   $cis_4_2_1_1 = $hiera_node['cis_4_2_1_1']
@@ -84,6 +91,6 @@ class cis::trusty64::logging::rsyslog {
         '/etc/rsyslog.conf',
         '/etc/rsyslog.d/50-default.conf',
       ],
-      refresh_only => true,
+      refreshonly  => true,
   }
 }
