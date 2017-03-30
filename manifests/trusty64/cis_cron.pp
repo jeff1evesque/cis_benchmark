@@ -6,8 +6,13 @@
 
 class cis::trusty64::cis_cron {
   ## local variables: conditionally load hiera
-  $node_reference = $node_name_value
-  $hiera_node     = hiera($node_reference, 'trusty64')
+  ##
+  ## Note: yaml keys cannot contain '.', so regsubst() is used.
+  ##
+  $hiera_node = lookup([
+      regsubst($trusted['certname'], '\.', '_', 'G'),
+      'trusty64'
+  ])
 
   ## local variables: stig items
   $cis_5_1_1 = $hiera_node['cis_5_1_1']
@@ -46,7 +51,7 @@ class cis::trusty64::cis_cron {
   if ($cis_5_1_2) {
     file { '/etc/crontab':
       ensure  => present,
-      mode    => '0600',
+      mode    => '0700',
       owner   => 'root',
       group   => 'root',
       content => dos2unix(template('cis/trusty64/cron/crontab.erb')),
@@ -57,7 +62,7 @@ class cis::trusty64::cis_cron {
   if ($cis_5_1_3) {
     file { '/etc/cron.hourly':
       ensure  => directory,
-      mode    => '0600',
+      mode    => '0700',
       owner   => 'root',
       group   => 'root',
     }
@@ -67,7 +72,7 @@ class cis::trusty64::cis_cron {
   if ($cis_5_1_4) {
     file { '/etc/cron.daily':
       ensure  => directory,
-      mode    => '0600',
+      mode    => '0700',
       owner   => 'root',
       group   => 'root',
     }
@@ -77,7 +82,7 @@ class cis::trusty64::cis_cron {
   if ($cis_5_1_5) {
     file { '/etc/cron.weekly':
       ensure  => directory,
-      mode    => '0600',
+      mode    => '0700',
       owner   => 'root',
       group   => 'root',
     }
@@ -87,7 +92,7 @@ class cis::trusty64::cis_cron {
   if ($cis_5_1_6) {
     file { '/etc/cron.monthly':
       ensure  => directory,
-      mode    => '0600',
+      mode    => '0700',
       owner   => 'root',
       group   => 'root',
     }
@@ -97,7 +102,7 @@ class cis::trusty64::cis_cron {
   if ($cis_5_1_7) {
     file { '/etc/cron.d':
       ensure  => directory,
-      mode    => '0600',
+      mode    => '0700',
       owner   => 'root',
       group   => 'root',
     }
@@ -116,13 +121,13 @@ class cis::trusty64::cis_cron {
     ## ensure present
     file { '/etc/cron.allow':
       ensure  => present,
-      mode    => '0600',
+      mode    => '0700',
       owner   => 'root',
       group   => 'root',
     }
     file { '/etc/at.allow':
       ensure  => present,
-      mode    => '0600',
+      mode    => '0700',
       owner   => 'root',
       group   => 'root',
     }
