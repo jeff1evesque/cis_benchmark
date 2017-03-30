@@ -57,7 +57,6 @@
 -w /sbin/modprobe -p x -k modules
 -w always,exit arch=b32 -S init_module -S delete_mode -k modules
 <% end %>
-<% end %>
 
 <% elsif @architecture == 'x86_64' or @architecture == 'amd64' %>
 ###############################################################################
@@ -140,7 +139,7 @@
 <% if @selinux and @selinux_policyversion %>
 -w /etc/selinux/ -p wa -k MAC-policy
 <% end %>
-<% if $::apparmor_enabled == 'Y' %>
+<% if $apparmor_enabled == 'Y' %>
 -w /etc/apparmor/ -p wa -k MAC-policy
 -w /etc/apparmor.d -p wa -k MAC-policy
 <% end %>
