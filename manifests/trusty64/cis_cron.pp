@@ -7,7 +7,9 @@
 class cis::trusty64::cis_cron {
   ## local variables: conditionally load hiera
   ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used.
+  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
+  ##       corresponding yaml key, implements underscores instead of '.' for
+  ##       nodes certificate name.
   ##
   $hiera_node = lookup([
       regsubst($trusted['certname'], '\.', '_', 'G'),
