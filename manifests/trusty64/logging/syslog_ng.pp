@@ -6,11 +6,21 @@
 
 class cis::trusty64::logging::syslog_ng {
   ## local variables
+  ##
+  ## @syslog_packages, includes 'syslog-ng' package dependencies.
+  ##
   $centralized_log_host = 'loghost.example.com'
 
   ## local variables: conditionally load hiera
-  $node_reference = $node_name_value
-  $hiera_node     = hiera($node_reference, 'trusty64')
+  ##
+  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
+  ##       corresponding yaml key, implements underscores instead of '.' for
+  ##       nodes certificate name.
+  ##
+  $hiera_node = lookup([
+      regsubst($trusted['certname'], '\.', '_', 'G'),
+      'trusty64'
+  ])
 
   ## local variables: stig items
   $cis_4_2_2_1 = $hiera_node['cis_4_2_2_1']
@@ -19,58 +29,44 @@ class cis::trusty64::logging::syslog_ng {
   $cis_4_2_2_4 = $hiera_node['cis_4_2_2_4']
   $cis_4_2_2_5 = $hiera_node['cis_4_2_2_5']
 
-  ## ensure syslog-ng installed
-  package { 'syslog-ng-core':
-    ensure => 'present',
-  }
-  package { 'syslog-ng':
-    ensure => 'present',
-  }
-
   ## CIS 4.2.2.1 Ensure syslog-ng service is enabled (Scored)
   if ($cis_4_2_2_1) {
+    ## should not have multiple loggers
+    package { 'rsyslog':
+      ensure => absent,
+      before => Package['syslog-ng'],
+    }
+
+    ## ensure syslog-ng installed
+    package { 'syslog-ng':
+      ensure => present,
+      before => [
+        File['/etc/syslog-ng/syslog-ng.conf'],
+        File['/etc/syslog-ng/conf.d/custom-syslog-ng.conf'],
+      ],
+    }
+
     service { 'syslog-ng':
       ensure => true,
       enable => true,
     }
-  }
 
-  ## CIS 4.2.2.3 Ensure syslog-ng default file permissions configured (Scored)
-  if ($cis_4_2_2_3) {
-    file { '/etc/syslog-ng/conf.d/syslog-ng.conf':
+    file { '/etc/syslog-ng/syslog-ng.conf':
       ensure  => present,
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/syslog-ng/syslog-ng.conf.erb')),
+      notify  => Service['syslog-ng'],
     }
-  }
-  else {
+
+    ## apply remaining cis stigs
     file { '/etc/syslog-ng/conf.d/custom-syslog-ng.conf':
       ensure  => present,
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
+      content => dos2unix(template('cis/trusty64/syslog-ng/custom-syslog-ng.conf.erb')),
+      notify  => Service['syslog-ng'],
     }
-  }
-
-  ## apply remaining cis stigs
-  file { '/etc/syslog-ng/custom-syslog-ng.conf':
-    ensure  => present,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => dos2unix(template('cis/trusty64/syslog-ng/custom-syslog-ng.conf.erb')),
-  }
-
-  ## restart syslog-ng
-  exec { 'restart-syslog-ng':
-      command      => 'pkill -HUP syslog-ng',
-      path         => '/usr/bin',
-      subscribe    => [
-        '/etc/syslog-ng/syslog-ng.conf',
-        '/etc/syslog-ng/conf.d/custom-syslog-ng.conf',
-      ],
-      refresh_only => true,
   }
 }

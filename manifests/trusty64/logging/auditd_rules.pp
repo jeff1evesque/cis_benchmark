@@ -18,8 +18,15 @@ class cis::trusty64::logging::auditd_rules {
   $node_architecture = $architecture
 
   ## local variables: conditionally load hiera
-  $node_reference = $node_name_value
-  $hiera_node     = hiera($node_reference, 'trusty64')
+  ##
+  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
+  ##       corresponding yaml key, implements underscores instead of '.' for
+  ##       nodes certificate name.
+  ##
+  $hiera_node = lookup([
+      regsubst($trusted['certname'], '\.', '_', 'G'),
+      'trusty64'
+  ])
 
   ## local variables: stig items
   $cis_4_1_2  = $hiera_node['cis_4_1_2']
@@ -64,6 +71,6 @@ class cis::trusty64::logging::auditd_rules {
   exec { 'restart-auditd':
       command      => 'pkill -P 1-HUP auditd',
       path         => '/usr/bin',
-      refresh_only => true,
+      refreshonly  => true,
   }
 }
