@@ -27,7 +27,7 @@ trusty64:
     cis_4_1_15: true
     cis_4_1_16: true
     cis_4_1_17: true
-    cis_4_1_18: true
+    cis_4_1_18: false
     cis_4_2_1_1: true
     cis_4_2_1_2: true
     cis_4_2_1_4: false
