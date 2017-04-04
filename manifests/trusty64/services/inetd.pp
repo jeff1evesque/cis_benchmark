@@ -5,11 +5,10 @@
 ##
 
 class cis::trusty64::services::inetd {
-  ## ensure inetd not installed
-  package { 'openbsd-inetd':
-    ensure => purged,
-  }
-  package { 'update-inetd':
-    ensure => purged,
+  ## ensure inetd disabled
+  if ($inetd_installed == 'true') {
+    service { 'inetd':
+      ensure => stopped,
+    }
   }
 }
