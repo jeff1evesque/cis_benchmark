@@ -7,9 +7,9 @@
 class cis::trusty64::services::inetd {
   ## ensure inetd not installed
   package { 'openbsd-inetd':
-    ensure => 'purged',
+    ensure => purged,
   }
   package { 'update-inetd':
-    ensure => 'purged',
+    ensure => purged,
   }
 }
