@@ -5,6 +5,8 @@
 ##
 
 class cis::trusty64::services::xinetd {
+  include cis::trusty64::services::inetd
+
   ## local variables: conditionally load hiera
   ##
   ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
