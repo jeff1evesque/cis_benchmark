@@ -46,7 +46,7 @@ class cis::trusty64::services::xinetd {
         owner   => 'root',
         group   => 'root',
         content => dos2unix(template('cis/trusty64/xinetd/chargen.erb')),
-       }
+      }
     }
 
     ## CIS 2.1.2 Ensure daytime services are not enabled (Scored)
@@ -84,7 +84,7 @@ class cis::trusty64::services::xinetd {
 
     ## CIS 2.1.5 Ensure time services are not enabled (Scored)
     if ($cis_2_1_5) {
-      file { '/etc/xinetd.d/time':
+      file { '/etc/xinetd.d/echo':
         ensure  => present,
         mode    => '0644',
         owner   => 'root',
@@ -99,6 +99,85 @@ class cis::trusty64::services::xinetd {
         ensure => false,
         enable => false,
       }
+
+      file_line { 'cis_2_1_10':
+        path     => '/etc/init/xinetd.conf',
+        line     => '#start on runlevel [2345]',
+        match    => '^start on runlevel.*',
+        multiple => true,
+      }
+    }
+  }
+
+
+  ## remove lines starting with particular keywords
+  if ($cis_2_1_1) {
+    exec {'cis_2_1_1':
+      command => 'sed -i /^chargen/d /etc/inetd.conf',
+      onlyif  => 'grep ^chargen /etc/inetd.conf',
+      path    => '/bin',
+    }
+
+    exec { 'cis_2_1_1_recurse':
+      command => 'find /etc/inetd.d -type f -print0 | xargs -0 sed -i /^chargen/d',
+      path    => '/bin',
+      onlyif  => 'find /etc/inetd.d -type f -print0 | xargs -0 grep ^chargen',
+    }
+  }
+
+  if ($cis_2_1_2) {
+    exec {'cis_2_1_2':
+      command => 'sed -i /^daytime/d /etc/inetd.conf',
+      onlyif  => 'grep ^daytime /etc/inetd.conf',
+      path    => '/bin',
+    }
+
+    exec { 'cis_2_1_2_recurse':
+      command => 'find /etc/inetd.d -type f -print0 | xargs -0 sed -i /^daytime/d',
+      path    => ['/bin', '/usr/bin'],
+      onlyif  => 'find /etc/inetd.d -type f -print0 | xargs -0 grep ^daytime',
+    }
+  }
+
+  if ($cis_2_1_3) {
+    exec {'cis_2_1_3':
+      command => 'sed -i /^discard/d /etc/inetd.conf',
+      onlyif  => 'grep ^discard /etc/inetd.conf',
+      path    => '/bin',
+    }
+
+    exec { 'cis_2_1_3_recurse':
+      command => 'find /etc/inetd.d -type f -print0 | xargs -0 sed -i /^discard/d',
+      path    => ['/bin', '/usr/bin'],
+      onlyif  => 'find /etc/inetd.d -type f -print0 | xargs -0 grep ^discard',
+    }
+  }
+
+  if ($cis_2_1_4) {
+    exec {'cis_2_1_4':
+      command => 'sed -i /^echo/d /etc/inetd.conf',
+      onlyif  => 'grep ^echo /etc/inetd.conf',
+      path    => '/bin',
+    }
+
+    exec { 'cis_2_1_4_recurse':
+      command => 'find /etc/inetd.d -type f -print0 | xargs -0 sed -i /^echo/d',
+      path    => ['/bin', '/usr/bin'],
+      onlyif  => 'find /etc/inetd.d -type f -print0 | xargs -0 grep ^echo',
+    }
+  }
+
+  if ($cis_2_1_5) {
+    exec {'cis_2_1_5':
+      command => 'sed -i /^time/d /etc/inetd.conf',
+      onlyif  => 'grep ^time /etc/inetd.conf',
+      path    => '/bin',
+    }
+
+    exec { 'cis_2_1_5_recurse':
+      command => 'find /etc/inetd.d -type f -print0 | xargs -0 sed -i /^time/d',
+      path    => ['/bin', '/usr/bin'],
+      onlyif  => 'find /etc/inetd.d -type f -print0 | xargs -0 grep ^time',
     }
   }
 }
