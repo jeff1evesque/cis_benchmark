@@ -84,7 +84,7 @@ class cis::trusty64::services::xinetd {
 
     ## CIS 2.1.5 Ensure time services are not enabled (Scored)
     if ($cis_2_1_5) {
-      file { '/etc/xinetd.d/echo':
+      file { '/etc/xinetd.d/time':
         ensure  => present,
         mode    => '0644',
         owner   => 'root',
@@ -120,7 +120,7 @@ class cis::trusty64::services::xinetd {
 
     exec { 'cis_2_1_1_recurse':
       command => 'find /etc/inetd.d -type f -print0 | xargs -0 sed -i /^chargen/d',
-      path    => '/bin',
+      path    => ['/bin', '/usr/bin'],
       onlyif  => 'find /etc/inetd.d -type f -print0 | xargs -0 grep ^chargen',
     }
   }
