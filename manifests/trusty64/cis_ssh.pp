@@ -4,10 +4,17 @@
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-class cis::trusty64::cis_services {
+class cis::trusty64::cis_ssh {
   ## local variables: conditionally load hiera
-  $node_reference = $node_name_value
-  $hiera_node     = hiera($node_reference, 'trusty64')
+  ##
+  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
+  ##       corresponding yaml key, implements underscores instead of '.' for
+  ##       nodes certificate name.
+  ##
+  $hiera_node = lookup([
+      regsubst($trusted['certname'], '\.', '_', 'G'),
+      'trusty64'
+  ])
 
   ## local variables: stig items
   $cis_5_2_1 = $hiera_node['cis_5_2_1']
@@ -43,10 +50,12 @@ class cis::trusty64::cis_services {
     '## Description: this file is enforced by puppet.',
     '##',
   ]
-  file_line { 'sshd_config_docstring':
-    path  => '/etc/ssh/sshd_config',
-    line  => $docstring,
-    after => '#',
+  $docstring.each |Integer $index, String $line| {
+    file_line { "sshd_config_docstring-${index}":
+      path     => '/etc/ssh/sshd_config',
+      line     => $line,
+      multiple => true,
+    }
   }
 
   ## CIS 5.2.1 Ensure permissions on /etc/ssh/sshd_config are configured
@@ -167,7 +176,7 @@ class cis::trusty64::cis_services {
 
   ## CIS 5.2.13 Ensure SSH LoginGraceTime is set to one minute or less (Scored)
   if ($cis_5_2_13) {
-    file_line { 'cis_5_2_11':
+    file_line { 'cis_5_2_13':
       path  => '/etc/ssh/sshd_config',
       line  => 'LoginGraceTime 60',
       match => '^LoginGraceTime[[:space:]]*(?!60\b)\S+',
