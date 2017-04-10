@@ -47,8 +47,9 @@ class cis::trusty64::logging::syslog_ng {
     }
 
     service { 'syslog-ng':
-      ensure => true,
-      enable => true,
+      ensure  => true,
+      enable  => true,
+      require => Package['syslog-ng'],
     }
 
     file { '/etc/syslog-ng/syslog-ng.conf':

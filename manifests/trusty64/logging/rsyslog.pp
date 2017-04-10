@@ -26,13 +26,13 @@ class cis::trusty64::logging::rsyslog {
   $cis_4_2_1_4 = $hiera_node['cis_4_2_1_4']
   $cis_4_2_1_5 = $hiera_node['cis_4_2_1_5']
 
-  ## ensure rsyslog installed
-  package { 'rsyslog':
-    ensure => 'present',
-  }
-
   ## CIS 4.2.1.1 Ensure logging is configured (Not Scored)
   if ($cis_4_2_1_1) {
+    ## ensure rsyslog installed
+    package { 'rsyslog':
+      ensure => 'present',
+    }
+
     ## ensure configuration
     file { '/etc/init/rsyslog.conf':
       ensure  => present,
@@ -44,8 +44,9 @@ class cis::trusty64::logging::rsyslog {
 
     ## ensure rsyslog running
     service { 'rsyslog':
-      ensure => true,
-      enable => true,
+      ensure  => true,
+      enable  => true,
+      require => Package['rsyslog'],
     }
   }
 
