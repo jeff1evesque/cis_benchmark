@@ -17,14 +17,15 @@ class cis::trusty64::services::xinetd {
       regsubst($trusted['certname'], '\.', '_', 'G'),
       'trusty64'
   ])
+  $stig       = $hiera_node['stig']
 
   ## local variables: stig items
-  $cis_2_1_1  = $hiera_node['cis_2_1_1']
-  $cis_2_1_2  = $hiera_node['cis_2_1_2']
-  $cis_2_1_3  = $hiera_node['cis_2_1_3']
-  $cis_2_1_4  = $hiera_node['cis_2_1_4']
-  $cis_2_1_5  = $hiera_node['cis_2_1_5']
-  $cis_2_1_10 = $hiera_node['cis_2_1_10']
+  $cis_2_1_1  = $stig['cis_2_1_1']
+  $cis_2_1_2  = $stig['cis_2_1_2']
+  $cis_2_1_3  = $stig['cis_2_1_3']
+  $cis_2_1_4  = $stig['cis_2_1_4']
+  $cis_2_1_5  = $stig['cis_2_1_5']
+  $cis_2_1_10 = $stig['cis_2_1_10']
 
   ## apply rules if xinetd installed
   if ($xinetd_installed == 'true') {

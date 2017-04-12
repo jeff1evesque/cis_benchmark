@@ -15,16 +15,17 @@ class cis::trusty64::cis_cron {
       regsubst($trusted['certname'], '\.', '_', 'G'),
       'trusty64'
   ])
+  $stig       = $hiera_node['stig']
 
   ## local variables: stig items
-  $cis_5_1_1 = $hiera_node['cis_5_1_1']
-  $cis_5_1_2 = $hiera_node['cis_5_1_2']
-  $cis_5_1_3 = $hiera_node['cis_5_1_3']
-  $cis_5_1_4 = $hiera_node['cis_5_1_4']
-  $cis_5_1_5 = $hiera_node['cis_5_1_5']
-  $cis_5_1_6 = $hiera_node['cis_5_1_6']
-  $cis_5_1_7 = $hiera_node['cis_5_1_7']
-  $cis_5_1_8 = $hiera_node['cis_5_1_8']
+  $cis_5_1_1  = $stig['cis_5_1_1']
+  $cis_5_1_2  = $stig['cis_5_1_2']
+  $cis_5_1_3  = $stig['cis_5_1_3']
+  $cis_5_1_4  = $stig['cis_5_1_4']
+  $cis_5_1_5  = $stig['cis_5_1_5']
+  $cis_5_1_6  = $stig['cis_5_1_6']
+  $cis_5_1_7  = $stig['cis_5_1_7']
+  $cis_5_1_8  = $stig['cis_5_1_8']
 
   ## ensure cron installed
   package { 'cron':

@@ -15,21 +15,22 @@ class cis::trusty64::cis_ssh {
       regsubst($trusted['certname'], '\.', '_', 'G'),
       'trusty64'
   ])
+  $stig       = $hiera_node['stig']
 
   ## local variables: stig items
-  $cis_5_2_1 = $hiera_node['cis_5_2_1']
-  $cis_5_2_2 = $hiera_node['cis_5_2_2']
-  $cis_5_2_3 = $hiera_node['cis_5_2_3']
-  $cis_5_2_4 = $hiera_node['cis_5_2_4']
-  $cis_5_2_5 = $hiera_node['cis_5_2_5']
-  $cis_5_2_6 = $hiera_node['cis_5_2_6']
-  $cis_5_2_7 = $hiera_node['cis_5_2_7']
-  $cis_5_2_8 = $hiera_node['cis_5_2_8']
-  $cis_5_2_9 = $hiera_node['cis_5_2_9']
-  $cis_5_2_10 = $hiera_node['cis_5_2_10']
-  $cis_5_2_11 = $hiera_node['cis_5_2_11']
-  $cis_5_2_12 = $hiera_node['cis_5_2_12']
-  $cis_5_2_13 = $hiera_node['cis_5_2_13']
+  $cis_5_2_1  = $stig['cis_5_2_1']
+  $cis_5_2_2  = $stig['cis_5_2_2']
+  $cis_5_2_3  = $stig['cis_5_2_3']
+  $cis_5_2_4  = $stig['cis_5_2_4']
+  $cis_5_2_5  = $stig['cis_5_2_5']
+  $cis_5_2_6  = $stig['cis_5_2_6']
+  $cis_5_2_7  = $stig['cis_5_2_7']
+  $cis_5_2_8  = $stig['cis_5_2_8']
+  $cis_5_2_9  = $stig['cis_5_2_9']
+  $cis_5_2_10 = $stig['cis_5_2_10']
+  $cis_5_2_11 = $stig['cis_5_2_11']
+  $cis_5_2_12 = $stig['cis_5_2_12']
+  $cis_5_2_13 = $stig['cis_5_2_13']
 
   ## ensure openssh-server
   package { 'openssh-server':

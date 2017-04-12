@@ -27,22 +27,23 @@ class cis::trusty64::logging::auditd_rules {
       regsubst($trusted['certname'], '\.', '_', 'G'),
       'trusty64'
   ])
+  $stig       = $hiera_node['stig']
 
   ## local variables: stig items
-  $cis_4_1_2  = $hiera_node['cis_4_1_2']
-  $cis_4_1_4  = $hiera_node['cis_4_1_4']
-  $cis_4_1_5  = $hiera_node['cis_4_1_5']
-  $cis_4_1_6  = $hiera_node['cis_4_1_6']
-  $cis_4_1_7  = $hiera_node['cis_4_1_7']
-  $cis_4_1_8  = $hiera_node['cis_4_1_8']
-  $cis_4_1_9  = $hiera_node['cis_4_1_9']
-  $cis_4_1_10 = $hiera_node['cis_4_1_10']
-  $cis_4_1_11 = $hiera_node['cis_4_1_11']
-  $cis_4_1_13 = $hiera_node['cis_4_1_13']
-  $cis_4_1_15 = $hiera_node['cis_4_1_15']
-  $cis_4_1_16 = $hiera_node['cis_4_1_16']
-  $cis_4_1_17 = $hiera_node['cis_4_1_17']
-  $cis_4_1_18 = $hiera_node['cis_4_1_18']
+  $cis_4_1_2  = $stig['cis_4_1_2']
+  $cis_4_1_4  = $stig['cis_4_1_4']
+  $cis_4_1_5  = $stig['cis_4_1_5']
+  $cis_4_1_6  = $stig['cis_4_1_6']
+  $cis_4_1_7  = $stig['cis_4_1_7']
+  $cis_4_1_8  = $stig['cis_4_1_8']
+  $cis_4_1_9  = $stig['cis_4_1_9']
+  $cis_4_1_10 = $stig['cis_4_1_10']
+  $cis_4_1_11 = $stig['cis_4_1_11']
+  $cis_4_1_13 = $stig['cis_4_1_13']
+  $cis_4_1_15 = $stig['cis_4_1_15']
+  $cis_4_1_16 = $stig['cis_4_1_16']
+  $cis_4_1_17 = $stig['cis_4_1_17']
+  $cis_4_1_18 = $stig['cis_4_1_18']
 
   ## ensure auditd installed
   package { 'auditd':
@@ -64,13 +65,6 @@ class cis::trusty64::logging::auditd_rules {
     owner   => 'root',
     group   => 'root',
     content => dos2unix(template('cis/trusty64/audit.rules.erb')),
-    notify  => Exec['restart-auditd'],
-  }
-
-  ## restart auditd
-  exec { 'restart-auditd':
-      command      => 'pkill -P 1-HUP auditd',
-      path         => '/usr/bin',
-      refreshonly  => true,
+    notify  => Service['auditd'],
   }
 }

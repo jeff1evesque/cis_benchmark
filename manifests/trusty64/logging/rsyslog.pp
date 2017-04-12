@@ -14,17 +14,18 @@ class cis::trusty64::logging::rsyslog {
   ##       corresponding yaml key, implements underscores instead of '.' for
   ##       nodes certificate name.
   ##
-  $hiera_node = lookup([
+  $hiera_node  = lookup([
       regsubst($trusted['certname'], '\.', '_', 'G'),
       'trusty64'
   ])
+  $stig        = $hiera_node['stig']
 
   ## local variables: stig items
-  $cis_4_2_1_1 = $hiera_node['cis_4_2_1_1']
-  $cis_4_2_1_2 = $hiera_node['cis_4_2_1_2']
-  $cis_4_2_1_3 = $hiera_node['cis_4_2_1_3']
-  $cis_4_2_1_4 = $hiera_node['cis_4_2_1_4']
-  $cis_4_2_1_5 = $hiera_node['cis_4_2_1_5']
+  $cis_4_2_1_1 = $stig['cis_4_2_1_1']
+  $cis_4_2_1_2 = $stig['cis_4_2_1_2']
+  $cis_4_2_1_3 = $stig['cis_4_2_1_3']
+  $cis_4_2_1_4 = $stig['cis_4_2_1_4']
+  $cis_4_2_1_5 = $stig['cis_4_2_1_5']
 
   ## CIS 4.2.1.1 Ensure logging is configured (Not Scored)
   if ($cis_4_2_1_1) {
@@ -88,9 +89,9 @@ class cis::trusty64::logging::rsyslog {
       command      => 'pkill -HUP rsyslogd',
       path         => '/usr/bin',
       subscribe    => [
-        '/etc/init/rsyslog.conf',
-        '/etc/rsyslog.conf',
-        '/etc/rsyslog.d/50-default.conf',
+        File['/etc/init/rsyslog.conf'],
+        File['/etc/rsyslog.conf'],
+        File['/etc/rsyslog.d/50-default.conf'],
       ],
       refreshonly  => true,
   }

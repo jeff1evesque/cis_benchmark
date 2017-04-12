@@ -24,9 +24,10 @@ class cis::trusty64::cis_logging {
       regsubst($trusted['certname'], '\.', '_', 'G'),
       'trusty64'
   ])
+  $stig       = $hiera_node['stig']
 
   ## local variables: stig items
-  $cis_4_2_4 = $hiera_node['cis_4_2_4']
+  $cis_4_2_4  = $stig['cis_4_2_4']
 
   ## CIS 4.2.4 Ensure permissions on all logfiles are configured (Scored)
   if ($cis_4_2_4) {
