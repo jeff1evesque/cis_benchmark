@@ -1,0 +1,22 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016                                                          
+##
+## Description: this file is a multiline bash script, which is consumed by
+##              the 'command' attribute from puppet's 'exec' directive.
+##
+
+## local variables
+PREFIX='^'
+USERS=$(sudo egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1)
+
+## chage max days
+for USER in "$USERS"; do
+    awk -v user="$PREFIX$USER" '{
+        if ($0 ~ USER) {
+            sudo chage --<%= @parameter %> <%= @value %> "$USER"
+            sudo chage --maxdays 90 "$USER"
+        } 
+    }' /etc/login.defs
+done

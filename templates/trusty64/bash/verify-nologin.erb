@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016                                                          
+##
+## Description: this file is a multiline bash script, which is consumed by
+##              the 'onlyif' attribute from puppet's 'exec' directive.
+##
+
+egrep-v "^\+" /etc/passwd | awk -F: '{
+  if ($1!="root" && $1!="sync" && $1!="shutdown" &&$1!="halt" && $3<1000 && $7!="/usr/sbin/nologin" && $7!="/bin/false")
+    {exit 0}
+  else
+    {exit 1}
+}'
