@@ -15,8 +15,22 @@ USERS=$(sudo egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1)
 for USER in "$USERS"; do
     awk -v user="$PREFIX$USER" '{
         if ($0 ~ USER) {
-            sudo chage --<%= @parameter %> <%= @value %> "$USER"
+            <% if @cis_5_4_1_1 %>
+            ## 5.4.1.1 Ensure password expiration is 90 days or less (Scored)
             sudo chage --maxdays 90 "$USER"
+
+            <% elsif @cis_5_4_1_2 %>
+            ## 5.4.1.2 Ensure minimum days between password changes is 7 or more (Scored)
+            sudo chage --mindays 7 "$USER"
+
+            <% elsif @cis_5_4_1_3 %>
+            ## 5.4.1.3 Ensure password expiration warning days is 7 or more (Scored)
+            sudo chage --warndays 7 "$USER"
+
+            <% elsif @cis_5_4_1_4 %>
+            ## 5.4.1.4 Ensure inactive password lock is 30 days or less (Scored)
+            sudo chage --inactive 30 "$USER"
+            <% end %>
         } 
     }' /etc/login.defs
 done
