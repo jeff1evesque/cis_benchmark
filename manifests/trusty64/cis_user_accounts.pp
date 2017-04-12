@@ -36,68 +36,29 @@ class cis::trusty64::cis_user_accounts {
     owner   => 'root',
     group   => 'root',
     content => dos2unix(template('cis/trusty64/login.defs.erb')),
-    notify  => [
-      Exec['chage-pass-max-days'],
-      Exec['chage-pass-min-days'],
-      Exec['chage-pass-warn-days'],
-      Exec['chage-pass-inactive-days'],
-    ],
+    notify  => Exec['chage-pass'],
   }
 
-  ## 5.4.1.1 Ensure password expiration is 90 days or less (Scored)
-  if ($cis_5_4_1_1) {
-    $param = 'maxdays'
-    $value = '90'
-
-    exec { 'chage-pass-max-days':
-      command     => dos2unix(template('cis/trusty64/chage/chage.erb')),
-      refreshonly => true,
-      path        => '/usr/bin',
-    }
-  }
-
-  ## 5.4.1.2 Ensure minimum days between password changes is 7 or more (Scored)
-  if ($cis_5_4_1_2) {
-    $param = 'mindays'
-    $value = '7'
-
-    exec { 'chage-pass-min-days':
-      command     => dos2unix(template('cis/trusty64/chage/chage.erb')),
-      refreshonly => true,
-      path        => '/usr/bin',
-    }
-  }
-
-  ## 5.4.1.3 Ensure password expiration warning days is 7 or more (Scored)
-  if ($cis_5_4_1_3) {
-    $param = 'warndays'
-    $value = '7'
-
-    exec { 'chage-pass-warn-days':
+  ## 5.4.1.x Remaining stig items
+  if ($cis_5_4_1_1) or ($cis_5_4_1_2) or ($cis_5_4_1_3) or ($cis_5_4_1_4) {
+    exec { 'chage-pass':
       command     => dos2unix(template('cis/trusty64/bash/chage.erb')),
       refreshonly => true,
       path        => '/usr/bin',
-    }
-  }
-
-  ## 5.4.1.4 Ensure inactive password lock is 30 days or less (Scored)
-  if ($cis_5_4_1_4) {
-    $param = 'inactive'
-    $value = '30'
-
-    exec { 'chage-pass-inactive-days':
-      command     => dos2unix(template('cis/trusty64/bash/chage.erb')),
-      refreshonly => true,
-      path        => '/usr/bin',
+      provider    => shell,
     }
   }
 
   ## 5.4.2 Ensure system accounts are non-login (Scored)
   if ($cis_5_4_2) {
     exec { 'usermod-nologin':
-      command => dos2unix(template('cis/trusty64/bash/usermod-nologin.erb')),
-      path    => '/usr/bin',
-      onlyif  => dos2unix(template('cis/trusty64/bash/verify-nologin.erb')),
+      command  => dos2unix(template('cis/trusty64/bash/usermod-nologin.erb')),
+      path     => [
+          '/usr/bin',
+          '/usr/sbin',
+      ],
+      onlyif   => dos2unix(template('cis/trusty64/bash/verify-nologin.erb')),
+      provider => shell,
     }
   }
 
