@@ -1,0 +1,17 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016                                                          
+##
+## Description: this file is a multiline bash script, which is consumed by
+##              the 'command' attribute from puppet's 'exec' directive.
+##
+
+for user in `awk -F: '($3 < 1000) {print $1 }' /etc/passwd`; do
+    if [ $user != "root" ]; then
+        usermod -L $user
+        if [ $user != "sync" ] && [ $user != "shutdown" ] && [ $user != "halt" ]; then
+            usermod -s /usr/sbin/nologin $user
+        fi
+    fi
+done

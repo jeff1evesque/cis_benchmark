@@ -21,13 +21,14 @@ class cis::trusty64::logging::syslog_ng {
       regsubst($trusted['certname'], '\.', '_', 'G'),
       'trusty64'
   ])
+  $stig       = $hiera_node['stig']
 
   ## local variables: stig items
-  $cis_4_2_2_1 = $hiera_node['cis_4_2_2_1']
-  $cis_4_2_2_2 = $hiera_node['cis_4_2_2_2']
-  $cis_4_2_2_3 = $hiera_node['cis_4_2_2_3']
-  $cis_4_2_2_4 = $hiera_node['cis_4_2_2_4']
-  $cis_4_2_2_5 = $hiera_node['cis_4_2_2_5']
+  $cis_4_2_2_1 = $stig['cis_4_2_2_1']
+  $cis_4_2_2_2 = $stig['cis_4_2_2_2']
+  $cis_4_2_2_3 = $stig['cis_4_2_2_3']
+  $cis_4_2_2_4 = $stig['cis_4_2_2_4']
+  $cis_4_2_2_5 = $stig['cis_4_2_2_5']
 
   ## CIS 4.2.2.1 Ensure syslog-ng service is enabled (Scored)
   if ($cis_4_2_2_1) {

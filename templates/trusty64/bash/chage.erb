@@ -1,0 +1,36 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016                                                          
+##
+## Description: this file is a multiline bash script, which is consumed by
+##              the 'command' attribute from puppet's 'exec' directive.
+##
+
+## local variables
+PREFIX='^'
+USERS=$(sudo egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1)
+
+## chage max days
+for USER in "$USERS"; do
+    awk -v user="$PREFIX$USER" '{
+        if ($0 ~ USER) {
+            <% if @cis_5_4_1_1 %>
+            ## 5.4.1.1 Ensure password expiration is 90 days or less (Scored)
+            sudo chage --maxdays 90 "$USER"
+
+            <% elsif @cis_5_4_1_2 %>
+            ## 5.4.1.2 Ensure minimum days between password changes is 7 or more (Scored)
+            sudo chage --mindays 7 "$USER"
+
+            <% elsif @cis_5_4_1_3 %>
+            ## 5.4.1.3 Ensure password expiration warning days is 7 or more (Scored)
+            sudo chage --warndays 7 "$USER"
+
+            <% elsif @cis_5_4_1_4 %>
+            ## 5.4.1.4 Ensure inactive password lock is 30 days or less (Scored)
+            sudo chage --inactive 30 "$USER"
+            <% end %>
+        } 
+    }' /etc/login.defs
+done

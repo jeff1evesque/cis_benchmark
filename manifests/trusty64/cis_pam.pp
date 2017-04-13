@@ -15,12 +15,13 @@ class cis::trusty64::cis_pam {
       regsubst($trusted['certname'], '\.', '_', 'G'),
       'trusty64'
   ])
+  $stig       = $hiera_node['stig']
 
   ## local variables: stig items
-  $cis_5_3_1 = $hiera_node['cis_5_3_1']
-  $cis_5_3_2 = $hiera_node['cis_5_3_2']
-  $cis_5_3_3 = $hiera_node['cis_5_3_3']
-  $cis_5_3_4 = $hiera_node['cis_5_3_4']
+  $cis_5_3_1  = $stig['cis_5_3_1']
+  $cis_5_3_2  = $stig['cis_5_3_2']
+  $cis_5_3_3  = $stig['cis_5_3_3']
+  $cis_5_3_4  = $stig['cis_5_3_4']
 
   ## CIS 5.3.1 Ensure password creation requirements are configured (Scored)
   if ($cis_5_3_1) {
