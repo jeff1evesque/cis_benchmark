@@ -30,17 +30,17 @@ class cis::trusty64::cis_user_accounts {
   $cis_5_5         = $stig['cis_5_5']
   $cis_5_6         = $stig['cis_5_6']
 
-  file { '/etc/login.defs':
-    ensure  => present,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => dos2unix(template('cis/trusty64/login.defs.erb')),
-    notify  => Exec['chage-pass'],
-  }
-
   ## 5.4.1.x Remaining stig items
   if ($cis_5_4_1_1) or ($cis_5_4_1_2) or ($cis_5_4_1_3) or ($cis_5_4_1_4) {
+    file { '/etc/login.defs':
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => dos2unix(template('cis/trusty64/login.defs.erb')),
+      notify  => Exec['chage-pass'],
+    }
+
     exec { 'chage-pass':
       command     => dos2unix(template('cis/trusty64/bash/chage.erb')),
       refreshonly => true,
@@ -71,43 +71,53 @@ class cis::trusty64::cis_user_accounts {
   }
 
   ## 5.4.4 Ensure default user umask is 027 or more restrictive (Scored)
-  file { '/etc/bash.bashrc':
-    ensure  => present,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => dos2unix(template('cis/trusty64/bash.bashrc.erb')),
-  }
+  if ($cis_5_4_4) {
+    file { '/etc/bash.bashrc':
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => dos2unix(template('cis/trusty64/bash.bashrc.erb')),
+    }
 
-  file { '/etc/profile':
-    ensure  => present,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => dos2unix(template('cis/trusty64/profile.erb')),
+    file { '/etc/profile':
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => dos2unix(template('cis/trusty64/profile.erb')),
+    }
   }
 
   ## 5.5 Ensure root login is restricted to system console (Not Scored)
-  file { '/etc/securetty':
-    ensure  => present,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => dos2unix(template('cis/trusty64/securetty.erb')),
+  if ($cis_5_5) {
+    file { '/etc/securetty':
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => multitemplate(
+        "cis/trusty64/cis_5_5/${trusted['certname']}.erb",
+        "cis/trusty64/securetty.erb",
+      ),
+    }
   }
 
   ## 5.6 Ensure access to the su command is restricted (Scored)
-  file { '/etc/pam.d/su':
-    ensure  => present,
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => dos2unix(template('cis/trusty64/su.erb')),
-  }
   if ($cis_5_6) {
+    file { '/etc/pam.d/su':
+      ensure  => present,
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => dos2unix(template('cis/trusty64/su.erb')),
+    }
+
     file_line { 'wheel-users':
-      path => '/etc/group',
-      line => "wheel:x:10:${flattened_users}",
+      path     => '/etc/group',
+      line     => "wheel:x:10:${flattened_users}",
+      match    => '^wheel:x:10:((?!root\b).)*$',
+      multiple => true,
     }
   }
 }
