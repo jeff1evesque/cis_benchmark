@@ -1,0 +1,34 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: determine existence of world writeable files
+##   - execute: remove world writeable files
+##
+
+## local variables
+OPERATION="$1"
+
+## world writeable files
+TEMP=($(df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' sudo find '{}' -xdev -type f -perm -0002))
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    if [ -n "$TEMP" ]; then
+        exit 0
+    else
+        exit 1
+    fi
+fi
+
+## remove world writeable permission
+if [ "$OPERATION" == 'execute' ]; then
+    if [ -n "$TEMP" ]; then
+        sudo chmod o-w "$TEMP"
+    fi
+fi

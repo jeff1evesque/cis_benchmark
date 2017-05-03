@@ -1,0 +1,35 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: indicates the existence of ungrouped files
+##   - execute: assign ungrouped files to root, with 600 permission
+##
+
+## local variables
+OPERATION="$1"
+
+## ungrouped files
+TEMP=($(df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup))
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    if [ -n "$TEMP" ]; then
+        exit 0
+    else
+        exit 1
+    fi
+fi
+
+## assign ungrouped files to root, with 600 permission
+if [ "$OPERATION" == 'execute' ]; then
+    if [ -n "$TEMP" ]; then
+        sudo chgrp root "$TEMP"
+        sudo chmod 600 "$TEMP"
+    fi
+fi

@@ -1,0 +1,40 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check integrity of all installed packages
+##   - execute: generate report on integrity of all installed packages
+##
+
+## local variables
+OPERATION="$1"
+
+## verify integrity of all installed packages
+TEMP=$(sudo dpkg -V)
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    if [ ! -f <%= @report_path %>/dpkg-report.txt ]; then
+        exit 0
+    elif [ -n "$TEMP" ] && [ -f <%= @report_path %>/dpkg-report.txt ]; then
+        TEMP_HASH=$(echo "$TEMP" | md5sum | awk '{ print $1 }')
+        FILE_HASH=$(md5sum <%= @report_path %>/dpkg-report.txt | awk '{ print $1 }')
+        if [ "$TEMP_HASH" != "$FILE_HASH" ]; then
+            exit 0
+        else
+            exit 1
+        fi
+    else
+        exit 1
+    fi
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    echo "$TEMP" > <%= @report_path %>/dpkg-report.txt
+fi
