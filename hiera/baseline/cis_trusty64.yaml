@@ -73,7 +73,72 @@ trusty64:
         cis_5_4_4: true
         cis_5_5: true
         cis_5_6: true
+        cis_6_1_1: true
+        cis_6_1_2: true
+        cis_6_1_3: true
+        cis_6_1_4: true
+        cis_6_1_5: true
+        cis_6_1_6: true
+        cis_6_1_7: true
+        cis_6_1_8: true
+        cis_6_1_9: true
+        cis_6_1_10: true
+        cis_6_1_11: true
+        cis_6_1_12: true
+        cis_6_1_13: true
+        cis_6_1_14: true
 
     wheel:
         users:
             - root
+
+    report:
+        stig:
+            paths:
+                - '/root/cis'
+                - '/root/cis/trusty64'
+                - '/root/cis/trusty64/exec'
+                - '/root/cis/trusty64/report'
+            exec_path: '/root/cis/trusty64/exec'
+            report_path: '/root/cis/trusty64/report'
+
+    suid:
+        - '/usr/bin/at'
+        - '/usr/bin/gpasswd'
+        - '/usr/bin/chsh'
+        - '/usr/bin/traceroute6.iputils'
+        - '/usr/bin/chfn'
+        - '/usr/bin/pkexec'
+        - '/usr/bin/mtr'
+        - '/usr/bin/passwd'
+        - '/usr/bin/sudo'
+        - '/usr/bin/newgrp'
+        - '/usr/sbin/pppd'
+        - '/usr/sbin/uuidd'
+        - '/usr/lib/policykit-1/polkit-agent-helper-1'
+        - '/usr/lib/eject/dmcrypt-get-device'
+        - '/usr/lib/openssh/ssh-keysign'
+        - '/usr/lib/dbus-1.0/dbus-daemon-launch-helper'
+        - '/bin/ping'
+        - '/bin/fusermount'
+        - '/bin/umount'
+        - '/bin/su'
+        - '/bin/mount'
+        - '/bin/ping6'
+
+    sgid:
+        - '/usr/bin/at'
+        - '/usr/bin/chage'
+        - '/usr/bin/dotlockfile'
+        - '/usr/bin/ssh-agent'
+        - '/usr/bin/mail-touchlock'
+        - '/usr/bin/mail-unlock'
+        - '/usr/bin/mail-lock'
+        - '/usr/bin/mlocate'
+        - '/usr/bin/expiry'
+        - '/usr/bin/screen'
+        - '/usr/bin/wall'
+        - '/usr/bin/crontab'
+        - '/usr/bin/bsd-write'
+        - '/usr/sbin/uuidd'
+        - '/sbin/unix_chkpwd'

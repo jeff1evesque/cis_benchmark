@@ -1,0 +1,54 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+
+## return diff between two bash arrays
+##
+## Note: http://stackoverflow.com/a/2330002
+##
+diff() {
+    awk 'BEGIN{RS=ORS=" "}
+        {NR==FNR?a[$0]++:a[$0]--}
+        END{for(k in a)if(a[k])print k}' <(echo -n "${!1}") <(echo -n "${!2}")
+}
+
+## local variables
+##
+## @$1, string, indicating the following possible operation:
+##   - check: indicates the existence of world writeable files
+##   - execute: indicate whether to remove world writeable files
+##
+OPERATION="$1"
+
+## local variables: suid files
+##
+## @VALID_SUID, acceptable suid files for current system
+## @TEMP, current files on system with suid
+## @DIFF, difference between 'VALID_SUID', and 'TEMP'
+##
+<% if @valid_suid -%>
+VALID_SUID=(<%= @valid_suid.join(' ') %>)
+<% else -%>
+VALID_SUID=()
+<% end -%>
+TEMP=($(df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' sudo find '{}' -xdev -type f -perm -4000))
+DIFF=($(diff VALID_SUID[@] TEMP[@]))
+
+## check for difference
+if [ "$OPERATION" == 'check' ]; then
+    if [ -n "$DIFF" ]; then
+        exit 0
+    else
+        exit 1
+    fi
+fi
+
+## remove suid permission
+if [ "$OPERATION" == 'execute' ]; then
+    sudo chmod u-s "$DIFF"
+fi

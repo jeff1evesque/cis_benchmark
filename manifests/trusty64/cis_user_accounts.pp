@@ -1,5 +1,5 @@
 ## CIS Ubuntu 14.04 LTS Server Benchmark
-## v2.0.0 - 09-30-2016 
+## v2.0.0 - 09-30-2016
 ##
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
@@ -51,22 +51,31 @@ class cis::trusty64::cis_user_accounts {
 
   ## 5.4.2 Ensure system accounts are non-login (Scored)
   if ($cis_5_4_2) {
-    exec { 'usermod-nologin':
-      command  => dos2unix(template('cis/trusty64/bash/usermod-nologin.erb')),
-      path     => [
+    file { 'file-cis-5-4-2':
+        path    => '/root',
+        content => dos2unix(template('cis/trusty64/bash/usermod-nologin.erb')),
+        owner   => root,
+        group   => root,
+        mode    => '0600',
+    }
+
+    exec { 'exec-cis-5-4-2':
+      command   => './usermod-nologin change',
+      cwd       => '/root',
+      path      => [
           '/usr/bin',
           '/usr/sbin',
       ],
-      onlyif   => dos2unix(template('cis/trusty64/bash/verify-nologin.erb')),
-      provider => shell,
+      onlyif    => './usermod-nologin check',
+      provider  => shell,
     }
   }
 
   ## 5.4.3 Ensure default group for the root account is GID 0 (Scored)
   if ($cis_5_4_3) {
     group { 'root':
-      ensure => present,
-      gid    => '0',
+      ensure   => present,
+      gid      => '0',
     }
   }
 
