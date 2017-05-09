@@ -41,7 +41,7 @@ DIFF=($(diff VALID_SUID[@] TEMP[@]))
 
 ## check for difference
 if [ "$OPERATION" == 'check' ]; then
-    if [ -n "$DIFF" ]; then
+    if [[ -n "${DIFF[@]}" ]]; then
         exit 0
     else
         exit 1
@@ -50,5 +50,5 @@ fi
 
 ## remove suid permission
 if [ "$OPERATION" == 'execute' ]; then
-    sudo chmod u-s "$DIFF"
+    sudo chmod u-s "${DIFF[@]}"
 fi
