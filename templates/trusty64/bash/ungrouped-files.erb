@@ -19,7 +19,7 @@ TEMP=($(df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -x
 
 ## check existence
 if [ "$OPERATION" == 'check' ]; then
-    if [ -n "$TEMP" ]; then
+    if [[ -n "${TEMP[@]}" ]]; then
         exit 0
     else
         exit 1
@@ -28,8 +28,8 @@ fi
 
 ## assign ungrouped files to root, with 600 permission
 if [ "$OPERATION" == 'execute' ]; then
-    if [ -n "$TEMP" ]; then
-        sudo chgrp root "$TEMP"
-        sudo chmod 600 "$TEMP"
+    if [[ -n "${TEMP[@]}" ]]; then
+        sudo chgrp root "${TEMP[@]}"
+        sudo chmod 600 "${TEMP[@]}"
     fi
 fi
