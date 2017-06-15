@@ -1,0 +1,63 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check if groups in /etc/passwd exists in /etc/groups
+##   - execute: remove groups from /etc/passwd, if they don't exist in /etc/groups,
+##              and generate a corresponding report
+##
+
+## local variables
+OPERATION="$1"
+LINENUMBER=1
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    while IFS=: read -r _ _ _ gid _; do
+        echo "$gid"
+        grep -q -P "^.*?:[^:]*:$gid:" /etc/group
+        if [ $? -ne 0 ]; then
+            exit 0
+        fi
+    done < /etc/passwd
+    exit 1
+fi
+
+## temporarily change gid to 'restricted' and generate report
+if [ "$OPERATION" == 'execute' ]; then
+    ## initialize report file
+    echo > <%= @report_path %>/remove-groups.txt
+
+    ## get gid for 'restricted' group
+    while IFS=: read -r gname _ gid _; do
+        if [ "$gname" = 'restricted' ]; then
+            NEWGID="$gid"
+            GROUPNAME="$gname"
+            break
+        fi
+    done < /etc/group
+
+    ## get gid for nonexistent group
+    while IFS=: read -r user pass uid gid info home shell; do
+        if  [ "$user" != 'root' ] && [ ! -z "$user" ]; then
+            grep -q -P "^.*?:[^:]*:$gid:" /etc/group
+            if [ $? -ne 0 ]; then
+                ## assign 'restricted' group for unknown user group
+                echo "$user:$pass:$uid:$home:$gid:$shell"
+                USERNAME="$user"
+                OLDGID="$gid"
+                sed -i "${LINENUMBER}s|.*|$user:$pass:$uid:$NEWGID:$info:$home:$shell|g" /etc/passwd
+
+                ## generate report
+                echo "$USERNAME with nonexistent group: $OLDGID, changed to '$NEWGID' group" >> <%= @report_path %>/remove-groups.txt
+            fi
+        fi
+        ## double parantheses required for incrementing
+        LINENUMBER=$(($LINENUMBER+1))
+    done < /etc/passwd
+fi

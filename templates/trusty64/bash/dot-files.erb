@@ -1,0 +1,50 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check if users dot files are not group or world writeable
+##   - execute: generate report on integrity of all installed packages
+##
+
+## local variables
+OPERATION="$1"
+TEMP=$(cat /etc/passwd | egrep -v '(root|sync|halt|shutdown)' | awk -F: '($7 != "/usr/sbin/nologin") { print $6 }')
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    for dir in "${TEMP[@]}"; do
+        for file in "$dir"/.[A-Za-z0-9]*; do
+            if [ ! -h "$file" ] && [ -f "$file" ]; then
+                if [ -n "$(find "$file" -type d -perm /020)" ] || \
+                   [ -n "$(find "$file" -type d -perm /002)" ];
+                then
+                    exit 0
+                fi
+            fi
+        done
+    done
+    exit 1
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    echo > <%= @report_path %>/dot-files-report.txt
+    for dir in "${TEMP[@]}"; do
+        for file in "$dir"/.[A-Za-z0-9]*; do
+            if [ ! -h "$file" ] && [ -f "$file" ]; then
+                if [ -n "$(find "$file" -type d -perm /020)" ]; then
+                    echo "Group Write permission fixed on file $file" >> <%= @report_path %>/dot-files-report.txt
+                    chmod g-w "$dir/$file"
+                elif [ -n "$(find "$file" -type d -perm /002)" ]; then
+                    echo "Other Write permission set on file $file" >> <%= @report_path %>/dot-files-report.txt
+                    chmod o-w "$dir/$file"
+                fi
+            fi
+        done
+    done
+fi

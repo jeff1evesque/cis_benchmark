@@ -5,6 +5,8 @@
 ##
 
 class cis::trusty64::cis_system_permissions {
+  include cis::trusty64::dependencies
+
   ## local variables: conditionally load hiera
   ##
   ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
@@ -38,16 +40,6 @@ class cis::trusty64::cis_system_permissions {
   $cis_6_1_12  = $stig['cis_6_1_12']
   $cis_6_1_13  = $stig['cis_6_1_13']
   $cis_6_1_14  = $stig['cis_6_1_14']
-
-  ## create reporting directory
-  if ($cis_6_1_1) {
-    file { $paths:
-      ensure => directory,
-      mode   => '0700',
-      owner  => 'root',
-      group  => 'root',
-    }
-  }
 
   ## CIS 6.1.1 Audit system file permissions (Not Scored)
   if ($cis_6_1_1) {

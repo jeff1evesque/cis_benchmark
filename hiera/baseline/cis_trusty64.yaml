@@ -87,6 +87,26 @@ trusty64:
         cis_6_1_12: true
         cis_6_1_13: true
         cis_6_1_14: true
+        cis_6_2_1: true
+        cis_6_2_2: true
+        cis_6_2_3: true
+        cis_6_2_4: true
+        cis_6_2_5: true
+        cis_6_2_6: true
+        cis_6_2_7: true
+        cis_6_2_8: true
+        cis_6_2_9: true
+        cis_6_2_10: true
+        cis_6_2_11: true
+        cis_6_2_12: true
+        cis_6_2_13: true
+        cis_6_2_14: true
+        cis_6_2_15: true
+        cis_6_2_16: true
+        cis_6_2_17: true
+        cis_6_2_18: true
+        cis_6_2_19: true
+        cis_6_2_20: true
 
     wheel:
         users:

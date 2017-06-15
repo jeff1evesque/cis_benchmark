@@ -1,0 +1,46 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check if a duplicate uid exists in /etc/passwd
+##   - execute: generate report on all duplicate uid's
+##
+
+## local variables
+OPERATION="$1"
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    echo > <%= @report_path %>/temp-duplicate-uid.txt
+    while IFS=: read -r _ _ uid _; do
+        echo "$uid" >> <%= @report_path %>/temp-duplicate-uid.txt
+        DUPES=$(sort <%= @report_path %>/temp-duplicate-uid.txt | uniq -d)
+        if [ -n "$DUPES" ]; then
+            rm -f <%= @report_path %>/temp-duplicate-uid.txt
+            exit 0
+        fi
+    done < /etc/passwd
+    rm -f <%= @report_path %>/temp-duplicate-uid.txt
+    exit 1
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    echo > <%= @report_path %>/duplicate-uid.txt
+    echo > <%= @report_path %>/temp-duplicate-uid.txt
+
+    while IFS=: read -r _ _ uid _; do
+        echo "$uid" >> /root/cis/trusty64/report/temp-duplicate-uid.txt
+        DUPES=$(sort <%= @report_path %>/temp-duplicate-uid.txt | uniq -d)
+        if [ -n "$DUPES" ]; then
+            USERS=$(awk -F: -v user="$uid" '($3 == user) { print $1 }' /etc/passwd | xargs)
+            echo "Duplicate UID ($uid): $USERS" >> <%= @report_path %>/duplicate-uid.txt
+        fi
+    done < /etc/passwd
+    rm -f <%= @report_path %>/temp-duplicate-uid.txt
+fi

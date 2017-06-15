@@ -1,0 +1,36 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: indicates the existence of nonroot superusers
+##   - execute: remove all superusers except root
+##
+
+## local variables
+OPERATION="$1"
+
+## superusers and corresponding lines
+TEMP=($(cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'))
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    if [[ -n "${TEMP[@]}" ]]; then
+        exit 0
+    else
+        exit 1
+    fi
+fi
+
+## remove all superusers except 'root'
+if [ "$OPERATION" == 'execute' ]; then
+    if [[ -n "${TEMP[@]}" ]]; then
+      LINENUMBERS=($(cat /etc/passwd | awk -F: '{if ( $3 == 0 && $1 != "root") { print NR"d"}}'))
+      ADJUSTED=$(echo "${LINENUMBERS[@]}" | sed 's/ /;/g')
+      sed -i "$ADJUSTED" /etc/passwd
+    fi
+fi

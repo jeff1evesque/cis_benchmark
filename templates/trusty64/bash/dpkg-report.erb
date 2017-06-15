@@ -19,17 +19,16 @@ TEMP=$(sudo dpkg -V)
 
 ## check existence
 if [ "$OPERATION" == 'check' ]; then
-    if [ ! -f <%= @report_path %>/dpkg-report.txt ]; then
+    echo '??5?????? c /etc/sudoers' > dpkg-temp.txt
+    echo '??5?????? c /etc/puppetlabs/puppet/puppet.conf' >> dpkg-temp.txt
+    sudo dpkg -V > dpkg-temp2.txt
+
+    COMPARISON=$(cmp dpkg-temp.txt dpkg-temp2.txt --quiet; echo $?)
+    sudo rm dpkg-temp.txt dpkg-temp2.txt
+    if [ "$COMPARISON" = '1' ]; then
         exit 0
-    elif [ -n "$TEMP" ] && [ -f <%= @report_path %>/dpkg-report.txt ]; then
-        TEMP_HASH=$(echo "$TEMP" | md5sum | awk '{ print $1 }')
-        FILE_HASH=$(md5sum <%= @report_path %>/dpkg-report.txt | awk '{ print $1 }')
-        if [ "$TEMP_HASH" != "$FILE_HASH" ]; then
-            exit 0
-        else
-            exit 1
-        fi
     else
+        sudo rm <%= @report_path %>/dpkg-report.txt
         exit 1
     fi
 fi

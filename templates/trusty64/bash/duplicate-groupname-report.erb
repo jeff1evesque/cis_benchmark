@@ -1,0 +1,47 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check if a duplicate groupnames exists in /etc/group
+##   - execute: generate report on all duplicate groupnames
+##
+
+## local variables
+OPERATION="$1"
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    echo > <%= @report_path %>/temp-duplicate-groupname.txt
+    while IFS=: read -r groupname _ _ _; do
+        echo "$groupname" >> <%= @report_path %>/temp-duplicate-groupname.txt
+        DUPES=$(sort <%= @report_path %>/temp-duplicate-groupname.txt | uniq -d)
+        if [ -n "$DUPES" ]; then
+            rm -f <%= @report_path %>/temp-duplicate-groupname.txt
+            exit 0
+        fi
+    done < /etc/group
+    rm -f <%= @report_path %>/temp-duplicate-groupname.txt
+    exit 1
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    echo > <%= @report_path %>/duplicate-groupname.txt
+    echo > <%= @report_path %>/temp-duplicate-groupname.txt
+
+    while IFS=: read -r groupname _ _ _; do
+        echo "$groupname" >> /root/cis/trusty64/report/temp-duplicate-groupname.txt
+        DUPES=$(sort <%= @report_path %>/temp-duplicate-groupname.txt | uniq -d)
+        if [ -n "$DUPES" ]; then
+            GROUPNAMES=$(awk -F: -v groupname="$groupname" '($1 == groupname) { print $3 }' /etc/group | xargs)
+            echo "Duplicate Group Name ($groupname): $GROUPNAMES" >> <%= @report_path %>/duplicate-groupname.txt
+        fi
+    done < /etc/group
+    rm -f <%= @report_path %>/temp-duplicate-groupname.txt
+fi
+

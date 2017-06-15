@@ -1,0 +1,46 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check if a duplicate gid exists in /etc/group
+##   - execute: generate report on all duplicate gid's
+##
+
+## local variables
+OPERATION="$1"
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    echo > <%= @report_path %>/temp-duplicate-gid.txt
+    while IFS=: read -r _ _ gid _; do
+        echo "$gid" >> <%= @report_path %>/temp-duplicate-gid.txt
+        DUPES=$(sort <%= @report_path %>/temp-duplicate-gid.txt | uniq -d)
+        if [ -n "$DUPES" ]; then
+            rm -f <%= @report_path %>/temp-duplicate-gid.txt
+            exit 0
+        fi
+    done < /etc/group
+    rm -f <%= @report_path %>/temp-duplicate-gid.txt
+    exit 1
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    echo > <%= @report_path %>/duplicate-gid.txt
+    echo > <%= @report_path %>/temp-duplicate-gid.txt
+
+    while IFS=: read -r _ _ gid _; do
+        echo "$gid" >> /root/cis/trusty64/report/temp-duplicate-gid.txt
+        DUPES=$(sort <%= @report_path %>/temp-duplicate-gid.txt | uniq -d)
+        if [ -n "$DUPES" ]; then
+            GROUPNAMES=$(awk -F: -v group="$gid" '($3 == group) { print $1 }' /etc/group | xargs)
+            echo "Duplicate GID ($gid): $GROUPNAMES" >> <%= @report_path %>/duplicate-gid.txt
+        fi
+    done < /etc/group
+    rm -f <%= @report_path %>/temp-duplicate-gid.txt
+fi

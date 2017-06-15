@@ -1,0 +1,88 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check root path integrity
+##   - execute: generate report on integrity of root path
+## @$2, string, the 'PATH' variable for a system.
+##
+OPERATION="$1"
+if [ -n $2 ]; then
+    SYSPATH="$2"
+else
+    SYSPATH="$PATH"
+fi
+
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    if [ "$(echo "$SYSPATH" | grep ::)" != '' ]; then
+        exit 0
+    fi
+
+    if [ "$(echo "$SYSPATH" | grep :$)"  != '' ]; then
+        exit 0
+    fi
+
+    p=$(echo "$SYSPATH" | sed -e 's/::/:/' -e 's/:$//' -e 's/:/ /g')
+    for dir in "${p[@]}"; do
+        if [[ "$dir" =~ '.' ]]; then
+            exit 0
+        fi
+        if [ -d "$dir" ] && [ "$dir" != '' ]; then
+            dirperm=$(ls -ldH "$dir" | cut -f1 -d' ')
+            if [ "$(echo "$dirperm" | cut -c6)" != '-' ]; then
+                exit 0
+            fi
+            if [ "$(echo "$dirperm" | cut -c9)" != '-' ]; then
+                exit 0
+            fi
+            dirown=$(ls -ldH $dir | awk '{print "$3"}')
+            if [ "$dirown" != 'root' ] ; then
+                exit 0
+            fi
+        else
+            exit 0
+        fi
+    done
+    exit 1
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    rm -f <%= @report_path %>/path-report.txt
+    if [ "$(echo $SYSPATH | grep ::)" != '' ]; then
+        echo 'Empty Directory in PATH (::)' >> <%= @report_path %>/path-report.txt
+    fi
+
+    if [ "$(echo $SYSPATH | grep :$)"  != '' ]; then
+        echo 'Trailing : in PATH' >> <%= @report_path %>/path-report.txt
+    fi
+
+    p=($(echo "$SYSPATH" | sed -e 's/::/:/' -e 's/:$//' -e 's/:/ /g'))
+    for dir in "${p[@]}"; do
+        if [[ "$dir" =~ '.' ]]; then
+            echo "$dir contains ." >> <%= @report_path %>/path-report.txt
+        fi
+        if [ -d "$dir" ]; then
+            dirperm=$(ls -ldH "$dir" | cut -f1 -d' ')
+            if [ $(echo "$dirperm" | cut -c6) != '-' ]; then
+                echo "Group Write permission set on directory $dir" >> <%= @report_path %>/path-report.txt
+            fi
+            if [ $(echo "$dirperm" | cut -c9) != '-' ]; then
+                echo "Other Write permission set on directory $dir" >> <%= @report_path %>/path-report.txt
+            fi
+            dirown=$(ls -ldH "$dir" | awk '{print $3}')
+            if [ "$dirown" != 'root' ]; then
+                echo "$dir is not owned by root" >> <%= @report_path %>/path-report.txt
+            fi
+        else
+            echo "$dir is not a directory" >> <%= @report_path %>/path-report.txt
+        fi
+    done
+fi
