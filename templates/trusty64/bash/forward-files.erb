@@ -1,0 +1,34 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check if any user has '.forward' file
+##   - execute: remove '.forward' file, for any users, if the file exists
+##
+
+## local variables
+OPERATION="$1"
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    while IFS=: read -r _ _ _ _ _ dir _; do
+        if [ ! -h "$dir/.forward" ] && [ -f "$dir/.forward" ]; then
+            exit 0
+        fi
+    done < /etc/passwd
+    exit 1
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    while IFS=: read -r _ _ _ _ _ dir _; do
+        if [ ! -h "$dir/.forward" ] && [ -f "$dir/.forward" ]; then
+            rm "$dir/.forward"
+        fi
+    done < /etc/passwd
+fi

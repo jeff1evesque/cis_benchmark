@@ -1,0 +1,34 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check if any user has '.netrc' file, such that permission is not '0600'
+##   - execute: remove '.netrc' group, and world access
+##
+
+## local variables
+OPERATION="$1"
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    while IFS=: read -r _ _ _ _ _ dir _; do
+        if [ ! -h "$dir/.netrc" ] && [ -f "$dir/.netrc" ] && [ "$(stat -c %a "$dir/.netrc")" != '600' ]; then
+            exit 0
+        fi
+    done < /etc/passwd
+    exit 1
+fi
+
+## remove group and world access
+if [ "$OPERATION" == 'execute' ]; then
+    while IFS=: read -r _ _ _ _ _ dir _; do
+        if [ ! -h "$dir/.netrc" ] && [ -f "$dir/.netrc" ] && [ "$(stat -c %a "$dir/.netrc")" != '600' ]; then
+            chmod 600 "$dir/.netrc"
+        fi
+    done < /etc/passwd
+fi

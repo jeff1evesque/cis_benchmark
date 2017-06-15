@@ -1,0 +1,46 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check if a duplicate username exists in /etc/passwd
+##   - execute: generate report on all duplicate usernames
+##
+
+## local variables
+OPERATION="$1"
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    echo > <%= @report_path %>/temp-duplicate-username.txt
+    while IFS=: read -r username _ _ _; do
+        echo "$username" >> <%= @report_path %>/temp-duplicate-username.txt
+        DUPES=$(sort <%= @report_path %>/temp-duplicate-username.txt | uniq -d)
+        if [ -n "$DUPES" ]; then
+            rm -f <%= @report_path %>/temp-duplicate-username.txt
+            exit 0
+        fi
+    done < /etc/passwd
+    rm -f <%= @report_path %>/temp-duplicate-username.txt
+    exit 1
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    echo > <%= @report_path %>/duplicate-username.txt
+    echo > <%= @report_path %>/temp-duplicate-username.txt
+
+    while IFS=: read -r username _ _ _; do
+        echo "$username" >> /root/cis/trusty64/report/temp-duplicate-username.txt
+        DUPES=$(sort <%= @report_path %>/temp-duplicate-username.txt | uniq -d)
+        if [ -n "$DUPES" ]; then
+            USERNAMES=$(awk -F: -v username="$username" '($1 == username) { print $3 }' /etc/passwd | xargs)
+            echo "Duplicate User Name ($username): $USERNAMES" >> <%= @report_path %>/duplicate-username.txt
+        fi
+    done < /etc/passwd
+    rm -f <%= @report_path %>/temp-duplicate-username.txt
+fi

@@ -1,0 +1,57 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check if any 'shadow' group exists, and check if any users have
+##            been assigned this group.
+##   - execute: replace any 'shadow' group to 'restricted' for all users
+##
+
+## local variables
+OPERATION="$1"
+LINENUMBER=1
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    while IFS=: read -r groupname _ gid1 _; do
+        if [ "$groupname" = 'shadow' ]; then
+            while IFS=: read -r _ _ _ gid2 _; do
+                if [ "$gid1" = "$gid2" ]; then
+                    exit 0
+                fi
+            done < /etc/passwd
+        fi
+    done < /etc/group
+    exit 1
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    ## get 'restricted' groupid
+    while IFS=: read -r groupname _ target _; do
+        if [ "$groupname" = 'restricted' ]; then
+            NEWGID="$target"
+        fi
+    done < /etc/group
+
+    ## replace 'shadow' with 'restricted' group
+    while IFS=: read -r groupname _ gid1 _; do
+        if [ "$groupname" = 'shadow' ]; then
+            while IFS=: read -r user pass uid gid2 info home shell; do
+                ## remediate
+                if [ "$gid1" = "$gid2" ]; then
+                    sed -i "${LINENUMBER}s|.*|$user:$pass:$uid:$NEWGID:$info:$home:$shell|g" /etc/passwd
+                fi
+
+                ## double parantheses required for incrementing
+                LINENUMBER=$(($LINENUMBER+1))
+            done < /etc/passwd
+            exit 0
+        fi
+    done < /etc/group
+fi
