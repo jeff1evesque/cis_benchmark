@@ -9,6 +9,8 @@
 
 trusty64:
     stig:
+        cis_1_3_1: true
+        cis_1_3_2: true
         cis_2_1_1: true
         cis_2_1_2: true
         cis_2_1_3: true
