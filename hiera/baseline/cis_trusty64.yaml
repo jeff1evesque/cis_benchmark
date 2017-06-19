@@ -110,6 +110,15 @@ trusty64:
         cis_6_2_19: true
         cis_6_2_20: true
 
+    aide:
+        aide_path: '/usr/bin/aide'
+        config_path: '/etc/aide/aide.conf'
+        cron:
+            hour: '5'
+            minute: '0'
+        db_path: '/var/lib/aide/aide.db.gz'
+        db_temp_path: '/var/lib/aide/aide.db.new'
+
     wheel:
         users:
             - root

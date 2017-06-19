@@ -4,9 +4,7 @@
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-class cis::trusty64::cis_filesystem_integrity {
-  include cis::trusty64::dependencies
-
+class cis::trusty64::aide::config {
   ## local variables: conditionally load hiera
   ##
   ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
@@ -17,18 +15,20 @@ class cis::trusty64::cis_filesystem_integrity {
       regsubst($trusted['certname'], '\.', '_', 'G'),
       'trusty64'
   ])
-  $stig          = $hiera_node['stig']
-  $exec_path     = $hiera_node['report']['stig']['exec_path']
-  $report_path   = $hiera_node['report']['stig']['report_path']
+  $aide          = $hiera_node['aide']
+  $conf_path     = $aide['conf_path']
 
-  ## local variables: stig items
-  $cis_1_3_1     = $stig['cis_1_3_1']
+  concat { 'aide.conf':
+    path         => $conf_path,
+    owner        => 'root',
+    group        => 'root',
+    mode         => '0600',
+    require      => Package['aide']
+  }
 
-  ## 1.3.1 Ensure AIDE is installed (Scored)
-  if ($cis_1_3_1) {
-    aide::watch { 'aide-cis-1-3-1':
-        path  => '/',
-        rules => 'R'
-    }
+  concat::fragment { 'aide.conf.header':
+    target       => 'aide.conf',
+    order        => 01,
+    content      => template( 'aide/aide.conf.erb')
   }
 }
