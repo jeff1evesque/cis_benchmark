@@ -9,6 +9,8 @@
 
 trusty64:
     stig:
+        cis_1_3_1: true
+        cis_1_3_2: true
         cis_2_1_1: true
         cis_2_1_2: true
         cis_2_1_3: true
@@ -107,6 +109,15 @@ trusty64:
         cis_6_2_18: true
         cis_6_2_19: true
         cis_6_2_20: true
+
+    aide:
+        aide_path: '/usr/bin/aide'
+        config_path: '/etc/aide/aide.conf'
+        cron:
+            hour: '5'
+            minute: '0'
+        db_path: '/var/lib/aide/aide.db.gz'
+        db_temp_path: '/var/lib/aide/aide.db.new'
 
     wheel:
         users:
