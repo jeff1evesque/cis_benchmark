@@ -11,6 +11,9 @@ trusty64:
     stig:
         cis_1_3_1: true
         cis_1_3_2: true
+        cis_1_4_1: true
+        cis_1_4_2: true
+        cis_1_4_3: true
         cis_2_1_1: true
         cis_2_1_2: true
         cis_2_1_3: true
@@ -110,6 +113,10 @@ trusty64:
         cis_6_2_19: true
         cis_6_2_20: true
 
+    account:
+        root:
+            password: 'password'
+
     aide:
         aide_path: '/usr/bin/aide'
         config_path: '/etc/aide/aide.conf'
@@ -118,6 +125,18 @@ trusty64:
             minute: '0'
         db_path: '/var/lib/aide/aide.db.gz'
         db_temp_path: '/var/lib/aide/aide.db.new'
+
+    ## Note: the grub password, currently set as 'password', can be (re)created
+    ##       with the following steps:
+    ##
+    ##       grub-mkpasswd-pbkdf2
+    ##       Enter password: <password>
+    ##       Reenter password: <password>
+    ##       Your PBKDF2 is <encrypted-password>
+    ##
+    grub2:
+        user: 'root'
+        password: 'grub.pbkdf2.sha512.10000.F2FD2EE0B11137C1AA614B4610E038E67D925E6AFF3987BB0B9BAC5E0E231B835D1B33FC0999226EEEEBBA7A8308CD4B34EA1AB3B82CD53A1D2AE94BE1D494C3.2CECD078C459898879E2B733A6939E1FE64BEAEFB5C096BD6F1F54D7E0C7F6F2B571CF033876BF5721377735CF1E9044048590CE56ECFFC6F8191980BF908031'
 
     wheel:
         users:
