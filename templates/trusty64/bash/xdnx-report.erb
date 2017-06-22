@@ -1,0 +1,34 @@
+#!/bin/bash
+
+## CIS Ubuntu 14.04 LTS Server Benchmark
+## v2.0.0 - 09-30-2016
+##
+## Description: this file is bash script, which is consumed by the 'command'
+##              and 'onlyif' attribute, from puppet's 'exec' directive.
+##
+## @$1, string, indicating the following possible operation:
+##   - check: check integrity of all installed packages
+##   - execute: generate report on integrity of all installed packages
+##
+
+## local variables
+OPERATION="$1"
+
+## check XD/NX support enabled
+TEMP=$(dmesg | grep -q 'NX (Execute Disable) protection: active'; echo $?)
+
+## check existence
+if [ "$OPERATION" == 'check' ]; then
+    if [ ! "$TEMP" ]; then
+        exit 0
+    else
+        exit 1
+    fi
+fi
+
+## generate report
+if [ "$OPERATION" == 'execute' ]; then
+    if [ ! "$TEMP" ]; then
+        echo "XD/NX support not enabled" > <%= @report_path %>/xdnx-report.txt
+    fi
+fi
