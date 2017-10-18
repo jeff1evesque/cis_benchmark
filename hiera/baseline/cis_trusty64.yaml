@@ -9,6 +9,14 @@
 
 trusty64:
     stig:
+        cis_1_1_1_1: true
+        cis_1_1_1_2: true
+        cis_1_1_1_3: true
+        cis_1_1_1_4: true
+        cis_1_1_1_5: true
+        cis_1_1_1_6: true
+        cis_1_1_1_7: true
+        cis_1_1_1_8: true
         cis_1_3_1: true
         cis_1_3_2: true
         cis_1_4_1: true
