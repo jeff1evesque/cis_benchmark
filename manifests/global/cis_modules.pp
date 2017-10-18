@@ -11,8 +11,8 @@ class cis::global::cis_modules {
   ## install puppet contributed modules
   $modules.each |String $module| {
       exec { "puppet_module_${module}":
-          command => "puppet module install ${modules}",
-          unless  => "puppet module list | grep ${modules}",
+          command => "puppet module install ${module}",
+          unless  => "puppet module list | grep ${module}",
           path    => ['/bin', '/opt/puppetlabs/bin'],
       }
   }
