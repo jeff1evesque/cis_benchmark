@@ -25,10 +25,10 @@ class cis::trusty64::cis_autofsconf {
   ## 1.1.21 Disable Automounting (Scored)
   if ($cis_1_1_21 and $isfile_autofsconf) {
       comment_line { 'cis_1_1_21':
-          ensure => commented
-          path   => '/etc/init/autofs.conf',
-          match  => 'start',
-          require => cis::global::cis_modules,
+          ensure   => commented
+          path     => '/etc/init/autofs.conf',
+          match    => 'start',
+          require  => cis::global::cis_modules,
       }
   }
 }
