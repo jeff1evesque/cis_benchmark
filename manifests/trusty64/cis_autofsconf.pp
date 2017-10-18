@@ -5,6 +5,8 @@
 ##
 
 class cis::trusty64::cis_autofsconf {
+  include cis::global::cis_modules
+
   ## local variables: conditionally load hiera
   ##
   ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
@@ -26,6 +28,7 @@ class cis::trusty64::cis_autofsconf {
           ensure => commented
           path   => '/etc/init/autofs.conf',
           match  => 'start',
+          require => cis::global::cis_modules,
       }
   }
 }
