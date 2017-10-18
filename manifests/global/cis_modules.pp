@@ -6,13 +6,14 @@
 
 class cis::global::cis_modules {
   ## local variables
-  $contrib_modules = lookup('modules')['contrib']
+  $modules = lookup('modules')['contrib']
 
   ## install puppet contributed modules
-  $contrib_modules = 'puppetlabs-stdlib'
-  exec { 'puppet_module_contrib':
-      command => "puppet module install ${contrib_modules}",
-      unless  => "puppet module list | grep ${contrib_modules}",
-      path    => ['/bin', '/opt/puppetlabs/bin']
+  $modules.each |String $module| {
+      exec { "puppet_module_${module}":
+          command => "puppet module install ${modules}",
+          unless  => "puppet module list | grep ${modules}",
+          path    => ['/bin', '/opt/puppetlabs/bin'],
+      }
   }
 }
