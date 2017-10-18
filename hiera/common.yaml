@@ -1,7 +1,8 @@
 ## CIS Ubuntu 14.04 LTS Server Benchmark
 ## v2.0.0 - 09-30-2016 
 ##
-## This file defines general items, used across this module.
+## This file defines puppetforge contributed modules, which are required as
+## dependencies, for this overall module.
 ##
 
 modules:
