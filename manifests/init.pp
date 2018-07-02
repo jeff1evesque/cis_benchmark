@@ -162,11 +162,8 @@ class cis_benchmark (
     class { 'cis::trusty64::user_settings': } ->
     class { 'cis::trusty64::aide::config': } ->
     class { 'cis::trusty64::aide::cron': } ->
-    class { 'cis::trusty64::aide': } ->
     class { 'cis::trusty64::aide::firstrun': } ->
     class { 'cis::trusty64::aide::install': } ->
-    class { 'cis::trusty64::aide::rule': } ->
-    class { 'cis::trusty64::aide::watch': } ->
     class { 'cis::trusty64::logging::auditd_rules': } ->
     class { 'cis::trusty64::logging::rsyslog': } ->
     class { 'cis::trusty64::logging::syslog_ng': } ->
