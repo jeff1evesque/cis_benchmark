@@ -6,8 +6,6 @@
 ##
 
 class cis::trusty64::services::xinetd {
-  include cis::trusty64::services::inetd
-
   ## local variables: stig items
   $2_1_1      = $::cis_benchmark::2_1_1
   $2_1_2      = $::cis_benchmark::2_1_2

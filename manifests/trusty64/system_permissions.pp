@@ -6,8 +6,6 @@
 ##
 
 class cis::trusty64::system_permissions {
-  include cis::trusty64::dependencies
-
   ## local variables
   $exec_path     = $::cis_benchmark::exec_path
   $report_path   = $::cis_benchmark::report_path

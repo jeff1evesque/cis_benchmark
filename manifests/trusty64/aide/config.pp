@@ -6,6 +6,7 @@
 ##
 
 class cis::trusty64::aide::config {
+  ## local variables
   $conf_path     = $::cis_benchmark::aide_config
 
   concat { 'aide.conf':

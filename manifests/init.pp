@@ -142,5 +142,35 @@ class cis_benchmark (
     $aide_db_path: $::cis_benchmark::params::aide_db_path,
     $aide_db_temp_path: $::cis_benchmark::params::aide_db_temp_path,
 ) inherits ::cis_benchmark::params {
+    class { 'cis_benchmark::trusty64::autofsconf': } ->
+    class { 'cis_benchmark::trusty64::banner': } ->
+    class { 'cis_benchmark::trusty64::boot_settings': } ->
+    class { 'cis_benchmark::trusty64::cron': } ->
+    class { 'cis_benchmark::trusty64::dependencies': } ->
+    class { 'cis_benchmark::trusty64::filesystem_dependency': } ->
+    class { 'cis_benchmark::trusty64::filesystem': } ->
+    class { 'cis::trusty64::logging::auditd_rules': } ->
+    class { 'cis::trusty64::logging::rsyslog': } ->
+    class { 'cis::trusty64::logging::syslog_ng': } ->
+    class { 'cis::trusty64::logging::logging': } ->
+    class { 'cis::trusty64::logging': } ->
+    class { 'cis::trusty64::process_hardening': } ->
+    class { 'cis::trusty64::process_hardening': } ->
+    class { 'cis::trusty64::ssh': } ->
+    class { 'cis::trusty64::system_permissions': } ->
+    class { 'cis::trusty64::user_accounts': } ->
+    class { 'cis::trusty64::user_settings': } ->
+    class { 'cis::trusty64::aide::config': } ->
+    class { 'cis::trusty64::aide::cron': } ->
+    class { 'cis::trusty64::aide': } ->
+    class { 'cis::trusty64::aide::firstrun': } ->
+    class { 'cis::trusty64::aide::install': } ->
+    class { 'cis::trusty64::aide::rule': } ->
+    class { 'cis::trusty64::aide::watch': } ->
+    class { 'cis::trusty64::logging::auditd_rules': } ->
+    class { 'cis::trusty64::logging::rsyslog': } ->
+    class { 'cis::trusty64::logging::syslog_ng': } ->
+    class { 'cis::trusty64::services::inetd': } ->
+    class { 'cis::trusty64::services': } ->
     Class['cis_benchmark']
 }

@@ -5,7 +5,8 @@
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-define cis::trusty::aide::watch ( $path = $name,
+define cis::trusty::aide::watch (
+  $path = $name,
   $type  = 'regular',
   $rules = undef,
   $order = 50

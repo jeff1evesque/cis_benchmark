@@ -6,11 +6,6 @@
 ##
 
 class cis::trusty64::logging {
-  ## include
-  include cis::trusty64::logging::auditd_rules
-  include cis::trusty64::logging::rsyslog
-  include cis::trusty64::logging::syslog_ng
-
   ## local variables
   $log_dir  = '/var/log'
   $log_perm = '640'
