@@ -126,6 +126,21 @@ class cis_benchmark (
     $6_2_18: $::cis_benchmark::params::6_2_18,
     $6_2_19: $::cis_benchmark::params::6_2_19,
     $6_2_20: $::cis_benchmark::params::6_2_20,
+    $grub_user: $::cis_benchmark::params::grub_user,
+    $grub_password: $::cis_benchmark::params::grub_password,
+    $root_password: $::cis_benchmark::params::root_password,
+    $paths: $::cis_benchmark::params::paths,
+    $exec_path: $::cis_benchmark::params::exec_path,
+    $report_path: $::cis_benchmark::params::report_path,
+    $suid: $::cis_benchmark::params::suid,
+    $sgid: $::cis_benchmark::params::sgid,
+    $wheel_users: $::cis_benchmark::params::wheel_users,
+    $aide_config: $::cis_benchmark::params::aide_config,
+    $aide_path: $::cis_benchmark::params::aide_path,
+    $aide_cron_hour: $::cis_benchmark::params::aide_cron_hour,
+    $aide_cron_minute: $::cis_benchmark::params::aide_cron_minute,
+    $aide_db_path: $::cis_benchmark::params::aide_db_path,
+    $aide_db_temp_path: $::cis_benchmark::params::aide_db_temp_path,
 ) inherits ::cis_benchmark::params {
     Class['cis_benchmark']
 }

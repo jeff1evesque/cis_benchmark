@@ -2,17 +2,22 @@
 ### params.pp: default class parameters.
 ###
 class cis_benchmark::params {
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $stig       = $hiera_node['stig']
+    ## local variables: conditionally load hiera
+    ##
+    ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
+    ##       corresponding yaml key, implements underscores instead of '.' for
+    ##       nodes certificate name.
+    ##
+    $hiera_node = lookup([
+        regsubst($trusted['certname'], '\.', '_', 'G'),
+        'trusty64'
+    ])
+    $stig      = $hiera_node['stig']
+    $account   = $hiera_node['account']
+    $report    = $hiera_node['report']
+    $suid      = $hiera_node['suid']
+    $sgid      = $hiera_node['sgid']
+    $wheel     = $hiera_node['wheel']
 
     if $hiera {
         $1_1_1_1: $stig['1_1_1_1']
@@ -139,6 +144,22 @@ class cis_benchmark::params {
         $6_2_18: $stig['6_2_18']
         $6_2_19: $stig['6_2_19']
         $6_2_20: $stig['6_2_20']
+        $grub_user: $account['grub2']['user']
+        $grub_password: $account['grub2']['password']
+        $root_password: $account['account']['root']['password']
+        $paths: $report['stig']['paths']
+        $exec_path: $report['stig']['exec_path']
+        $report_path: $report['stig']['report_path']
+        $paths: $report['stig']['paths']
+        $suid: $suid
+        $sgid: $sgid
+        $wheel_users: $wheel['users']
+        $aide_config: $aide['config_path']
+        $aide_path: $aide['aide_path']
+        $aide_cron_hour: $aide['aide_cron_hour']
+        $aide_cron_minute: $aide['aide_cron_minute']
+        $aide_db_path: $aide['aide_db_path']
+        $aide_db_temp_path: $aide['aide_db_temp_path']
     }
 
     else {
@@ -266,5 +287,64 @@ class cis_benchmark::params {
         $6_2_18: true
         $6_2_19: true
         $6_2_20: true
+        $grub_user: 'root'
+        $grub_password: 'grub.pbkdf2.sha512.10000.F2FD2EE0B11137C1AA614B4610E038E67D925E6AFF3987BB0B9BAC5E0E231B835D1B33FC0999226EEEEBBA7A8308CD4B34EA1AB3B82CD53A1D2AE94BE1D494C3.2CECD078C459898879E2B733A6939E1FE64BEAEFB5C096BD6F1F54D7E0C7F6F2B571CF033876BF5721377735CF1E9044048590CE56ECFFC6F8191980BF908031'
+        $root_password: 'password'
+        $paths: [
+            '/root/cis',
+            '/root/cis/trusty64',
+            '/root/cis/trusty64/exec',
+            '/root/cis/trusty64/report',
+        ]
+        $exec_path: '/root/cis/trusty64/exec'
+        $report_path: '/root/cis/trusty64/report'
+        $valid_suid: [
+            '/usr/bin/at',
+            '/usr/bin/gpasswd',
+            '/usr/bin/chsh',
+            '/usr/bin/traceroute6.iputils',
+            '/usr/bin/chfn',
+            '/usr/bin/pkexec',
+            '/usr/bin/mtr',
+            '/usr/bin/passwd',
+            '/usr/bin/sudo',
+            '/usr/bin/newgrp',
+            '/usr/sbin/pppd',
+            '/usr/sbin/uuidd',
+            '/usr/lib/policykit-1/polkit-agent-helper-1',
+            '/usr/lib/eject/dmcrypt-get-device',
+            '/usr/lib/openssh/ssh-keysign',
+            '/usr/lib/dbus-1.0/dbus-daemon-launch-helper',
+            '/bin/ping',
+            '/bin/fusermount',
+            '/bin/umount',
+            '/bin/su',
+            '/bin/mount',
+            '/bin/ping6',
+        ]
+        $valid_sgid: [
+            '/usr/bin/at',
+            '/usr/bin/chage',
+            '/usr/bin/dotlockfile',
+            '/usr/bin/ssh-agent',
+            '/usr/bin/mail-touchlock',
+            '/usr/bin/mail-unlock',
+            '/usr/bin/mail-lock',
+            '/usr/bin/mlocate',
+            '/usr/bin/expiry',
+            '/usr/bin/screen',
+            '/usr/bin/wall',
+            '/usr/bin/crontab',
+            '/usr/bin/bsd-write',
+            '/usr/sbin/uuidd',
+            '/sbin/unix_chkpwd',
+        ]
+        $wheel_users: ['root']
+        $aide_config: '/etc/aide/aide.conf'
+        $aide_path: '/usr/bin/aide'
+        $aide_cron_hour: 5
+        $aide_cron_minute: 0
+        $aide_db_path: '/var/lib/aide/aide.db.gz'
+        $aide_db_temp_path: '/var/lib/aide/aide.db.new'
     }
 }

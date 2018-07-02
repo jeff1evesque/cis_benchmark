@@ -6,36 +6,24 @@
 ##
 
 class cis::trusty64::ssh {
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $stig       = $hiera_node['stig']
-
   ## local variables: stig items
-  $cis_5_2_1  = $stig['cis_5_2_1']
-  $cis_5_2_2  = $stig['cis_5_2_2']
-  $cis_5_2_3  = $stig['cis_5_2_3']
-  $cis_5_2_4  = $stig['cis_5_2_4']
-  $cis_5_2_5  = $stig['cis_5_2_5']
-  $cis_5_2_6  = $stig['cis_5_2_6']
-  $cis_5_2_7  = $stig['cis_5_2_7']
-  $cis_5_2_8  = $stig['cis_5_2_8']
-  $cis_5_2_9  = $stig['cis_5_2_9']
-  $cis_5_2_10 = $stig['cis_5_2_10']
-  $cis_5_2_11 = $stig['cis_5_2_11']
-  $cis_5_2_12 = $stig['cis_5_2_12']
-  $cis_5_2_13 = $stig['cis_5_2_13']
+  $5_2_1    = $::cis_benchmark::5_2_1
+  $5_2_2    = $::cis_benchmark::5_2_2
+  $5_2_3    = $::cis_benchmark::5_2_3
+  $5_2_4    = $::cis_benchmark::5_2_4
+  $5_2_5    = $::cis_benchmark::5_2_5
+  $5_2_6    = $::cis_benchmark::5_2_6
+  $5_2_7    = $::cis_benchmark::5_2_7
+  $5_2_8    = $::cis_benchmark::5_2_8
+  $5_2_9    = $::cis_benchmark::5_2_9
+  $5_2_10   = $::cis_benchmark::5_2_10
+  $5_2_11   = $::cis_benchmark::5_2_11
+  $5_2_12   = $::cis_benchmark::5_2_12
+  $5_2_13   = $::cis_benchmark::5_2_13
 
   ## ensure openssh-server
   package { 'openssh-server':
-    ensure => 'installed',
+    ensure  => 'installed',
   }
   service { 'ssh':
     ensure  => true,
@@ -61,7 +49,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.1 Ensure permissions on /etc/ssh/sshd_config are configured
-  if ($cis_5_2_1) {
+  if ($5_2_1) {
     file { '/etc/ssh/sshd_config':
       ensure  => present,
       mode    => '0600',
@@ -82,7 +70,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.3 Ensure SSH LogLevel is set to INFO (Scored)
-  if ($cis_5_2_3) {
+  if ($5_2_3) {
     file_line { 'cis_5_2_3':
       path  => '/etc/ssh/sshd_config',
       line  => 'LogLevel INFO',
@@ -91,7 +79,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.4 Ensure SSH X11 forwarding is disabled (Scored)
-  if ($cis_5_2_4) {
+  if ($5_2_4) {
     file_line { 'cis_5_2_4':
       path  => '/etc/ssh/sshd_config',
       line  => 'X11Forwarding no',
@@ -100,7 +88,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.5 Ensure SSH MaxAuthTries is set to 4 or less (Scored)
-  if ($cis_5_2_5) {
+  if ($5_2_5) {
     file_line { 'cis_5_2_5':
       path  => '/etc/ssh/sshd_config',
       line  => 'MaxAuthTries 4',
@@ -109,7 +97,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.6 Ensure SSH IgnoreRhosts is enabled (Scored)
-  if ($cis_5_2_6) {
+  if ($5_2_6) {
     file_line { 'cis_5_2_6':
       path  => '/etc/ssh/sshd_config',
       line  => 'IgnoreRhosts yes',
@@ -118,7 +106,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.7 Ensure SSH HostbasedAuthentication is disabled (Scored)
-  if ($cis_5_2_7) {
+  if ($5_2_7) {
     file_line { 'cis_5_2_7':
       path  => '/etc/ssh/sshd_config',
       line  => 'HostbasedAuthentication no',
@@ -127,7 +115,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.8 Ensure SSH root login is disabled (Scored)
-  if ($cis_5_2_8) {
+  if ($5_2_8) {
     file_line { 'cis_5_2_8':
       path  => '/etc/ssh/sshd_config',
       line  => 'PermitRootLogin no',
@@ -136,7 +124,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.9 Ensure SSH PermitEmptyPasswords is disabled (Scored)
-  if ($cis_5_2_9) {
+  if ($5_2_9) {
     file_line { 'cis_5_2_9':
       path  => '/etc/ssh/sshd_config',
       line  => 'PermitEmptyPasswords no',
@@ -145,7 +133,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.10 Ensure SSH PermitUserEnvironment is disabled (Scored)
-  if ($cis_5_2_10) {
+  if ($5_2_10) {
     file_line { 'cis_5_2_10':
       path  => '/etc/ssh/sshd_config',
       line  => 'PermitUserEnvironment no',
@@ -154,7 +142,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.11 Ensure only approved MAC algorithms are used (Scored)
-  if ($cis_5_2_11) {
+  if ($5_2_11) {
     file_line { 'cis_5_2_11':
       path  => '/etc/ssh/sshd_config',
       line  => 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com',
@@ -163,7 +151,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.12 Ensure SSH Idle Timeout Interval is configured (Scored)
-  if ($cis_5_2_12) {
+  if ($5_2_12) {
     file_line { 'cis_5_2_12_ClientAliveInterval':
       path  => '/etc/ssh/sshd_config',
       line  => 'ClientAliveInterval 300',
@@ -177,7 +165,7 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.13 Ensure SSH LoginGraceTime is set to one minute or less (Scored)
-  if ($cis_5_2_13) {
+  if ($5_2_13) {
     file_line { 'cis_5_2_13':
       path  => '/etc/ssh/sshd_config',
       line  => 'LoginGraceTime 60',

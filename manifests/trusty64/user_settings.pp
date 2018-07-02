@@ -8,44 +8,33 @@
 class cis::trusty64::user_settings {
   include cis::trusty64::dependencies
 
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node    = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $stig          = $hiera_node['stig']
-  $exec_path     = $hiera_node['report']['stig']['exec_path']
-  $report_path   = $hiera_node['report']['stig']['report_path']
-
   ## local variables: stig items
-  $cis_6_2_1     = $stig['cis_6_2_1']
-  $cis_6_2_2     = $stig['cis_6_2_2']
-  $cis_6_2_3     = $stig['cis_6_2_3']
-  $cis_6_2_4     = $stig['cis_6_2_4']
-  $cis_6_2_5     = $stig['cis_6_2_5']
-  $cis_6_2_6     = $stig['cis_6_2_6']
-  $cis_6_2_7     = $stig['cis_6_2_7']
-  $cis_6_2_8     = $stig['cis_6_2_8']
-  $cis_6_2_9     = $stig['cis_6_2_9']
-  $cis_6_2_10    = $stig['cis_6_2_10']
-  $cis_6_2_11    = $stig['cis_6_2_11']
-  $cis_6_2_12    = $stig['cis_6_2_12']
-  $cis_6_2_13    = $stig['cis_6_2_13']
-  $cis_6_2_14    = $stig['cis_6_2_14']
-  $cis_6_2_15    = $stig['cis_6_2_15']
-  $cis_6_2_16    = $stig['cis_6_2_16']
-  $cis_6_2_17    = $stig['cis_6_2_17']
-  $cis_6_2_18    = $stig['cis_6_2_18']
-  $cis_6_2_19    = $stig['cis_6_2_19']
-  $cis_6_2_20    = $stig['cis_6_2_20']
+  $exec_path     = $::cis_benchmark::exec_path
+  $report_path   = $::cis_benchmark::report_path
+
+  $cis_6_2_1     = $::cis_benchmark::6_2_1
+  $cis_6_2_2     = $::cis_benchmark::6_2_2
+  $cis_6_2_3     = $::cis_benchmark::6_2_3
+  $cis_6_2_4     = $::cis_benchmark::6_2_4
+  $cis_6_2_5     = $::cis_benchmark::6_2_5
+  $cis_6_2_6     = $::cis_benchmark::6_2_6
+  $cis_6_2_7     = $::cis_benchmark::6_2_7
+  $cis_6_2_8     = $::cis_benchmark::6_2_8
+  $cis_6_2_9     = $::cis_benchmark::6_2_9
+  $cis_6_2_10    = $::cis_benchmark::6_2_10
+  $cis_6_2_11    = $::cis_benchmark::6_2_11
+  $cis_6_2_12    = $::cis_benchmark::6_2_12
+  $cis_6_2_13    = $::cis_benchmark::6_2_13
+  $cis_6_2_14    = $::cis_benchmark::6_2_14
+  $cis_6_2_15    = $::cis_benchmark::6_2_15
+  $cis_6_2_16    = $::cis_benchmark::6_2_16
+  $cis_6_2_17    = $::cis_benchmark::6_2_17
+  $cis_6_2_18    = $::cis_benchmark::6_2_18
+  $cis_6_2_19    = $::cis_benchmark::6_2_19
+  $cis_6_2_20    = $::cis_benchmark::6_2_20
 
   ## 6.2.1 Ensure password fields are not empty (Scored)
-  if ($cis_6_2_1) {
+  if ($6_2_1) {
     file { 'file-cis-6-2-1':
         path     => "${exec_path}/nonempty-password",
         content  => dos2unix(template('cis/trusty64/bash/nonempty-password.erb')),
@@ -67,7 +56,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.2 Ensure no legacy "+" entries exist in /etc/passwd (Scored)
-  if ($cis_6_2_2) {
+  if ($6_2_2) {
     file_line { 'remove-legacy-passwd-entries':
         ensure            => absent,
         path              => '/etc/passwd',
@@ -79,7 +68,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.3 Ensure no legacy "+" entries exist in /etc/shadow (Scored)
-  if ($cis_6_2_3) {
+  if ($6_2_3) {
     file_line { 'remove-legacy-shadow-entries':
         ensure            => absent,
         path              => '/etc/shadow',
@@ -91,7 +80,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.4 Ensure no legacy "+" entries exist in /etc/group (Scored)
-  if ($cis_6_2_4) {
+  if ($6_2_4) {
     file_line { 'remove-legacy-group-entries':
         ensure            => absent,
         path              => '/etc/group',
@@ -103,7 +92,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.5 Ensure root is the only UID 0 account (Scored)
-  if ($cis_6_2_5) {
+  if ($6_2_5) {
     file { 'file-cis-6-2-5':
         path     => "${exec_path}/superuser-privilege",
         content  => dos2unix(template('cis/trusty64/bash/superuser-privilege.erb')),
@@ -125,7 +114,7 @@ class cis::trusty64::user_settings {
   }
   
   ## 6.2.6 Ensure root PATH Integrity (Scored)
-  if ($cis_6_2_6) {
+  if ($6_2_6) {
     file { 'file-cis-6-2-6':
         path     => "${exec_path}/root-path-report",
         content  => dos2unix(template('cis/trusty64/bash/root-path-report.erb')),
@@ -156,7 +145,7 @@ class cis::trusty64::user_settings {
     ## 6.2.7 Ensure all users home directories exist (Scored)
     ## 6.2.8 Ensure users' home directories permissions are 750 or more restrictive (Scored)
     ## 6.2.9 Ensure users own their home directories (Scored)
-    if ($cis_6_2_8) and ($cis_6_2_9) {
+    if ($6_2_8) and ($6_2_9) {
         file { "/home/${user}":
             ensure  => directory,
             mode    => '0700',
@@ -164,20 +153,20 @@ class cis::trusty64::user_settings {
             group   => $user,
         }
     }
-    elsif ($cis_6_2_9) {
+    elsif ($6_2_9) {
         file { "/home/${user}":
             ensure  => directory,
             owner   => $user,
             group   => $user,
         }
     }
-    elsif ($cis_6_2_8) {
+    elsif ($6_2_8) {
         file { "/home/${user}":
             ensure  => directory,
             mode    => '0700',
         }
     }
-    elsif ($cis_6_2_7) {
+    elsif ($6_2_7) {
         file { "/home/${user}":
             ensure  => directory,
         }
@@ -185,7 +174,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.10 Ensure users dot files are not group or world writable (Scored)
-  if ($cis_6_2_10) {
+  if ($6_2_10) {
     file { 'file-cis-6-2-10':
         path     => "${exec_path}/dot-files",
         content  => dos2unix(template('cis/trusty64/bash/dot-files.erb')),
@@ -207,7 +196,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.11 Ensure no users have .forward files (Scored)
-  if ($cis_6_2_11) {
+  if ($6_2_11) {
     file { 'file-cis-6-2-11':
         path     => "${exec_path}/forward-files",
         content  => dos2unix(template('cis/trusty64/bash/forward-files.erb')),
@@ -226,7 +215,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.12 Ensure no users have .netrc files (Scored)
-  if ($cis_6_2_12) {
+  if ($6_2_12) {
     file { 'file-cis-6-2-12':
         path     => "${exec_path}/netrc-files",
         content  => dos2unix(template('cis/trusty64/bash/netrc-files.erb')),
@@ -245,7 +234,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.13 Ensure users .netrc Files are not group or world accessible (Scored)
-  if ($cis_6_2_13) {
+  if ($6_2_13) {
     file { 'file-cis-6-2-13':
         path     => "${exec_path}/netrc-files-permission",
         content  => dos2unix(template('cis/trusty64/bash/netrc-files-permission.erb')),
@@ -267,7 +256,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.14 Ensure no users have .rhosts files (Scored)
-  if ($cis_6_2_14) {
+  if ($6_2_14) {
     file { 'file-cis-6-2-14':
         path     => "${exec_path}/rhosts-files",
         content  => dos2unix(template('cis/trusty64/bash/rhosts-files.erb')),
@@ -286,7 +275,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.15 Ensure all groups in /etc/passwd exist in /etc/group (Scored)
-  if ($cis_6_2_15) {
+  if ($6_2_15) {
     group { 'restricted':
         ensure   => 'present',
     }
@@ -309,7 +298,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.16 Ensure no duplicate UIDs exist (Scored)
-  if ($cis_6_2_16) {
+  if ($6_2_16) {
     file { 'file-cis-6-2-16':
         path     => "${exec_path}/duplicate-uid-report",
         content  => dos2unix(template('cis/trusty64/bash/duplicate-uid-report.erb')),
@@ -328,7 +317,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.17 Ensure no duplicate GIDs exist (Scored)
-  if ($cis_6_2_17) {
+  if ($6_2_17) {
     file { 'file-cis-6-2-17':
         path     => "${exec_path}/duplicate-gid-report",
         content  => dos2unix(template('cis/trusty64/bash/duplicate-gid-report.erb')),
@@ -347,7 +336,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.18 Ensure no duplicate user names exist (Scored)
-  if ($cis_6_2_18) {
+  if ($6_2_18) {
     file { 'file-cis-6-2-18':
         path     => "${exec_path}/duplicate-username-report",
         content  => dos2unix(template('cis/trusty64/bash/duplicate-username-report.erb')),
@@ -366,7 +355,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.19 Ensure no duplicate group names exist (Scored)
-  if ($cis_6_2_19) {
+  if ($6_2_19) {
     file { 'file-cis-6-2-19':
         path     => "${exec_path}/duplicate-groupname-report",
         content  => dos2unix(template('cis/trusty64/bash/duplicate-groupname-report.erb')),
@@ -385,7 +374,7 @@ class cis::trusty64::user_settings {
   }
 
   ## 6.2.20 Ensure shadow group is empty (Scored)
-  if ($cis_6_2_20) {
+  if ($6_2_20) {
     file { 'file-cis-6-2-20':
         path     => "${exec_path}/remove-shadow-group",
         content  => dos2unix(template('cis/trusty64/bash/remove-shadow-group.erb')),

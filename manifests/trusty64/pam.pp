@@ -6,28 +6,16 @@
 ##
 
 class cis::trusty64::pam {
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $stig       = $hiera_node['stig']
-
   ## local variables: stig items
-  $cis_5_3_1  = $stig['cis_5_3_1']
-  $cis_5_3_2  = $stig['cis_5_3_2']
-  $cis_5_3_3  = $stig['cis_5_3_3']
-  $cis_5_3_4  = $stig['cis_5_3_4']
+  $5_3_1      = $::cis_benchmark::5_3_1
+  $5_3_2      = $::cis_benchmark::5_3_2
+  $5_3_3      = $::cis_benchmark::5_3_3
+  $5_3_4      = $::cis_benchmark::5_3_4
 
   ## CIS 5.3.1 Ensure password creation requirements are configured (Scored)
-  if ($cis_5_3_1) {
+  if ($5_3_1) {
     package { 'libpam-pwquality':
-      ensure => 'installed',
+      ensure  => 'installed',
     }
 
     ## enforce other pam related items

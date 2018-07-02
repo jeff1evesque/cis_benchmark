@@ -1,3 +1,4 @@
+##
 ## CIS Ubuntu 14.04 LTS Server Benchmark
 ## v2.0.0 - 09-30-2016
 ##
@@ -5,19 +6,8 @@
 ##
 
 class cis::trusty64::dependencies {
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $stig        = $hiera_node['stig']
-  $report      = $hiera_node['report']['stig']
-  $paths       = $report['paths']
+  ## local variables: stig items
+  $paths   = $::cis_benchmark::paths
 
   ## create reporting directory
   file { $paths:

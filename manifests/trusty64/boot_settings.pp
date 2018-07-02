@@ -6,29 +6,17 @@
 ##
 
 class cis::trusty64::boot_settings {
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node    = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $stig          = $hiera_node['stig']
-  $account       = hiera('account')
-  $grub_user     = $stig['grub2']['user']
-  $grub_password = $stig['grub2']['password']
-  $root_password = $stig['account']['root']['password']
-
   ## local variables: stig items
-  $cis_1_4_1     = $stig['cis_1_4_1']
-  $cis_1_4_2     = $stig['cis_1_4_2']
-  $cis_1_4_3     = $stig['cis_1_4_3']
+  $grub_user     = $::cis_benchmark::grub_user
+  $grub_password = $::cis_benchmark::grub_password
+  $root_password = $::cis_benchmark::root_password
+
+  $1_4_1         = $::cis_benchmark::1_4_1
+  $1_4_2         = $::cis_benchmark::1_4_2
+  $1_4_3         = $::cis_benchmark::1_4_3
 
   ## 1.4.1 Ensure permissions on bootloader config are configured (Scored)
-  if ($cis_1_4_1) {
+  if ($1_4_1) {
     file { 'file-cis-1-4-1':
         path     => '/boot/grub/grub.cfg',
         owner    => root,
@@ -46,7 +34,7 @@ class cis::trusty64::boot_settings {
   ##       Reenter password: <password>
   ##       Your PBKDF2 is <encrypted-password>
   ##
-  if ($cis_1_4_2) {
+  if ($1_4_2) {
     file { 'file-cis-1-4-2':
         content  => dos2unix(template('cis/trusty64/grub_bootloader.erb')),
         path     => '/etc/grub.d/50_bootloader',
@@ -58,7 +46,7 @@ class cis::trusty64::boot_settings {
   }
 
   ## 1.4.3 Ensure authentication required for single user mode (Scored)
-  if ($cis_1_4_3) {
+  if ($1_4_3) {
     user { root:
         ensure   => present,
         password => $root_password,

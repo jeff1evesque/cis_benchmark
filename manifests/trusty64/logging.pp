@@ -15,23 +15,11 @@ class cis::trusty64::logging {
   $log_dir  = '/var/log'
   $log_perm = '640'
 
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $stig       = $hiera_node['stig']
-
   ## local variables: stig items
-  $cis_4_2_4  = $stig['cis_4_2_4']
+  $4_2_4    = $::cis_benchmark::4_2_4
 
   ## CIS 4.2.4 Ensure permissions on all logfiles are configured (Scored)
-  if ($cis_4_2_4) {
+  if ($4_2_4) {
     exec { 'enforce-recursive-log-permission':
       command => "find ${log_dir} -type f -exec chmod ${log_perm} {} +",
       onlyif  => "find ${log_dir} -type f ! -perm ${log_perm} | grep -z .",

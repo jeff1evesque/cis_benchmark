@@ -8,30 +8,18 @@
 class cis::trusty64::process_hardening {
   include cis::trusty64::dependencies
 
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node       = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $exec_path        = $hiera_node['report']['stig']['exec_path']
-  $report_path      = $hiera_node['report']['stig']['report_path']
-  $stig             = $hiera_node['stig']
-  $report           = $hiera_node['report']['stig']
-  $paths            = $report['paths']
-
   ## local variables: stig items
-  $cis_1_5_1        = $stig['cis_1_5_1']
-  $cis_1_5_2        = $stig['cis_1_5_2']
-  $cis_1_5_3        = $stig['cis_1_5_3']
-  $cis_1_5_4        = $stig['cis_1_5_4']
+  $exec_path        = $::cis_benchmark::exec_path
+  $report_path      = $::cis_benchmark::report_path
+  $paths            = $::cis_benchmark::paths
+
+  $1_5_1            = $::cis_benchmark::1_5_1
+  $1_5_2            = $::cis_benchmark::1_5_2
+  $1_5_3            = $::cis_benchmark::1_5_3
+  $1_5_4            = $::cis_benchmark::1_5_4
 
   ## 1.5.1 Ensure core dumps are restricted (Scored)
-  if ($cis_1_5_1) {
+  if ($1_5_1) {
     file { 'file-cis-1-5-1-limits':
         content     => dos2unix(template('cis/trusty64/pam/core-dumps.conf.erb')),
         path        => '/etc/security/limits.d/core-dumps.conf',
@@ -49,7 +37,7 @@ class cis::trusty64::process_hardening {
   }
 
   ## 1.5.2 Ensure XD/NX support is enabled (Not Scored)
-  if ($cis_1_5_2) {
+  if ($1_5_2) {
     file { 'file-cis-1-5-2':
       content       => dos2unix(template('cis/trusty64/bash/xdnx-report.erb')),
       path          => "${exec_path}/xdnx-report",
@@ -70,7 +58,7 @@ class cis::trusty64::process_hardening {
   ##
   ## Note: the 'shell' provider allows the inline 'if' to be interpretted.
   ##
-  if ($cis_1_5_3) {
+  if ($1_5_3) {
     exec { 'exec-cis-1-5-3-active-kernel':
         command     => 'sysctl -w kernel.randomize_va_space=2',
         path        => '/sbin',
@@ -90,7 +78,7 @@ class cis::trusty64::process_hardening {
   }
 
   ## 1.5.4 Ensure prelink is disabled (Scored)
-  if ($cis_1_5_4) {
+  if ($1_5_4) {
     if ($facts['installed_prelink'] == 'true') {
         exec { 'exec-cis-1-5-4':
             command   => 'prelink -ua',

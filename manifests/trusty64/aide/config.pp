@@ -6,18 +6,7 @@
 ##
 
 class cis::trusty64::aide::config {
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node    = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $aide          = $hiera_node['aide']
-  $conf_path     = $aide['conf_path']
+  $conf_path     = $::cis_benchmark::aide_config
 
   concat { 'aide.conf':
     path         => $conf_path,

@@ -6,35 +6,22 @@
 ##
 
 class cis::trusty64::banner {
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node    = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $stig          = $hiera_node['stig']
-  $account       = hiera('account')
-  $grub_user     = $stig['grub2']['user']
-  $grub_password = $stig['grub2']['password']
-  $root_password = $stig['account']['root']['password']
-
   ## local variables: stig items
-  $cis_1_7_1_1     = $stig['cis_1_7_1_1']
-  $cis_1_7_1_2     = $stig['cis_1_7_1_2']
-  $cis_1_7_1_3     = $stig['cis_1_7_1_3']
-  $cis_1_7_1_4     = $stig['cis_1_7_1_4']
-  $cis_1_7_1_5     = $stig['cis_1_7_1_5']
-  $cis_1_7_1_6     = $stig['cis_1_7_1_6']
-  $cis_1_7_2       = $stig['cis_1_7_2']
-  $cis_1_8         = $stig['cis_1_8']
+  $1_7_1_1       = $::cis_benchmark::1_1_21
+  $1_7_1_2       = $::cis_benchmark::1_7_1_2
+  $1_7_1_3       = $::cis_benchmark::1_7_1_3
+  $1_7_1_4       = $::cis_benchmark::1_7_1_4
+  $1_7_1_5       = $::cis_benchmark::1_7_1_5
+  $1_7_1_6       = $::cis_benchmark::1_7_1_6
+  $1_7_2         = $::cis_benchmark::1_7_2
+  $1_8           = $::cis_benchmark::1_8
+  $grub_user     = $::cis_benchmark::grub_user
+  $grub_password = $::cis_benchmark::grub_password
+  $root_password = $::cis_benchmark::root_password
 
   ## 1.7.1.1 Ensure message of the day is configured properly (Scored)
   ## 1.7.1.4 Ensure permissions on /etc/motd are configured (Not Scored)
-  if ($cis_1_7_1_1 and $cis_1_7_1_4) {
+  if ($1_7_1_1 and $1_7_1_4) {
     file { '/etc/motd':
       ensure  => present,
       mode    => '0444',
@@ -43,13 +30,13 @@ class cis::trusty64::banner {
       content => dos2unix(template('cis/trusty64/motd.erb')),
     }
   }
-  elsif ($cis_1_7_1_1) {
+  elsif (1_7_1_1) {
     file { '/etc/motd':
       ensure  => present,
       content => dos2unix(template('cis/trusty64/motd.erb')),
     }
   }
-  elsif ($cis_1_7_1_4) {
+  elsif (1_7_1_4) {
     file { '/etc/motd':
       ensure  => present,
       mode    => '0444',
@@ -60,7 +47,7 @@ class cis::trusty64::banner {
 
   ## 1.7.1.2 Ensure local login warning banner is configured properly (Not Scored)
   ## 1.7.1.5 Ensure permissions on /etc/issue are configured (Scored)
-  if ($cis_1_7_1_2 and $cis_1_7_1_5) {
+  if ($1_7_1_2 and $1_7_1_5) {
     file { '/etc/issue':
       ensure  => present,
       mode    => '0444',
@@ -69,13 +56,13 @@ class cis::trusty64::banner {
       content => dos2unix(template('cis/trusty64/issues.erb')),
     }
   }
-  elsif ($cis_1_7_1_2) {
+  elsif ($1_7_1_2) {
     file { '/etc/issue':
       ensure  => present,
       content => dos2unix(template('cis/trusty64/issues.erb')),
     }
   }
-  elsif ($cis_1_7_1_5) {
+  elsif ($1_7_1_5) {
     file { '/etc/issue':
       ensure  => present,
       mode    => '0444',
@@ -86,7 +73,7 @@ class cis::trusty64::banner {
 
   ## 1.7.1.3 Ensure remote login warning banner is configured properly (Not Scored)
   ## 1.7.1.6 Ensure permissions on /etc/issue.net are configured (Not Scored)
-  if ($cis_1_7_1_3 and $cis_1_7_1_6) {
+  if ($1_7_1_3 and $1_7_1_6) {
     file { '/etc/issue.net':
       ensure  => present,
       mode    => '0444',
@@ -95,13 +82,13 @@ class cis::trusty64::banner {
       content => dos2unix(template('cis/trusty64/issues.erb')),
     }
   }
-  elsif ($cis_1_7_1_3) {
+  elsif ($1_7_1_3) {
     file { '/etc/issue.net':
       ensure  => present,
       content => dos2unix(template('cis/trusty64/issues.erb')),
     }
   }
-  elsif ($cis_1_7_1_6) {
+  elsif ($1_7_1_6) {
     file { '/etc/issue.net':
       ensure  => present,
       mode    => '0444',
