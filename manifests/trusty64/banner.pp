@@ -6,6 +6,11 @@
 ##
 
 class cis::trusty64::banner {
+  ## local variables
+  $grub_user     = $::cis_benchmark::grub_user
+  $grub_password = $::cis_benchmark::grub_password
+  $root_password = $::cis_benchmark::root_password
+
   ## local variables: stig items
   $1_7_1_1       = $::cis_benchmark::1_1_21
   $1_7_1_2       = $::cis_benchmark::1_7_1_2
@@ -15,9 +20,6 @@ class cis::trusty64::banner {
   $1_7_1_6       = $::cis_benchmark::1_7_1_6
   $1_7_2         = $::cis_benchmark::1_7_2
   $1_8           = $::cis_benchmark::1_8
-  $grub_user     = $::cis_benchmark::grub_user
-  $grub_password = $::cis_benchmark::grub_password
-  $root_password = $::cis_benchmark::root_password
 
   ## 1.7.1.1 Ensure message of the day is configured properly (Scored)
   ## 1.7.1.4 Ensure permissions on /etc/motd are configured (Not Scored)

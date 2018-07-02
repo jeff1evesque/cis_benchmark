@@ -6,11 +6,12 @@
 ##
 
 class cis::trusty64::aide::cron {
-  ## local variables: stig items
+  ## local variables
   $path         = $::cis_benchmark::aide_path
   $hour         = $::cis_benchmark::aide_cron_hour
   $minute       = $::cis_benchmark::aide_cron_minute
 
+  ## local variables: stig items
   $1_3_2        = $::cis_benchmark::1_3_2
 
   ## 1.3.2 Ensure filesystem integrity is regularly checked (Scored)

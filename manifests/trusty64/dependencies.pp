@@ -6,7 +6,7 @@
 ##
 
 class cis::trusty64::dependencies {
-  ## local variables: stig items
+  ## local variables
   $paths   = $::cis_benchmark::paths
 
   ## create reporting directory

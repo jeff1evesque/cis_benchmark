@@ -8,13 +8,14 @@
 class cis::trusty64::system_permissions {
   include cis::trusty64::dependencies
 
-  ## local variables: stig items
+  ## local variables
   $exec_path     = $::cis_benchmark::exec_path
   $report_path   = $::cis_benchmark::report_path
   $paths         = $::cis_benchmark::paths
   $valid_suid    = $::cis_benchmark::suid
   $valid_sgid    = $::cis_benchmark::sgid
 
+  ## local variables: stig items
   $6_1_1         = $::cis_benchmark::6_1_1
   $6_1_2         = $::cis_benchmark::6_1_2
   $6_1_3         = $::cis_benchmark::6_1_3

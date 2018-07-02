@@ -8,11 +8,12 @@
 class cis::trusty64::process_hardening {
   include cis::trusty64::dependencies
 
-  ## local variables: stig items
+  ## local variables
   $exec_path        = $::cis_benchmark::exec_path
   $report_path      = $::cis_benchmark::report_path
   $paths            = $::cis_benchmark::paths
 
+  ## local variables: stig items
   $1_5_1            = $::cis_benchmark::1_5_1
   $1_5_2            = $::cis_benchmark::1_5_2
   $1_5_3            = $::cis_benchmark::1_5_3

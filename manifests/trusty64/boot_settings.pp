@@ -6,11 +6,12 @@
 ##
 
 class cis::trusty64::boot_settings {
-  ## local variables: stig items
+  ## local variables
   $grub_user     = $::cis_benchmark::grub_user
   $grub_password = $::cis_benchmark::grub_password
   $root_password = $::cis_benchmark::root_password
 
+  ## local variables: stig items
   $1_4_1         = $::cis_benchmark::1_4_1
   $1_4_2         = $::cis_benchmark::1_4_2
   $1_4_3         = $::cis_benchmark::1_4_3

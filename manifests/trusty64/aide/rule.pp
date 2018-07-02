@@ -8,6 +8,7 @@
 define cis::trusty64::aide::rule ($rules) {
   include cis::trusty64::aide
 
+  ## local variables
   $_rules = any2array($rules)
 
   concat::fragment { $name:

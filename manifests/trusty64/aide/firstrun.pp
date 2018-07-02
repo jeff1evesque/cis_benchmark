@@ -6,6 +6,7 @@
 ##
 
 class cis::trusty64::aide::firstrun {
+  ## local variables
   $aide_path     = $::cis_benchmark::aide_path
   $conf_path     = $::cis_benchmark::aide_config
   $db_path       = $::cis_benchmark::aide_db_path

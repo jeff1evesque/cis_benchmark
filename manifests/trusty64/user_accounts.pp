@@ -6,10 +6,11 @@
 ##
 
 class cis::trusty64::user_accounts {
-  ## local variables: stig items
+  ## local variables
   $wheel_users     = $hiera_node['wheel']['users']
   $flattened_users = slice($wheel_users, 1).join(',')
 
+  ## local variables: stig items
   $5_4_1_1         = $::cis_benchmark::5_4_1_1
   $5_4_1_2         = $::cis_benchmark::5_4_1_2
   $5_4_1_3         = $::cis_benchmark::5_4_1_3

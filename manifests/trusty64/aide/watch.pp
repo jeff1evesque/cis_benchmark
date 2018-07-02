@@ -12,6 +12,7 @@ define cis::trusty::aide::watch ( $path = $name,
 ) {
   include cis::trusty64::aide
 
+  ## local variables
   $_rules = any2array($rules)
   $_type = downcase($type)
 

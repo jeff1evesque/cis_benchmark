@@ -8,10 +8,11 @@
 class cis::trusty64::user_settings {
   include cis::trusty64::dependencies
 
-  ## local variables: stig items
+  ## local variables
   $exec_path     = $::cis_benchmark::exec_path
   $report_path   = $::cis_benchmark::report_path
 
+  ## local variables: stig items
   $cis_6_2_1     = $::cis_benchmark::6_2_1
   $cis_6_2_2     = $::cis_benchmark::6_2_2
   $cis_6_2_3     = $::cis_benchmark::6_2_3

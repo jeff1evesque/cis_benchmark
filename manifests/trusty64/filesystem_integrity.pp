@@ -8,9 +8,11 @@
 class cis::trusty64::filesystem_integrity {
   include cis::trusty64::dependencies
 
-  ## local variables: stig items
+  ## local variables
   $exec_path   = $::cis_benchmark::exec_path
   $report_path = $::cis_benchmark::report_path
+
+  ## local variables: stig items
   $1_3_1       = $::cis_benchmark::1_3_1
 
   ## 1.3.1 Ensure AIDE is installed (Scored)
