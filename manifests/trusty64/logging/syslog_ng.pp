@@ -13,51 +13,51 @@ class cis::trusty64::logging::syslog_ng {
   $centralized_log_host = 'loghost.example.com'
 
   ## local variables: stig items
-  $4_2_2_1              = $::cis_benchmark::4_2_2_1
-  $4_2_2_2              = $::cis_benchmark::4_2_2_2
-  $4_2_2_3              = $::cis_benchmark::4_2_2_3
-  $4_2_2_4              = $::cis_benchmark::4_2_2_4
-  $4_2_2_5              = $::cis_benchmark::4_2_2_5
+  $cis_4_2_2_1          = $::cis_benchmark::4_2_2_1
+  $cis_4_2_2_2          = $::cis_benchmark::4_2_2_2
+  $cis_4_2_2_3          = $::cis_benchmark::4_2_2_3
+  $cis_4_2_2_4          = $::cis_benchmark::4_2_2_4
+  $cis_4_2_2_5          = $::cis_benchmark::4_2_2_5
 
   ## CIS 4.2.2.1 Ensure syslog-ng service is enabled (Scored)
   if ($4_2_2_1) {
     ## should not have multiple loggers
     package { 'rsyslog':
-      ensure => absent,
-      before => Package['syslog-ng'],
+      ensure            => absent,
+      before            => Package['syslog-ng'],
     }
 
     ## ensure syslog-ng installed
     package { 'syslog-ng':
-      ensure => present,
-      before => [
+      ensure            => present,
+      before            => [
         File['/etc/syslog-ng/syslog-ng.conf'],
         File['/etc/syslog-ng/conf.d/custom-syslog-ng.conf'],
       ],
     }
 
     service { 'syslog-ng':
-      ensure  => true,
-      enable  => true,
-      require => Package['syslog-ng'],
+      ensure            => true,
+      enable            => true,
+      require           => Package['syslog-ng'],
     }
 
     file { '/etc/syslog-ng/syslog-ng.conf':
-      ensure  => present,
-      mode    => '0644',
-      owner   => 'root',
-      group   => 'root',
-      notify  => Service['syslog-ng'],
+      ensure            => present,
+      mode              => '0644',
+      owner             => 'root',
+      group             => 'root',
+      notify            => Service['syslog-ng'],
     }
 
     ## apply remaining cis stigs
     file { '/etc/syslog-ng/conf.d/custom-syslog-ng.conf':
-      ensure  => present,
-      mode    => '0644',
-      owner   => 'root',
-      group   => 'root',
-      content => dos2unix(template('cis/trusty64/syslog-ng/custom-syslog-ng.conf.erb')),
-      notify  => Service['syslog-ng'],
+      ensure            => present,
+      mode              => '0644',
+      owner             => 'root',
+      group             => 'root',
+      content           => dos2unix(template('cis/trusty64/syslog-ng/custom-syslog-ng.conf.erb')),
+      notify            => Service['syslog-ng'],
     }
   }
 }

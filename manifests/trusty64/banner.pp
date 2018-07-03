@@ -12,18 +12,18 @@ class cis::trusty64::banner {
   $root_password = $::cis_benchmark::root_password
 
   ## local variables: stig items
-  $1_7_1_1       = $::cis_benchmark::1_1_21
-  $1_7_1_2       = $::cis_benchmark::1_7_1_2
-  $1_7_1_3       = $::cis_benchmark::1_7_1_3
-  $1_7_1_4       = $::cis_benchmark::1_7_1_4
-  $1_7_1_5       = $::cis_benchmark::1_7_1_5
-  $1_7_1_6       = $::cis_benchmark::1_7_1_6
-  $1_7_2         = $::cis_benchmark::1_7_2
-  $1_8           = $::cis_benchmark::1_8
+  $cis_1_7_1_1   = $::cis_benchmark::1_1_21
+  $cis_1_7_1_2   = $::cis_benchmark::1_7_1_2
+  $cis_1_7_1_3   = $::cis_benchmark::1_7_1_3
+  $cis_1_7_1_4   = $::cis_benchmark::1_7_1_4
+  $cis_1_7_1_5   = $::cis_benchmark::1_7_1_5
+  $cis_1_7_1_6   = $::cis_benchmark::1_7_1_6
+  $cis_1_7_2     = $::cis_benchmark::1_7_2
+  $cis_1_8       = $::cis_benchmark::1_8
 
   ## 1.7.1.1 Ensure message of the day is configured properly (Scored)
   ## 1.7.1.4 Ensure permissions on /etc/motd are configured (Not Scored)
-  if ($1_7_1_1 and $1_7_1_4) {
+  if ($cis_1_7_1_1 and $cis_1_7_1_4) {
     file { '/etc/motd':
       ensure  => present,
       mode    => '0444',
@@ -32,13 +32,13 @@ class cis::trusty64::banner {
       content => dos2unix(template('cis/trusty64/motd.erb')),
     }
   }
-  elsif (1_7_1_1) {
+  elsif ($cis_1_7_1_1) {
     file { '/etc/motd':
       ensure  => present,
       content => dos2unix(template('cis/trusty64/motd.erb')),
     }
   }
-  elsif (1_7_1_4) {
+  elsif ($cis_1_7_1_4) {
     file { '/etc/motd':
       ensure  => present,
       mode    => '0444',
@@ -49,7 +49,7 @@ class cis::trusty64::banner {
 
   ## 1.7.1.2 Ensure local login warning banner is configured properly (Not Scored)
   ## 1.7.1.5 Ensure permissions on /etc/issue are configured (Scored)
-  if ($1_7_1_2 and $1_7_1_5) {
+  if ($cis_1_7_1_2 and $cis_1_7_1_5) {
     file { '/etc/issue':
       ensure  => present,
       mode    => '0444',
@@ -58,13 +58,13 @@ class cis::trusty64::banner {
       content => dos2unix(template('cis/trusty64/issues.erb')),
     }
   }
-  elsif ($1_7_1_2) {
+  elsif ($cis_1_7_1_2) {
     file { '/etc/issue':
       ensure  => present,
       content => dos2unix(template('cis/trusty64/issues.erb')),
     }
   }
-  elsif ($1_7_1_5) {
+  elsif ($cis_1_7_1_5) {
     file { '/etc/issue':
       ensure  => present,
       mode    => '0444',
@@ -75,7 +75,7 @@ class cis::trusty64::banner {
 
   ## 1.7.1.3 Ensure remote login warning banner is configured properly (Not Scored)
   ## 1.7.1.6 Ensure permissions on /etc/issue.net are configured (Not Scored)
-  if ($1_7_1_3 and $1_7_1_6) {
+  if ($cis_1_7_1_3 and $cis_1_7_1_6) {
     file { '/etc/issue.net':
       ensure  => present,
       mode    => '0444',
@@ -84,13 +84,13 @@ class cis::trusty64::banner {
       content => dos2unix(template('cis/trusty64/issues.erb')),
     }
   }
-  elsif ($1_7_1_3) {
+  elsif ($cis_1_7_1_3) {
     file { '/etc/issue.net':
       ensure  => present,
       content => dos2unix(template('cis/trusty64/issues.erb')),
     }
   }
-  elsif ($1_7_1_6) {
+  elsif ($cis_1_7_1_6) {
     file { '/etc/issue.net':
       ensure  => present,
       mode    => '0444',

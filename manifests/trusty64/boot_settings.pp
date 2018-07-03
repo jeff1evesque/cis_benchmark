@@ -12,12 +12,12 @@ class cis::trusty64::boot_settings {
   $root_password = $::cis_benchmark::root_password
 
   ## local variables: stig items
-  $1_4_1         = $::cis_benchmark::1_4_1
-  $1_4_2         = $::cis_benchmark::1_4_2
-  $1_4_3         = $::cis_benchmark::1_4_3
+  $cis_1_4_1     = $::cis_benchmark::1_4_1
+  $cis_1_4_2     = $::cis_benchmark::1_4_2
+  $cis_1_4_3     = $::cis_benchmark::1_4_3
 
   ## 1.4.1 Ensure permissions on bootloader config are configured (Scored)
-  if ($1_4_1) {
+  if ($cis_1_4_1) {
     file { 'file-cis-1-4-1':
         path     => '/boot/grub/grub.cfg',
         owner    => root,
@@ -35,7 +35,7 @@ class cis::trusty64::boot_settings {
   ##       Reenter password: <password>
   ##       Your PBKDF2 is <encrypted-password>
   ##
-  if ($1_4_2) {
+  if ($cis_1_4_2) {
     file { 'file-cis-1-4-2':
         content  => dos2unix(template('cis/trusty64/grub_bootloader.erb')),
         path     => '/etc/grub.d/50_bootloader',
@@ -47,7 +47,7 @@ class cis::trusty64::boot_settings {
   }
 
   ## 1.4.3 Ensure authentication required for single user mode (Scored)
-  if ($1_4_3) {
+  if ($cis_1_4_3) {
     user { root:
         ensure   => present,
         password => $root_password,

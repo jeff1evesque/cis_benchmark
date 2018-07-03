@@ -10,14 +10,14 @@ class cis::trusty64::logging::rsyslog {
   $centralized_log_host = 'loghost.example.com'
 
   ## local variables: stig items
-  $4_2_1_1              = $::cis_benchmark::4_2_1_1
-  $4_2_1_2              = $::cis_benchmark::4_2_1_2
-  $4_2_1_3              = $::cis_benchmark::4_2_1_3
-  $4_2_1_4              = $::cis_benchmark::4_2_1_4
-  $4_2_1_5              = $::cis_benchmark::4_2_1_5
+  $cis_4_2_1_1          = $::cis_benchmark::4_2_1_1
+  $cis_4_2_1_2          = $::cis_benchmark::4_2_1_2
+  $cis_4_2_1_3          = $::cis_benchmark::4_2_1_3
+  $cis_4_2_1_4          = $::cis_benchmark::4_2_1_4
+  $cis_4_2_1_5          = $::cis_benchmark::4_2_1_5
 
   ## CIS 4.2.1.1 Ensure logging is configured (Not Scored)
-  if ($4_2_1_1) {
+  if ($cis_4_2_1_1) {
     ## ensure rsyslog installed
     package { 'rsyslog':
       ensure            => 'present',
@@ -41,7 +41,7 @@ class cis::trusty64::logging::rsyslog {
   }
 
   ## CIS 4.2.1.3 Ensure rsyslog default file permissions configured (Scored)
-  if ($4_2_1_3) {
+  if ($cis_4_2_1_3) {
     file { '/etc/rsyslog.conf':
       ensure            => present,
       mode              => '0644',

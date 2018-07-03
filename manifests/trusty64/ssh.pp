@@ -7,28 +7,28 @@
 
 class cis::trusty64::ssh {
   ## local variables: stig items
-  $5_2_1    = $::cis_benchmark::5_2_1
-  $5_2_2    = $::cis_benchmark::5_2_2
-  $5_2_3    = $::cis_benchmark::5_2_3
-  $5_2_4    = $::cis_benchmark::5_2_4
-  $5_2_5    = $::cis_benchmark::5_2_5
-  $5_2_6    = $::cis_benchmark::5_2_6
-  $5_2_7    = $::cis_benchmark::5_2_7
-  $5_2_8    = $::cis_benchmark::5_2_8
-  $5_2_9    = $::cis_benchmark::5_2_9
-  $5_2_10   = $::cis_benchmark::5_2_10
-  $5_2_11   = $::cis_benchmark::5_2_11
-  $5_2_12   = $::cis_benchmark::5_2_12
-  $5_2_13   = $::cis_benchmark::5_2_13
+  $cis_5_2_1   = $::cis_benchmark::5_2_1
+  $cis_5_2_2   = $::cis_benchmark::5_2_2
+  $cis_5_2_3   = $::cis_benchmark::5_2_3
+  $cis_5_2_4   = $::cis_benchmark::5_2_4
+  $cis_5_2_5   = $::cis_benchmark::5_2_5
+  $cis_5_2_6   = $::cis_benchmark::5_2_6
+  $cis_5_2_7   = $::cis_benchmark::5_2_7
+  $cis_5_2_8   = $::cis_benchmark::5_2_8
+  $cis_5_2_9   = $::cis_benchmark::5_2_9
+  $cis_5_2_10  = $::cis_benchmark::5_2_10
+  $cis_5_2_11  = $::cis_benchmark::5_2_11
+  $cis_5_2_12  = $::cis_benchmark::5_2_12
+  $cis_5_2_13  = $::cis_benchmark::5_2_13
 
   ## ensure openssh-server
   package { 'openssh-server':
-    ensure  => 'installed',
+    ensure     => 'installed',
   }
   service { 'ssh':
-    ensure  => true,
-    enable  => true,
-    require => Package['openssh-server'],
+    ensure     => true,
+    enable     => true,
+    require    => Package['openssh-server'],
   }
 
   ## docstring for sshd_config
@@ -49,127 +49,127 @@ class cis::trusty64::ssh {
   }
 
   ## CIS 5.2.1 Ensure permissions on /etc/ssh/sshd_config are configured
-  if ($5_2_1) {
+  if ($cis_5_2_1) {
     file { '/etc/ssh/sshd_config':
-      ensure  => present,
-      mode    => '0600',
-      owner   => 'root',
-      group   => 'root',
-      notify  => Service['ssh'],
-      require => Package['openssh-server'],
+      ensure   => present,
+      mode     => '0600',
+      owner    => 'root',
+      group    => 'root',
+      notify   => Service['ssh'],
+      require  => Package['openssh-server'],
     }
   }
 
   ## CIS 5.2.2 Ensure SSH Protocol is set to 2 (Scored)
   if ($cis_5_2_2) {
     file_line { 'cis_5_2_2':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'Protocol 2',
-      match => '^Protocol[[:space:]]*(?!1\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'Protocol 2',
+      match    => '^Protocol[[:space:]]*(?!1\b)\S+$',
     }
   }
 
   ## CIS 5.2.3 Ensure SSH LogLevel is set to INFO (Scored)
-  if ($5_2_3) {
+  if ($cis_5_2_3) {
     file_line { 'cis_5_2_3':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'LogLevel INFO',
-      match => '^LOGLEVEL[[:space:]]*(?!INFO\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'LogLevel INFO',
+      match    => '^LOGLEVEL[[:space:]]*(?!INFO\b)\S+$',
     }
   }
 
   ## CIS 5.2.4 Ensure SSH X11 forwarding is disabled (Scored)
-  if ($5_2_4) {
+  if ($cis_5_2_4) {
     file_line { 'cis_5_2_4':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'X11Forwarding no',
-      match => '^X11Forwarding[[:space:]]*(?!no\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'X11Forwarding no',
+      match    => '^X11Forwarding[[:space:]]*(?!no\b)\S+$',
     }
   }
 
   ## CIS 5.2.5 Ensure SSH MaxAuthTries is set to 4 or less (Scored)
-  if ($5_2_5) {
+  if ($cis_5_2_5) {
     file_line { 'cis_5_2_5':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'MaxAuthTries 4',
-      match => '^MaxAuthTries[[:space:]]*(?!4\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'MaxAuthTries 4',
+      match    => '^MaxAuthTries[[:space:]]*(?!4\b)\S+$',
     }
   }
 
   ## CIS 5.2.6 Ensure SSH IgnoreRhosts is enabled (Scored)
-  if ($5_2_6) {
+  if ($cis_5_2_6) {
     file_line { 'cis_5_2_6':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'IgnoreRhosts yes',
-      match => '^IgnoreRhosts[[:space:]]*(?!yes\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'IgnoreRhosts yes',
+      match    => '^IgnoreRhosts[[:space:]]*(?!yes\b)\S+$',
     }
   }
 
   ## CIS 5.2.7 Ensure SSH HostbasedAuthentication is disabled (Scored)
-  if ($5_2_7) {
+  if ($cis_5_2_7) {
     file_line { 'cis_5_2_7':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'HostbasedAuthentication no',
-      match => '^HostbasedAuthentication[[:space:]]*(?!no\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'HostbasedAuthentication no',
+      match    => '^HostbasedAuthentication[[:space:]]*(?!no\b)\S+$',
     }
   }
 
   ## CIS 5.2.8 Ensure SSH root login is disabled (Scored)
-  if ($5_2_8) {
+  if ($cis_5_2_8) {
     file_line { 'cis_5_2_8':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'PermitRootLogin no',
-      match => '^PermitRootLogin[[:space:]]*(?!no\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'PermitRootLogin no',
+      match    => '^PermitRootLogin[[:space:]]*(?!no\b)\S+$',
     }
   }
 
   ## CIS 5.2.9 Ensure SSH PermitEmptyPasswords is disabled (Scored)
-  if ($5_2_9) {
+  if ($cis_5_2_9) {
     file_line { 'cis_5_2_9':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'PermitEmptyPasswords no',
-      match => '^PermitEmptyPasswords[[:space:]]*(?!no\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'PermitEmptyPasswords no',
+      match    => '^PermitEmptyPasswords[[:space:]]*(?!no\b)\S+$',
     }
   }
 
   ## CIS 5.2.10 Ensure SSH PermitUserEnvironment is disabled (Scored)
-  if ($5_2_10) {
+  if ($cis_5_2_10) {
     file_line { 'cis_5_2_10':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'PermitUserEnvironment no',
-      match => '^PermitUserEnvironment[[:space:]]*(?!no\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'PermitUserEnvironment no',
+      match    => '^PermitUserEnvironment[[:space:]]*(?!no\b)\S+$',
     }
   }
 
   ## CIS 5.2.11 Ensure only approved MAC algorithms are used (Scored)
-  if ($5_2_11) {
+  if ($cis_5_2_11) {
     file_line { 'cis_5_2_11':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com',
-      match => '^MACs[[:space:]]*((?!hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com).)*$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com',
+      match    => '^MACs[[:space:]]*((?!hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com).)*$',
     }
   }
 
   ## CIS 5.2.12 Ensure SSH Idle Timeout Interval is configured (Scored)
-  if ($5_2_12) {
+  if ($cis_5_2_12) {
     file_line { 'cis_5_2_12_ClientAliveInterval':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'ClientAliveInterval 300',
-      match => '^ClientAliveInterval[[:space:]]*(?!300\b)\S+',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'ClientAliveInterval 300',
+      match    => '^ClientAliveInterval[[:space:]]*(?!300\b)\S+',
     }
     file_line { 'cis_5_2_12_ClientAliveCountMax':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'ClientAliveCountMax 0',
-      match => '^ClientAliveCountMax[[:space:]]*(?!0\b)\S+$',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'ClientAliveCountMax 0',
+      match    => '^ClientAliveCountMax[[:space:]]*(?!0\b)\S+$',
     }
   }
 
   ## CIS 5.2.13 Ensure SSH LoginGraceTime is set to one minute or less (Scored)
-  if ($5_2_13) {
+  if ($cis_5_2_13) {
     file_line { 'cis_5_2_13':
-      path  => '/etc/ssh/sshd_config',
-      line  => 'LoginGraceTime 60',
-      match => '^LoginGraceTime[[:space:]]*(?!60\b)\S+',
+      path     => '/etc/ssh/sshd_config',
+      line     => 'LoginGraceTime 60',
+      match    => '^LoginGraceTime[[:space:]]*(?!60\b)\S+',
     }
   }
 }

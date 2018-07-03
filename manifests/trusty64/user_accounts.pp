@@ -11,18 +11,18 @@ class cis::trusty64::user_accounts {
   $flattened_users = slice($wheel_users, 1).join(',')
 
   ## local variables: stig items
-  $5_4_1_1         = $::cis_benchmark::5_4_1_1
-  $5_4_1_2         = $::cis_benchmark::5_4_1_2
-  $5_4_1_3         = $::cis_benchmark::5_4_1_3
-  $5_4_1_4         = $::cis_benchmark::5_4_1_4
-  $5_4_2           = $::cis_benchmark::5_4_2
-  $5_4_3           = $::cis_benchmark::5_4_3
-  $5_4_4           = $::cis_benchmark::5_4_4
-  $5_5             = $::cis_benchmark::5_5
-  $5_6             = $::cis_benchmark::5_6
+  $cis_5_4_1_1     = $::cis_benchmark::5_4_1_1
+  $cis_5_4_1_2     = $::cis_benchmark::5_4_1_2
+  $cis_5_4_1_3     = $::cis_benchmark::5_4_1_3
+  $cis_5_4_1_4     = $::cis_benchmark::5_4_1_4
+  $cis_5_4_2       = $::cis_benchmark::5_4_2
+  $cis_5_4_3       = $::cis_benchmark::5_4_3
+  $cis_5_4_4       = $::cis_benchmark::5_4_4
+  $cis_5_5         = $::cis_benchmark::5_5
+  $cis_5_6         = $::cis_benchmark::5_6
 
   ## 5.4.1.x Remaining stig items
-  if ($5_4_1_1) or ($5_4_1_2) or ($5_4_1_3) or ($5_4_1_4) {
+  if ($cis_5_4_1_1) or ($cis_5_4_1_2) or ($cis_5_4_1_3) or ($cis_5_4_1_4) {
     file { '/etc/login.defs':
       ensure       => present,
       mode         => '0644',
@@ -41,7 +41,7 @@ class cis::trusty64::user_accounts {
   }
 
   ## 5.4.2 Ensure system accounts are non-login (Scored)
-  if ($5_4_2) {
+  if ($cis_5_4_2) {
     file { 'file-cis-5-4-2':
         path       => '/root',
         content    => dos2unix(template('cis/trusty64/bash/usermod-nologin.erb')),
@@ -63,7 +63,7 @@ class cis::trusty64::user_accounts {
   }
 
   ## 5.4.3 Ensure default group for the root account is GID 0 (Scored)
-  if ($5_4_3) {
+  if ($cis_5_4_3) {
     group { 'root':
       ensure       => present,
       gid          => '0',
@@ -71,7 +71,7 @@ class cis::trusty64::user_accounts {
   }
 
   ## 5.4.4 Ensure default user umask is 027 or more restrictive (Scored)
-  if ($5_4_4) {
+  if ($cis_5_4_4) {
     file { '/etc/bash.bashrc':
       ensure       => present,
       mode         => '0644',
@@ -90,7 +90,7 @@ class cis::trusty64::user_accounts {
   }
 
   ## 5.5 Ensure root login is restricted to system console (Not Scored)
-  if ($5_5) {
+  if ($cis_5_5) {
     file { '/etc/securetty':
       ensure       => present,
       mode         => '0644',
@@ -104,7 +104,7 @@ class cis::trusty64::user_accounts {
   }
 
   ## 5.6 Ensure access to the su command is restricted (Scored)
-  if ($5_6) {
+  if ($cis_5_6) {
     file { '/etc/pam.d/su':
       ensure       => present,
       mode         => '0644',

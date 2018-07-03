@@ -7,14 +7,14 @@
 
 class cis::trusty64::cron {
   ## local variables: stig items
-  $5_1_1      = $::cis_benchmark::5_1_1
-  $5_1_2      = $::cis_benchmark::5_1_2
-  $5_1_3      = $::cis_benchmark::5_1_3
-  $5_1_4      = $::cis_benchmark::5_1_4
-  $5_1_5      = $::cis_benchmark::5_1_5
-  $5_1_6      = $::cis_benchmark::5_1_6
-  $5_1_7      = $::cis_benchmark::5_1_7
-  $5_1_8      = $::cis_benchmark::5_1_8
+  $cis_5_1_1  = $::cis_benchmark::5_1_1
+  $cis_5_1_2  = $::cis_benchmark::5_1_2
+  $cis_5_1_3  = $::cis_benchmark::5_1_3
+  $cis_5_1_4  = $::cis_benchmark::5_1_4
+  $cis_5_1_5  = $::cis_benchmark::5_1_5
+  $cis_5_1_6  = $::cis_benchmark::5_1_6
+  $cis_5_1_7  = $::cis_benchmark::5_1_7
+  $cis_5_1_8  = $::cis_benchmark::5_1_8
 
   ## ensure cron installed
   package { 'cron':
@@ -22,7 +22,7 @@ class cis::trusty64::cron {
   }
 
   ## 5.1.1 Ensure cron daemon is enabled (Scored)
-  if ($5_1_1) {
+  if ($cis_5_1_1) {
     ## ensure configuration
     file { '/etc/init/cron.conf':
       ensure  => present,
@@ -40,7 +40,7 @@ class cis::trusty64::cron {
   }
 
   ## 5.1.2 Ensure permissions on /etc/crontab are configured (Scored)
-  if ($5_1_2) {
+  if ($cis_5_1_2) {
     file { '/etc/crontab':
       ensure  => present,
       mode    => '0700',
@@ -51,7 +51,7 @@ class cis::trusty64::cron {
   }
 
   ## 5.1.3 Ensure permissions on /etc/cron.hourly are configured (Scored)
-  if ($5_1_3) {
+  if ($cis_5_1_3) {
     file { '/etc/cron.hourly':
       ensure  => directory,
       mode    => '0700',
@@ -61,7 +61,7 @@ class cis::trusty64::cron {
   }
 
   ## 5.1.4 Ensure permissions on /etc/cron.daily are configured (Scored)
-  if ($5_1_4) {
+  if ($cis_5_1_4) {
     file { '/etc/cron.daily':
       ensure  => directory,
       mode    => '0700',
@@ -71,7 +71,7 @@ class cis::trusty64::cron {
   }
 
   ## 5.1.5  Ensure permissions on /etc/cron.weekly are configured (Scored)
-  if ($5_1_5) {
+  if ($cis_5_1_5) {
     file { '/etc/cron.weekly':
       ensure  => directory,
       mode    => '0700',
@@ -81,7 +81,7 @@ class cis::trusty64::cron {
   }
 
   ## 5.1.6 Ensure permissions on /etc/cron.monthly are configured (Scored)
-  if ($5_1_6) {
+  if ($cis_5_1_6) {
     file { '/etc/cron.monthly':
       ensure  => directory,
       mode    => '0700',
@@ -91,7 +91,7 @@ class cis::trusty64::cron {
   }
 
   ## 5.1.7 Ensure permissions on /etc/cron.d are configured (Scored)
-  if ($5_1_7) {
+  if ($cis_5_1_7) {
     file { '/etc/cron.d':
       ensure  => directory,
       mode    => '0700',
@@ -101,7 +101,7 @@ class cis::trusty64::cron {
   }
 
   ## 5.1.8 Ensure at/cron is restricted to authorized users (Scored)
-  if ($5_1_8) {
+  if ($cis_5_1_8) {
     ## ensure absent
     file { '/etc/cron.deny':
       ensure  => absent,

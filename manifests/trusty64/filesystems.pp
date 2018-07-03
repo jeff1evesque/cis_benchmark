@@ -7,14 +7,14 @@
 
 class cis::trusty64::filesystems {
   ## local variables: stig items
-  $1_1_1_1       = $::cis_benchmark::1_1_1_1
-  $1_1_1_2       = $::cis_benchmark::1_1_1_2
-  $1_1_1_3       = $::cis_benchmark::1_1_1_3
-  $1_1_1_4       = $::cis_benchmark::1_1_1_4
-  $1_1_1_5       = $::cis_benchmark::1_1_1_5
-  $1_1_1_6       = $::cis_benchmark::1_1_1_6
-  $1_1_1_7       = $::cis_benchmark::1_1_1_7
-  $1_1_1_8       = $::cis_benchmark::1_1_1_8
+  $cis_1_1_1_1   = $::cis_benchmark::1_1_1_1
+  $cis_1_1_1_2   = $::cis_benchmark::1_1_1_2
+  $cis_1_1_1_3   = $::cis_benchmark::1_1_1_3
+  $cis_1_1_1_4   = $::cis_benchmark::1_1_1_4
+  $cis_1_1_1_5   = $::cis_benchmark::1_1_1_5
+  $cis_1_1_1_6   = $::cis_benchmark::1_1_1_6
+  $cis_1_1_1_7   = $::cis_benchmark::1_1_1_7
+  $cis_1_1_1_8   = $::cis_benchmark::1_1_1_8
 
   ## 1.1.1.1 Ensure mounting of cramfs filesystems is disabled (Scored)
   ## 1.1.1.2 Ensure mounting of freevxfs filesystems is disabled (Scored)
@@ -26,14 +26,14 @@ class cis::trusty64::filesystems {
   ## 1.1.1.8 Ensure mounting of FAT filesystems is disabled (Scored)
   ##
   if (
-      $1_1_1_1 or
-      $1_1_1_2 or
-      $1_1_1_3 or
-      $1_1_1_4 or
-      $1_1_1_5 or
-      $1_1_1_6 or
-      $1_1_1_7 or
-      $1_1_1_8
+      $cis_1_1_1_1 or
+      $cis_1_1_1_2 or
+      $cis_1_1_1_3 or
+      $cis_1_1_1_4 or
+      $cis_1_1_1_5 or
+      $cis_1_1_1_6 or
+      $cis_1_1_1_7 or
+      $cis_1_1_1_8
   ) {
     file { 'file-cis-1-1-1':
         content  => dos2unix(template('cis/trusty64/CIS.conf.erb')),

@@ -7,13 +7,13 @@
 
 class cis::trusty64::pam {
   ## local variables: stig items
-  $5_3_1      = $::cis_benchmark::5_3_1
-  $5_3_2      = $::cis_benchmark::5_3_2
-  $5_3_3      = $::cis_benchmark::5_3_3
-  $5_3_4      = $::cis_benchmark::5_3_4
+  $cis_5_3_1  = $::cis_benchmark::5_3_1
+  $cis_5_3_2  = $::cis_benchmark::5_3_2
+  $cis_5_3_3  = $::cis_benchmark::5_3_3
+  $cis_5_3_4  = $::cis_benchmark::5_3_4
 
   ## CIS 5.3.1 Ensure password creation requirements are configured (Scored)
-  if ($5_3_1) {
+  if ($cis_5_3_1) {
     package { 'libpam-pwquality':
       ensure  => 'installed',
     }

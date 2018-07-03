@@ -7,10 +7,10 @@
 
 class cis_benchmark::trusty64::autofsconf {
   ## local variables: stig items
-  $1_1_21      = $::cis_benchmark::1_1_21
+  $cis_1_1_21      = $::cis_benchmark::1_1_21
 
   ## 1.1.21 Disable Automounting (Scored)
-  if ($1_1_21 and $isfile_autofsconf) {
+  if ($cis_1_1_21 and $isfile_autofsconf) {
       comment_line { '1_1_21':
           ensure   => commented
           path     => '/etc/init/autofs.conf',

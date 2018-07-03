@@ -14,23 +14,23 @@ class cis::trusty64::system_permissions {
   $valid_sgid    = $::cis_benchmark::sgid
 
   ## local variables: stig items
-  $6_1_1         = $::cis_benchmark::6_1_1
-  $6_1_2         = $::cis_benchmark::6_1_2
-  $6_1_3         = $::cis_benchmark::6_1_3
-  $6_1_4         = $::cis_benchmark::6_1_4
-  $6_1_5         = $::cis_benchmark::6_1_5
-  $6_1_6         = $::cis_benchmark::6_1_6
-  $6_1_7         = $::cis_benchmark::6_1_7
-  $6_1_8         = $::cis_benchmark::6_1_8
-  $6_1_9         = $::cis_benchmark::6_1_9
-  $6_1_10        = $::cis_benchmark::6_1_10
-  $6_1_11        = $::cis_benchmark::6_1_11
-  $6_1_12        = $::cis_benchmark::6_1_12
-  $6_1_13        = $::cis_benchmark::6_1_13
-  $6_1_14        = $::cis_benchmark::6_1_14
+  $cis_6_1_1     = $::cis_benchmark::6_1_1
+  $cis_6_1_2     = $::cis_benchmark::6_1_2
+  $cis_6_1_3     = $::cis_benchmark::6_1_3
+  $cis_6_1_4     = $::cis_benchmark::6_1_4
+  $cis_6_1_5     = $::cis_benchmark::6_1_5
+  $cis_6_1_6     = $::cis_benchmark::6_1_6
+  $cis_6_1_7     = $::cis_benchmark::6_1_7
+  $cis_6_1_8     = $::cis_benchmark::6_1_8
+  $cis_6_1_9     = $::cis_benchmark::6_1_9
+  $cis_6_1_10    = $::cis_benchmark::6_1_10
+  $cis_6_1_11    = $::cis_benchmark::6_1_11
+  $cis_6_1_12    = $::cis_benchmark::6_1_12
+  $cis_6_1_13    = $::cis_benchmark::6_1_13
+  $cis_6_1_14    = $::cis_benchmark::6_1_14
 
   ## CIS 6.1.1 Audit system file permissions (Not Scored)
-  if ($6_1_1) {
+  if ($cis_6_1_1) {
     file { 'file-cis-6-1-1':
         path     => "${exec_path}/dpkg-report",
         content  => dos2unix(template('cis/trusty64/bash/dpkg-report.erb')),
@@ -49,87 +49,87 @@ class cis::trusty64::system_permissions {
   }
 
   ## CIS 6.1.2 Ensure permissions on /etc/passwd are configured (Scored)
-  if ($6_1_2) {
+  if ($cis_6_1_2) {
     file { '/etc/passwd':
-      ensure  => present,
-      mode    => '0644',
-      owner   => 'root',
-      group   => 'root',
+      ensure     => present,
+      mode       => '0644',
+      owner      => 'root',
+      group      => 'root',
     }
   }
 
   ## CIS 6.1.3 Ensure permissions on /etc/shadow are configured (Scored)
-  if ($6_1_3) {
+  if ($cis_6_1_3) {
     file { '/etc/shadow':
-      ensure  => present,
-      mode    => '0640',
-      owner   => 'root',
-      group   => 'shadow',
+      ensure     => present,
+      mode       => '0640',
+      owner      => 'root',
+      group      => 'shadow',
     }
   }
 
   ## CIS 6.1.4 Ensure permissions on /etc/group are configured (Scored)
-  if ($6_1_4) {
+  if ($cis_6_1_4) {
     file { '/etc/group':
-      ensure  => present,
-      mode    => '0644',
-      owner   => 'root',
-      group   => 'root',
+      ensure     => present,
+      mode       => '0644',
+      owner      => 'root',
+      group      => 'root',
     }
   }
 
   ## CIS 6.1.5 Ensure permissions on /etc/gshadow are configured (Scored)
-  if ($6_1_5) {
+  if ($cis_6_1_5) {
     file { '/etc/gshadow':
-      ensure  => present,
-      mode    => '0640',
-      owner   => 'root',
-      group   => 'shadow',
+      ensure     => present,
+      mode       => '0640',
+      owner      => 'root',
+      group      => 'shadow',
     }
   }
 
   ## CIS 6.1.6 Ensure permissions on /etc/passwd- are configured (Scored)
-  if ($6_1_6) {
+  if ($cis_6_1_6) {
     file { '/etc/passwd-':
-      ensure  => present,
-      mode    => '0700',
-      owner   => 'root',
-      group   => 'root',
+      ensure     => present,
+      mode       => '0700',
+      owner      => 'root',
+      group      => 'root',
     }
   }
 
   ## CIS 6.1.7 Ensure permissions on /etc/shadow- are configured (Scored)
-  if ($6_1_7) {
+  if ($cis_6_1_7) {
     file { '/etc/shadow-':
-      ensure  => present,
-      mode    => '0700',
-      owner   => 'root',
-      group   => 'root',
+      ensure     => present,
+      mode       => '0700',
+      owner      => 'root',
+      group      => 'root',
     }
   }
 
   ## CIS 6.1.8 Ensure permissions on /etc/group- are configured (Scored)
-  if ($6_1_8) {
+  if ($cis_6_1_8) {
     file { '/etc/group-':
-      ensure  => present,
-      mode    => '0700',
-      owner   => 'root',
-      group   => 'root',
+      ensure     => present,
+      mode       => '0700',
+      owner      => 'root',
+      group      => 'root',
     }
   }
 
   ## CIS 6.1.9 Ensure permissions on /etc/gshadow- are configured (Scored)
-  if ($6_1_9) {
+  if ($cis_6_1_9) {
     file { '/etc/gshadow-':
-      ensure  => present,
-      mode    => '0700',
-      owner   => 'root',
-      group   => 'root',
+      ensure     => present,
+      mode       => '0700',
+      owner      => 'root',
+      group      => 'root',
     }
   }
 
   ## CIS 6.1.10 Ensure no world writable files exist (Scored)
-  if ($6_1_10) {
+  if ($cis_6_1_10) {
     file { 'file-cis-6-1-10':
         path     => "${exec_path}/world-writeable-files",
         content  => dos2unix(template('cis/trusty64/bash/world-writeable-files.erb')),
@@ -152,7 +152,7 @@ class cis::trusty64::system_permissions {
   }
 
   ## CIS 6.1.11 Ensure no unowned files or directories exist (Scored)
-  if ($6_1_11) {
+  if ($cis_6_1_11) {
     file { 'file-cis-6-1-11':
         path     => "${exec_path}/unowned-files",
         content  => dos2unix(template('cis/trusty64/bash/unowned-files.erb')),
@@ -175,7 +175,7 @@ class cis::trusty64::system_permissions {
   }
 
   ## CIS 6.1.12 Ensure no ungrouped files or directories exist (Scored)
-  if ($6_1_12) {
+  if ($cis_6_1_12) {
     file { 'file-cis-6-1-12':
         path     => "${exec_path}/ungrouped-files",
         content  => dos2unix(template('cis/trusty64/bash/ungrouped-files.erb')),
@@ -198,7 +198,7 @@ class cis::trusty64::system_permissions {
   }
 
   ## CIS 6.1.13 Audit SUID executables (Not Scored)
-  if ($6_1_13) {
+  if ($cis_6_1_13) {
     file { 'file-cis-6-1-13':
         path     => "${exec_path}/suid-executables",
         content  => dos2unix(template('cis/trusty64/bash/suid-executables.erb')),
@@ -221,7 +221,7 @@ class cis::trusty64::system_permissions {
   }
 
   ## CIS 6.1.14 Audit SGID executables (Not Scored)
-  if ($6_1_14) {
+  if ($cis_6_1_14) {
     file { 'file-cis-6-1-14':
         path     => "${exec_path}/sgid-executables",
         content  => dos2unix(template('cis/trusty64/bash/sgid-executables.erb')),

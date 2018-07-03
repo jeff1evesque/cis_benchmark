@@ -7,14 +7,14 @@
 
 class cis::trusty64::logging {
   ## local variables
-  $log_dir  = '/var/log'
-  $log_perm = '640'
+  $log_dir    = '/var/log'
+  $log_perm   = '640'
 
   ## local variables: stig items
-  $4_2_4    = $::cis_benchmark::4_2_4
+  $cis_4_2_4  = $::cis_benchmark::4_2_4
 
   ## CIS 4.2.4 Ensure permissions on all logfiles are configured (Scored)
-  if ($4_2_4) {
+  if ($cis_4_2_4) {
     exec { 'enforce-recursive-log-permission':
       command => "find ${log_dir} -type f -exec chmod ${log_perm} {} +",
       onlyif  => "find ${log_dir} -type f ! -perm ${log_perm} | grep -z .",

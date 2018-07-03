@@ -12,13 +12,13 @@ class cis::trusty64::process_hardening {
   $paths            = $::cis_benchmark::paths
 
   ## local variables: stig items
-  $1_5_1            = $::cis_benchmark::1_5_1
-  $1_5_2            = $::cis_benchmark::1_5_2
-  $1_5_3            = $::cis_benchmark::1_5_3
-  $1_5_4            = $::cis_benchmark::1_5_4
+  $cis_1_5_1        = $::cis_benchmark::1_5_1
+  $cis_1_5_2        = $::cis_benchmark::1_5_2
+  $cis_1_5_3        = $::cis_benchmark::1_5_3
+  $cis_1_5_4        = $::cis_benchmark::1_5_4
 
   ## 1.5.1 Ensure core dumps are restricted (Scored)
-  if ($1_5_1) {
+  if ($cis_1_5_1) {
     file { 'file-cis-1-5-1-limits':
         content     => dos2unix(template('cis/trusty64/pam/core-dumps.conf.erb')),
         path        => '/etc/security/limits.d/core-dumps.conf',
@@ -36,7 +36,7 @@ class cis::trusty64::process_hardening {
   }
 
   ## 1.5.2 Ensure XD/NX support is enabled (Not Scored)
-  if ($1_5_2) {
+  if ($cis_1_5_2) {
     file { 'file-cis-1-5-2':
       content       => dos2unix(template('cis/trusty64/bash/xdnx-report.erb')),
       path          => "${exec_path}/xdnx-report",
@@ -57,7 +57,7 @@ class cis::trusty64::process_hardening {
   ##
   ## Note: the 'shell' provider allows the inline 'if' to be interpretted.
   ##
-  if ($1_5_3) {
+  if ($cis_1_5_3) {
     exec { 'exec-cis-1-5-3-active-kernel':
         command     => 'sysctl -w kernel.randomize_va_space=2',
         path        => '/sbin',
@@ -77,7 +77,7 @@ class cis::trusty64::process_hardening {
   }
 
   ## 1.5.4 Ensure prelink is disabled (Scored)
-  if ($1_5_4) {
+  if ($cis_1_5_4) {
     if ($facts['installed_prelink'] == 'true') {
         exec { 'exec-cis-1-5-4':
             command   => 'prelink -ua',
