@@ -29,13 +29,13 @@ class cis_benchmark::trusty64::banner {
       mode    => '0444',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/motd.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/motd.erb')),
     }
   }
   elsif ($cis_1_7_1_1) {
     file { '/etc/motd':
       ensure  => present,
-      content => dos2unix(template('cis/trusty64/motd.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/motd.erb')),
     }
   }
   elsif ($cis_1_7_1_4) {
@@ -55,13 +55,13 @@ class cis_benchmark::trusty64::banner {
       mode    => '0444',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/issues.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
     }
   }
   elsif ($cis_1_7_1_2) {
     file { '/etc/issue':
       ensure  => present,
-      content => dos2unix(template('cis/trusty64/issues.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
     }
   }
   elsif ($cis_1_7_1_5) {
@@ -81,13 +81,13 @@ class cis_benchmark::trusty64::banner {
       mode    => '0444',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/issues.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
     }
   }
   elsif ($cis_1_7_1_3) {
     file { '/etc/issue.net':
       ensure  => present,
-      content => dos2unix(template('cis/trusty64/issues.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
     }
   }
   elsif ($cis_1_7_1_6) {
@@ -110,7 +110,7 @@ class cis_benchmark::trusty64::banner {
       mode        => '0644',
       owner       => 'root',
       group       => 'root',
-      content     => dos2unix(template('cis/trusty64/issues.erb')),
+      content     => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
       require     => Package['gdm'],
       notify      => Exec['update-system-database'],
     }
@@ -120,7 +120,7 @@ class cis_benchmark::trusty64::banner {
       mode        => '0644',
       owner       => 'root',
       group       => 'root',
-      content     => dos2unix(template('cis/trusty64/issues.erb')),
+      content     => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
       require     => Package['gdm'],
       notify      => Exec['update-system-database'],
     }
