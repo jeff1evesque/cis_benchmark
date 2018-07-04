@@ -7,7 +7,7 @@
 
 class cis_benchmark::trusty64::autofsconf {
   ## local variables: stig items
-  $cis_1_1_21      = $::cis_benchmark::1_1_21
+  $cis_1_1_21      = $::cis_benchmark::cis_1_1_21
 
   ## 1.1.21 Disable Automounting (Scored)
   if ($cis_1_1_21 and $isfile_autofsconf) {
