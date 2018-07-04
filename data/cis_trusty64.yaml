@@ -4,10 +4,10 @@
 ## This file defines which items should be enforced as a baseline level
 ## security. The corresponding definitions can be reviewed in further detail:
 ##
-## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
+## https://github.com/jeff1evesque/machine-learning/files/629747/Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-trusty64:
+cis_benchmark::trusty64:
     stig:
         cis_1_1_1_1: true
         cis_1_1_1_2: true

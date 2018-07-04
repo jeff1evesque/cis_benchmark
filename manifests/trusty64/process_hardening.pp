@@ -1,38 +1,26 @@
+##
 ## CIS Ubuntu 14.04 LTS Server Benchmark
 ## v2.0.0 - 09-30-2016
 ##
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-class cis::trusty64::cis_process_hardening {
-  include cis::trusty64::dependencies
-
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node       = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $exec_path        = $hiera_node['report']['stig']['exec_path']
-  $report_path      = $hiera_node['report']['stig']['report_path']
-  $stig             = $hiera_node['stig']
-  $report           = $hiera_node['report']['stig']
-  $paths            = $report['paths']
+class cis_benchmark::trusty64::process_hardening {
+  ## local variables
+  $exec_path        = $::cis_benchmark::exec_path
+  $report_path      = $::cis_benchmark::report_path
+  $paths            = $::cis_benchmark::paths
 
   ## local variables: stig items
-  $cis_1_5_1        = $stig['cis_1_5_1']
-  $cis_1_5_2        = $stig['cis_1_5_2']
-  $cis_1_5_3        = $stig['cis_1_5_3']
-  $cis_1_5_4        = $stig['cis_1_5_4']
+  $cis_1_5_1        = $::cis_benchmark::cis_1_5_1
+  $cis_1_5_2        = $::cis_benchmark::cis_1_5_2
+  $cis_1_5_3        = $::cis_benchmark::cis_1_5_3
+  $cis_1_5_4        = $::cis_benchmark::cis_1_5_4
 
   ## 1.5.1 Ensure core dumps are restricted (Scored)
   if ($cis_1_5_1) {
     file { 'file-cis-1-5-1-limits':
-        content     => dos2unix(template('cis/trusty64/pam/core-dumps.conf.erb')),
+        content     => dos2unix(template('cis_benchmark/trusty64/pam/core-dumps.conf.erb')),
         path        => '/etc/security/limits.d/core-dumps.conf',
         mode        => '0644',
         owner       => root,
@@ -50,7 +38,7 @@ class cis::trusty64::cis_process_hardening {
   ## 1.5.2 Ensure XD/NX support is enabled (Not Scored)
   if ($cis_1_5_2) {
     file { 'file-cis-1-5-2':
-      content       => dos2unix(template('cis/trusty64/bash/xdnx-report.erb')),
+      content       => dos2unix(template('cis_benchmark/trusty64/bash/xdnx-report.erb')),
       path          => "${exec_path}/xdnx-report",
       mode          => '0700',
       owner         => root,
@@ -81,7 +69,7 @@ class cis::trusty64::cis_process_hardening {
   ## 1.5.1 Ensure core dumps are restricted (Scored)
   ## 1.5.3 Ensure address space layout randomization (ASLR) is enabled
   file { 'file-cis-sysctl':
-      content       => dos2unix(template('cis/trusty64/sysctl.conf.erb')),
+      content       => dos2unix(template('cis_benchmark/trusty64/sysctl.conf.erb')),
       path          => '/etc/sysctl.conf',
       mode          => '0644',
       owner         => root,

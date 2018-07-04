@@ -1,35 +1,24 @@
+##
 ## CIS Ubuntu 14.04 LTS Server Benchmark
 ## v2.0.0 - 09-30-2016
 ##
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-class cis::trusty64::cis_cron {
-  ## local variables: conditionally load hiera
-  ##
-  ## Note: yaml keys cannot contain '.', so regsubst() is used. Likewise, the
-  ##       corresponding yaml key, implements underscores instead of '.' for
-  ##       nodes certificate name.
-  ##
-  $hiera_node = lookup([
-      regsubst($trusted['certname'], '\.', '_', 'G'),
-      'trusty64'
-  ])
-  $stig       = $hiera_node['stig']
-
+class cis_benchmark::trusty64::cron {
   ## local variables: stig items
-  $cis_5_1_1  = $stig['cis_5_1_1']
-  $cis_5_1_2  = $stig['cis_5_1_2']
-  $cis_5_1_3  = $stig['cis_5_1_3']
-  $cis_5_1_4  = $stig['cis_5_1_4']
-  $cis_5_1_5  = $stig['cis_5_1_5']
-  $cis_5_1_6  = $stig['cis_5_1_6']
-  $cis_5_1_7  = $stig['cis_5_1_7']
-  $cis_5_1_8  = $stig['cis_5_1_8']
+  $cis_5_1_1  = $::cis_benchmark::cis_5_1_1
+  $cis_5_1_2  = $::cis_benchmark::cis_5_1_2
+  $cis_5_1_3  = $::cis_benchmark::cis_5_1_3
+  $cis_5_1_4  = $::cis_benchmark::cis_5_1_4
+  $cis_5_1_5  = $::cis_benchmark::cis_5_1_5
+  $cis_5_1_6  = $::cis_benchmark::cis_5_1_6
+  $cis_5_1_7  = $::cis_benchmark::cis_5_1_7
+  $cis_5_1_8  = $::cis_benchmark::cis_5_1_8
 
   ## ensure cron installed
   package { 'cron':
-    ensure => 'installed',
+    ensure    => 'installed',
   }
 
   ## 5.1.1 Ensure cron daemon is enabled (Scored)
@@ -40,7 +29,7 @@ class cis::trusty64::cis_cron {
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/cron/init_cron.conf.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/cron/init_cron.conf.erb')),
     }
 
     ## ensure running service
@@ -57,7 +46,7 @@ class cis::trusty64::cis_cron {
       mode    => '0700',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/cron/crontab.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/cron/crontab.erb')),
     }
   }
 
