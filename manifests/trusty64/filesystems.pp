@@ -36,7 +36,7 @@ class cis_benchmark::trusty64::filesystems {
       $cis_1_1_1_8
   ) {
     file { 'file-cis-1-1-1':
-        content  => dos2unix(template('cis/trusty64/CIS.conf.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/CIS.conf.erb')),
         path     => '/etc/modprobe.d/CIS.conf',
         mode     => '0644',
         owner    => root,

@@ -36,7 +36,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_1) {
     file { 'file-cis-6-2-1':
         path     => "${exec_path}/nonempty-password",
-        content  => dos2unix(template('cis/trusty64/bash/nonempty-password.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/nonempty-password.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -94,7 +94,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_5) {
     file { 'file-cis-6-2-5':
         path     => "${exec_path}/superuser-privilege",
-        content  => dos2unix(template('cis/trusty64/bash/superuser-privilege.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/superuser-privilege.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -116,7 +116,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_6) {
     file { 'file-cis-6-2-6':
         path     => "${exec_path}/root-path-report",
-        content  => dos2unix(template('cis/trusty64/bash/root-path-report.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/root-path-report.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -176,7 +176,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_10) {
     file { 'file-cis-6-2-10':
         path     => "${exec_path}/dot-files",
-        content  => dos2unix(template('cis/trusty64/bash/dot-files.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/dot-files.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -198,7 +198,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_11) {
     file { 'file-cis-6-2-11':
         path     => "${exec_path}/forward-files",
-        content  => dos2unix(template('cis/trusty64/bash/forward-files.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/forward-files.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -217,7 +217,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_12) {
     file { 'file-cis-6-2-12':
         path     => "${exec_path}/netrc-files",
-        content  => dos2unix(template('cis/trusty64/bash/netrc-files.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/netrc-files.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -236,7 +236,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_13) {
     file { 'file-cis-6-2-13':
         path     => "${exec_path}/netrc-files-permission",
-        content  => dos2unix(template('cis/trusty64/bash/netrc-files-permission.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/netrc-files-permission.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -258,7 +258,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_14) {
     file { 'file-cis-6-2-14':
         path     => "${exec_path}/rhosts-files",
-        content  => dos2unix(template('cis/trusty64/bash/rhosts-files.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/rhosts-files.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -281,7 +281,7 @@ class cis_benchmark::trusty64::user_settings {
 
     file { 'file-cis-6-2-15':
         path     => "${exec_path}/remove-groups",
-        content  => dos2unix(template('cis/trusty64/bash/remove-groups.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/remove-groups.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -300,7 +300,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_16) {
     file { 'file-cis-6-2-16':
         path     => "${exec_path}/duplicate-uid-report",
-        content  => dos2unix(template('cis/trusty64/bash/duplicate-uid-report.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/duplicate-uid-report.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -319,7 +319,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_17) {
     file { 'file-cis-6-2-17':
         path     => "${exec_path}/duplicate-gid-report",
-        content  => dos2unix(template('cis/trusty64/bash/duplicate-gid-report.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/duplicate-gid-report.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -338,7 +338,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($6_2_18) {
     file { 'file-cis-6-2-18':
         path     => "${exec_path}/duplicate-username-report",
-        content  => dos2unix(template('cis/trusty64/bash/duplicate-username-report.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/duplicate-username-report.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -357,7 +357,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_19) {
     file { 'file-cis-6-2-19':
         path     => "${exec_path}/duplicate-groupname-report",
-        content  => dos2unix(template('cis/trusty64/bash/duplicate-groupname-report.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/duplicate-groupname-report.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -376,7 +376,7 @@ class cis_benchmark::trusty64::user_settings {
   if ($cis_6_2_20) {
     file { 'file-cis-6-2-20':
         path     => "${exec_path}/remove-shadow-group",
-        content  => dos2unix(template('cis/trusty64/bash/remove-shadow-group.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/remove-shadow-group.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',

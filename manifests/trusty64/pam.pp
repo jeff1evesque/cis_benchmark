@@ -24,7 +24,7 @@ class cis_benchmark::trusty64::pam {
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/pam/pwquality.conf.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/pam/pwquality.conf.erb')),
     }
 
     file { '/etc/pam.d/common-password':
@@ -32,7 +32,7 @@ class cis_benchmark::trusty64::pam {
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/pam/common-password.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/pam/common-password.erb')),
     }
 
     file { '/etc/pam.d/common-auth':
@@ -40,7 +40,7 @@ class cis_benchmark::trusty64::pam {
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/pam/common-auth.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/pam/common-auth.erb')),
     }
   }
 }

@@ -56,7 +56,7 @@ class cis_benchmark::trusty64::logging::syslog_ng {
       mode              => '0644',
       owner             => 'root',
       group             => 'root',
-      content           => dos2unix(template('cis/trusty64/syslog-ng/custom-syslog-ng.conf.erb')),
+      content           => dos2unix(template('cis_benchmark/trusty64/syslog-ng/custom-syslog-ng.conf.erb')),
       notify            => Service['syslog-ng'],
     }
   }

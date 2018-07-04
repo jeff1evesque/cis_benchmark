@@ -28,12 +28,12 @@ class cis_benchmark::trusty64::user_accounts {
       mode         => '0644',
       owner        => 'root',
       group        => 'root',
-      content      => dos2unix(template('cis/trusty64/login.defs.erb')),
+      content      => dos2unix(template('cis_benchmark/trusty64/login.defs.erb')),
       notify       => Exec['chage-pass'],
     }
 
     exec { 'chage-pass':
-      command      => dos2unix(template('cis/trusty64/bash/chage.erb')),
+      command      => dos2unix(template('cis_benchmark/trusty64/bash/chage.erb')),
       refreshonly  => true,
       path         => '/usr/bin',
       provider     => shell,
@@ -44,7 +44,7 @@ class cis_benchmark::trusty64::user_accounts {
   if ($cis_5_4_2) {
     file { 'file-cis-5-4-2':
         path       => '/root',
-        content    => dos2unix(template('cis/trusty64/bash/usermod-nologin.erb')),
+        content    => dos2unix(template('cis_benchmark/trusty64/bash/usermod-nologin.erb')),
         owner      => root,
         group      => root,
         mode       => '0600',
@@ -77,7 +77,7 @@ class cis_benchmark::trusty64::user_accounts {
       mode         => '0644',
       owner        => 'root',
       group        => 'root',
-      content      => dos2unix(template('cis/trusty64/bash.bashrc.erb')),
+      content      => dos2unix(template('cis_benchmark/trusty64/bash.bashrc.erb')),
     }
 
     file { '/etc/profile':
@@ -85,7 +85,7 @@ class cis_benchmark::trusty64::user_accounts {
       mode         => '0644',
       owner        => 'root',
       group        => 'root',
-      content      => dos2unix(template('cis/trusty64/profile.erb')),
+      content      => dos2unix(template('cis_benchmark/trusty64/profile.erb')),
     }
   }
 
@@ -110,7 +110,7 @@ class cis_benchmark::trusty64::user_accounts {
       mode         => '0644',
       owner        => 'root',
       group        => 'root',
-      content      => dos2unix(template('cis/trusty64/su.erb')),
+      content      => dos2unix(template('cis_benchmark/trusty64/su.erb')),
     }
 
     file_line { 'wheel-users':

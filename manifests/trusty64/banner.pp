@@ -55,13 +55,13 @@ class cis_benchmark::trusty64::banner {
       mode    => '0444',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
     }
   }
   elsif ($cis_1_7_1_2) {
     file { '/etc/issue':
       ensure  => present,
-      content => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
     }
   }
   elsif ($cis_1_7_1_5) {
@@ -81,13 +81,13 @@ class cis_benchmark::trusty64::banner {
       mode    => '0444',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
     }
   }
   elsif ($cis_1_7_1_3) {
     file { '/etc/issue.net':
       ensure  => present,
-      content => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
     }
   }
   elsif ($cis_1_7_1_6) {

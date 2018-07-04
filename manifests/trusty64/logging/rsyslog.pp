@@ -29,7 +29,7 @@ class cis_benchmark::trusty64::logging::rsyslog {
       mode              => '0644',
       owner             => 'root',
       group             => 'root',
-      content           => dos2unix(template('cis/trusty64/rsyslog/init_rsyslog.conf.erb')),
+      content           => dos2unix(template('cis_benchmark/trusty64/rsyslog/init_rsyslog.conf.erb')),
     }
 
     ## ensure rsyslog running
@@ -47,7 +47,7 @@ class cis_benchmark::trusty64::logging::rsyslog {
       mode              => '0644',
       owner             => 'root',
       group             => 'root',
-      content           => dos2unix(template('cis/trusty64/rsyslog/rsyslog.conf.erb')),
+      content           => dos2unix(template('cis_benchmark/trusty64/rsyslog/rsyslog.conf.erb')),
     }
   }
   else {
@@ -70,7 +70,7 @@ class cis_benchmark::trusty64::logging::rsyslog {
     mode                => '0644',
     owner               => 'root',
     group               => 'root',
-    content             => dos2unix(template('cis/trusty64/rsyslog/50-default.conf.erb')),
+    content             => dos2unix(template('cis_benchmark/trusty64/rsyslog/50-default.conf.erb')),
   }
 
   ## restart rsyslogd

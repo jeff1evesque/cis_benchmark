@@ -23,7 +23,7 @@ class cis_benchmark::trusty64::services::xinetd {
       mode       => '0644',
       owner      => 'root',
       group      => 'root',
-      content    => dos2unix(template('cis/trusty64/xinetd/xinetd.conf.erb')),
+      content    => dos2unix(template('cis_benchmark/trusty64/xinetd/xinetd.conf.erb')),
     }
 
     ## CIS 2.1.1 Ensure chargen services are not enabled (Scored)
@@ -33,7 +33,7 @@ class cis_benchmark::trusty64::services::xinetd {
         mode     => '0644',
         owner    => 'root',
         group    => 'root',
-        content  => dos2unix(template('cis/trusty64/xinetd/chargen.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/xinetd/chargen.erb')),
       }
     }
 
@@ -44,7 +44,7 @@ class cis_benchmark::trusty64::services::xinetd {
         mode     => '0644',
         owner    => 'root',
         group    => 'root',
-        content  => dos2unix(template('cis/trusty64/xinetd/daytime.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/xinetd/daytime.erb')),
       }
     }
 
@@ -55,7 +55,7 @@ class cis_benchmark::trusty64::services::xinetd {
         mode     => '0644',
         owner    => 'root',
         group    => 'root',
-        content  => dos2unix(template('cis/trusty64/xinetd/discard.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/xinetd/discard.erb')),
       }
     }
 
@@ -66,7 +66,7 @@ class cis_benchmark::trusty64::services::xinetd {
         mode     => '0644',
         owner    => 'root',
         group    => 'root',
-        content  => dos2unix(template('cis/trusty64/xinetd/echo.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/xinetd/echo.erb')),
       }
     }
 
@@ -77,7 +77,7 @@ class cis_benchmark::trusty64::services::xinetd {
         mode     => '0644',
         owner    => 'root',
         group    => 'root',
-        content  => dos2unix(template('cis/trusty64/xinetd/time.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/xinetd/time.erb')),
       }
     }
 

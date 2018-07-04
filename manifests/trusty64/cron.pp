@@ -29,7 +29,7 @@ class cis_benchmark::trusty64::cron {
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/cron/init_cron.conf.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/cron/init_cron.conf.erb')),
     }
 
     ## ensure running service
@@ -46,7 +46,7 @@ class cis_benchmark::trusty64::cron {
       mode    => '0700',
       owner   => 'root',
       group   => 'root',
-      content => dos2unix(template('cis/trusty64/cron/crontab.erb')),
+      content => dos2unix(template('cis_benchmark/trusty64/cron/crontab.erb')),
     }
   }
 

@@ -53,7 +53,7 @@ class cis_benchmark::trusty64::logging::auditd_rules {
     mode             => '0640',
     owner            => 'root',
     group            => 'root',
-    content          => dos2unix(template('cis/trusty64/audit.rules.erb')),
+    content          => dos2unix(template('cis_benchmark/trusty64/audit.rules.erb')),
     notify           => Service['auditd'],
   }
 }

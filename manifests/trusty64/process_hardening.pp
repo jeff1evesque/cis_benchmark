@@ -20,7 +20,7 @@ class cis_benchmark::trusty64::process_hardening {
   ## 1.5.1 Ensure core dumps are restricted (Scored)
   if ($cis_1_5_1) {
     file { 'file-cis-1-5-1-limits':
-        content     => dos2unix(template('cis/trusty64/pam/core-dumps.conf.erb')),
+        content     => dos2unix(template('cis_benchmark/trusty64/pam/core-dumps.conf.erb')),
         path        => '/etc/security/limits.d/core-dumps.conf',
         mode        => '0644',
         owner       => root,
@@ -38,7 +38,7 @@ class cis_benchmark::trusty64::process_hardening {
   ## 1.5.2 Ensure XD/NX support is enabled (Not Scored)
   if ($cis_1_5_2) {
     file { 'file-cis-1-5-2':
-      content       => dos2unix(template('cis/trusty64/bash/xdnx-report.erb')),
+      content       => dos2unix(template('cis_benchmark/trusty64/bash/xdnx-report.erb')),
       path          => "${exec_path}/xdnx-report",
       mode          => '0700',
       owner         => root,
@@ -69,7 +69,7 @@ class cis_benchmark::trusty64::process_hardening {
   ## 1.5.1 Ensure core dumps are restricted (Scored)
   ## 1.5.3 Ensure address space layout randomization (ASLR) is enabled
   file { 'file-cis-sysctl':
-      content       => dos2unix(template('cis/trusty64/sysctl.conf.erb')),
+      content       => dos2unix(template('cis_benchmark/trusty64/sysctl.conf.erb')),
       path          => '/etc/sysctl.conf',
       mode          => '0644',
       owner         => root,

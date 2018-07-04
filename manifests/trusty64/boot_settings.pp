@@ -37,7 +37,7 @@ class cis_benchmark::trusty64::boot_settings {
   ##
   if ($cis_1_4_2) {
     file { 'file-cis-1-4-2':
-        content  => dos2unix(template('cis/trusty64/grub_bootloader.erb')),
+        content  => dos2unix(template('cis_benchmark//trusty64/grub_bootloader.erb')),
         path     => '/etc/grub.d/50_bootloader',
         mode     => '0755',
         owner    => root,

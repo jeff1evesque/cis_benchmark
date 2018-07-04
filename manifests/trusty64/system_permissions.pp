@@ -33,7 +33,7 @@ class cis_benchmark::trusty64::system_permissions {
   if ($cis_6_1_1) {
     file { 'file-cis-6-1-1':
         path     => "${exec_path}/dpkg-report",
-        content  => dos2unix(template('cis/trusty64/bash/dpkg-report.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/dpkg-report.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -132,7 +132,7 @@ class cis_benchmark::trusty64::system_permissions {
   if ($cis_6_1_10) {
     file { 'file-cis-6-1-10':
         path     => "${exec_path}/world-writeable-files",
-        content  => dos2unix(template('cis/trusty64/bash/world-writeable-files.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/world-writeable-files.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -155,7 +155,7 @@ class cis_benchmark::trusty64::system_permissions {
   if ($cis_6_1_11) {
     file { 'file-cis-6-1-11':
         path     => "${exec_path}/unowned-files",
-        content  => dos2unix(template('cis/trusty64/bash/unowned-files.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/unowned-files.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -178,7 +178,7 @@ class cis_benchmark::trusty64::system_permissions {
   if ($cis_6_1_12) {
     file { 'file-cis-6-1-12':
         path     => "${exec_path}/ungrouped-files",
-        content  => dos2unix(template('cis/trusty64/bash/ungrouped-files.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/ungrouped-files.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -201,7 +201,7 @@ class cis_benchmark::trusty64::system_permissions {
   if ($cis_6_1_13) {
     file { 'file-cis-6-1-13':
         path     => "${exec_path}/suid-executables",
-        content  => dos2unix(template('cis/trusty64/bash/suid-executables.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/suid-executables.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
@@ -224,7 +224,7 @@ class cis_benchmark::trusty64::system_permissions {
   if ($cis_6_1_14) {
     file { 'file-cis-6-1-14':
         path     => "${exec_path}/sgid-executables",
-        content  => dos2unix(template('cis/trusty64/bash/sgid-executables.erb')),
+        content  => dos2unix(template('cis_benchmark/trusty64/bash/sgid-executables.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
