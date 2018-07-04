@@ -110,7 +110,7 @@ class cis_benchmark::trusty64::banner {
       mode        => '0644',
       owner       => 'root',
       group       => 'root',
-      content     => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
+      content     => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
       require     => Package['gdm'],
       notify      => Exec['update-system-database'],
     }
@@ -120,7 +120,7 @@ class cis_benchmark::trusty64::banner {
       mode        => '0644',
       owner       => 'root',
       group       => 'root',
-      content     => dos2unix(template('cis_benchmark/trusty64/issues.erb')),
+      content     => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
       require     => Package['gdm'],
       notify      => Exec['update-system-database'],
     }
