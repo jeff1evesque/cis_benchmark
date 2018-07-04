@@ -11,15 +11,15 @@ class cis_benchmark::trusty64::user_accounts {
   $flattened_users = slice($wheel_users, 1).join(',')
 
   ## local variables: stig items
-  $cis_5_4_1_1     = $::cis_benchmark::5_4_1_1
-  $cis_5_4_1_2     = $::cis_benchmark::5_4_1_2
-  $cis_5_4_1_3     = $::cis_benchmark::5_4_1_3
-  $cis_5_4_1_4     = $::cis_benchmark::5_4_1_4
-  $cis_5_4_2       = $::cis_benchmark::5_4_2
-  $cis_5_4_3       = $::cis_benchmark::5_4_3
-  $cis_5_4_4       = $::cis_benchmark::5_4_4
-  $cis_5_5         = $::cis_benchmark::5_5
-  $cis_5_6         = $::cis_benchmark::5_6
+  $cis_5_4_1_1     = $::cis_benchmark::cis_5_4_1_1
+  $cis_5_4_1_2     = $::cis_benchmark::cis_5_4_1_2
+  $cis_5_4_1_3     = $::cis_benchmark::cis_5_4_1_3
+  $cis_5_4_1_4     = $::cis_benchmark::cis_5_4_1_4
+  $cis_5_4_2       = $::cis_benchmark::cis_5_4_2
+  $cis_5_4_3       = $::cis_benchmark::cis_5_4_3
+  $cis_5_4_4       = $::cis_benchmark::cis_5_4_4
+  $cis_5_5         = $::cis_benchmark::cis_5_5
+  $cis_5_6         = $::cis_benchmark::cis_5_6
 
   ## 5.4.1.x Remaining stig items
   if ($cis_5_4_1_1) or ($cis_5_4_1_2) or ($cis_5_4_1_3) or ($cis_5_4_1_4) {

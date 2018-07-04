@@ -11,7 +11,7 @@ class cis_benchmark::trusty64::filesystem_integrity {
   $report_path = $::cis_benchmark::report_path
 
   ## local variables: stig items
-  $cis_1_3_1   = $::cis_benchmark::1_3_1
+  $cis_1_3_1   = $::cis_benchmark::cis_1_3_1
 
   ## 1.3.1 Ensure AIDE is installed (Scored)
   ## 1.3.2 Ensure filesystem integrity is regularly checked (Scored)

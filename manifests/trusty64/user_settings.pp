@@ -11,26 +11,26 @@ class cis_benchmark::trusty64::user_settings {
   $report_path   = $::cis_benchmark::report_path
 
   ## local variables: stig items
-  $cis_6_2_1     = $::cis_benchmark::6_2_1
-  $cis_6_2_2     = $::cis_benchmark::6_2_2
-  $cis_6_2_3     = $::cis_benchmark::6_2_3
-  $cis_6_2_4     = $::cis_benchmark::6_2_4
-  $cis_6_2_5     = $::cis_benchmark::6_2_5
-  $cis_6_2_6     = $::cis_benchmark::6_2_6
-  $cis_6_2_7     = $::cis_benchmark::6_2_7
-  $cis_6_2_8     = $::cis_benchmark::6_2_8
-  $cis_6_2_9     = $::cis_benchmark::6_2_9
-  $cis_6_2_10    = $::cis_benchmark::6_2_10
-  $cis_6_2_11    = $::cis_benchmark::6_2_11
-  $cis_6_2_12    = $::cis_benchmark::6_2_12
-  $cis_6_2_13    = $::cis_benchmark::6_2_13
-  $cis_6_2_14    = $::cis_benchmark::6_2_14
-  $cis_6_2_15    = $::cis_benchmark::6_2_15
-  $cis_6_2_16    = $::cis_benchmark::6_2_16
-  $cis_6_2_17    = $::cis_benchmark::6_2_17
-  $cis_6_2_18    = $::cis_benchmark::6_2_18
-  $cis_6_2_19    = $::cis_benchmark::6_2_19
-  $cis_6_2_20    = $::cis_benchmark::6_2_20
+  $cis_6_2_1     = $::cis_benchmark::cis_6_2_1
+  $cis_6_2_2     = $::cis_benchmark::cis_6_2_2
+  $cis_6_2_3     = $::cis_benchmark::cis_6_2_3
+  $cis_6_2_4     = $::cis_benchmark::cis_6_2_4
+  $cis_6_2_5     = $::cis_benchmark::cis_6_2_5
+  $cis_6_2_6     = $::cis_benchmark::cis_6_2_6
+  $cis_6_2_7     = $::cis_benchmark::cis_6_2_7
+  $cis_6_2_8     = $::cis_benchmark::cis_6_2_8
+  $cis_6_2_9     = $::cis_benchmark::cis_6_2_9
+  $cis_6_2_10    = $::cis_benchmark::cis_6_2_10
+  $cis_6_2_11    = $::cis_benchmark::cis_6_2_11
+  $cis_6_2_12    = $::cis_benchmark::cis_6_2_12
+  $cis_6_2_13    = $::cis_benchmark::cis_6_2_13
+  $cis_6_2_14    = $::cis_benchmark::cis_6_2_14
+  $cis_6_2_15    = $::cis_benchmark::cis_6_2_15
+  $cis_6_2_16    = $::cis_benchmark::cis_6_2_16
+  $cis_6_2_17    = $::cis_benchmark::cis_6_2_17
+  $cis_6_2_18    = $::cis_benchmark::cis_6_2_18
+  $cis_6_2_19    = $::cis_benchmark::cis_6_2_19
+  $cis_6_2_20    = $::cis_benchmark::cis_6_2_20
 
   ## 6.2.1 Ensure password fields are not empty (Scored)
   if ($cis_6_2_1) {

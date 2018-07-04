@@ -12,10 +12,10 @@ class cis_benchmark::trusty64::process_hardening {
   $paths            = $::cis_benchmark::paths
 
   ## local variables: stig items
-  $cis_1_5_1        = $::cis_benchmark::1_5_1
-  $cis_1_5_2        = $::cis_benchmark::1_5_2
-  $cis_1_5_3        = $::cis_benchmark::1_5_3
-  $cis_1_5_4        = $::cis_benchmark::1_5_4
+  $cis_1_5_1        = $::cis_benchmark::cis_1_5_1
+  $cis_1_5_2        = $::cis_benchmark::cis_1_5_2
+  $cis_1_5_3        = $::cis_benchmark::cis_1_5_3
+  $cis_1_5_4        = $::cis_benchmark::cis_1_5_4
 
   ## 1.5.1 Ensure core dumps are restricted (Scored)
   if ($cis_1_5_1) {

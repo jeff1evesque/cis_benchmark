@@ -7,12 +7,12 @@
 
 class cis_benchmark::trusty64::services::xinetd {
   ## local variables: stig items
-  $cis_2_1_1     = $::cis_benchmark::2_1_1
-  $cis_2_1_2     = $::cis_benchmark::2_1_2
-  $cis_2_1_3     = $::cis_benchmark::2_1_3
-  $cis_2_1_4     = $::cis_benchmark::2_1_4
-  $cis_2_1_5     = $::cis_benchmark::2_1_5
-  $cis_2_1_10    = $::cis_benchmark::2_1_10
+  $cis_2_1_1     = $::cis_benchmark::cis_2_1_1
+  $cis_2_1_2     = $::cis_benchmark::cis_2_1_2
+  $cis_2_1_3     = $::cis_benchmark::cis_2_1_3
+  $cis_2_1_4     = $::cis_benchmark::cis_2_1_4
+  $cis_2_1_5     = $::cis_benchmark::cis_2_1_5
+  $cis_2_1_10    = $::cis_benchmark::cis_2_1_10
 
   ## apply rules if xinetd installed
   if ($xinetd_installed == 'true') {

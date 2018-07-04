@@ -7,19 +7,19 @@
 
 class cis_benchmark::trusty64::ssh {
   ## local variables: stig items
-  $cis_5_2_1   = $::cis_benchmark::5_2_1
-  $cis_5_2_2   = $::cis_benchmark::5_2_2
-  $cis_5_2_3   = $::cis_benchmark::5_2_3
-  $cis_5_2_4   = $::cis_benchmark::5_2_4
-  $cis_5_2_5   = $::cis_benchmark::5_2_5
-  $cis_5_2_6   = $::cis_benchmark::5_2_6
-  $cis_5_2_7   = $::cis_benchmark::5_2_7
-  $cis_5_2_8   = $::cis_benchmark::5_2_8
-  $cis_5_2_9   = $::cis_benchmark::5_2_9
-  $cis_5_2_10  = $::cis_benchmark::5_2_10
-  $cis_5_2_11  = $::cis_benchmark::5_2_11
-  $cis_5_2_12  = $::cis_benchmark::5_2_12
-  $cis_5_2_13  = $::cis_benchmark::5_2_13
+  $cis_5_2_1   = $::cis_benchmark::cis_5_2_1
+  $cis_5_2_2   = $::cis_benchmark::cis_5_2_2
+  $cis_5_2_3   = $::cis_benchmark::cis_5_2_3
+  $cis_5_2_4   = $::cis_benchmark::cis_5_2_4
+  $cis_5_2_5   = $::cis_benchmark::cis_5_2_5
+  $cis_5_2_6   = $::cis_benchmark::cis_5_2_6
+  $cis_5_2_7   = $::cis_benchmark::cis_5_2_7
+  $cis_5_2_8   = $::cis_benchmark::cis_5_2_8
+  $cis_5_2_9   = $::cis_benchmark::cis_5_2_9
+  $cis_5_2_10  = $::cis_benchmark::cis_5_2_10
+  $cis_5_2_11  = $::cis_benchmark::cis_5_2_11
+  $cis_5_2_12  = $::cis_benchmark::cis_5_2_12
+  $cis_5_2_13  = $::cis_benchmark::cis_5_2_13
 
   ## ensure openssh-server
   package { 'openssh-server':

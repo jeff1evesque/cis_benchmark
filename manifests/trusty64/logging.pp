@@ -11,7 +11,7 @@ class cis_benchmark::trusty64::logging {
   $log_perm   = '640'
 
   ## local variables: stig items
-  $cis_4_2_4  = $::cis_benchmark::4_2_4
+  $cis_4_2_4  = $::cis_benchmark::cis_4_2_4
 
   ## CIS 4.2.4 Ensure permissions on all logfiles are configured (Scored)
   if ($cis_4_2_4) {

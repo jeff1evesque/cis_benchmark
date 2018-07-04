@@ -7,14 +7,14 @@
 
 class cis_benchmark::trusty64::cron {
   ## local variables: stig items
-  $cis_5_1_1  = $::cis_benchmark::5_1_1
-  $cis_5_1_2  = $::cis_benchmark::5_1_2
-  $cis_5_1_3  = $::cis_benchmark::5_1_3
-  $cis_5_1_4  = $::cis_benchmark::5_1_4
-  $cis_5_1_5  = $::cis_benchmark::5_1_5
-  $cis_5_1_6  = $::cis_benchmark::5_1_6
-  $cis_5_1_7  = $::cis_benchmark::5_1_7
-  $cis_5_1_8  = $::cis_benchmark::5_1_8
+  $cis_5_1_1  = $::cis_benchmark::cis_5_1_1
+  $cis_5_1_2  = $::cis_benchmark::cis_5_1_2
+  $cis_5_1_3  = $::cis_benchmark::cis_5_1_3
+  $cis_5_1_4  = $::cis_benchmark::cis_5_1_4
+  $cis_5_1_5  = $::cis_benchmark::cis_5_1_5
+  $cis_5_1_6  = $::cis_benchmark::cis_5_1_6
+  $cis_5_1_7  = $::cis_benchmark::cis_5_1_7
+  $cis_5_1_8  = $::cis_benchmark::cis_5_1_8
 
   ## ensure cron installed
   package { 'cron':

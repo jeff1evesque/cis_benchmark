@@ -13,11 +13,11 @@ class cis_benchmark::trusty64::logging::syslog_ng {
   $centralized_log_host = 'loghost.example.com'
 
   ## local variables: stig items
-  $cis_4_2_2_1          = $::cis_benchmark::4_2_2_1
-  $cis_4_2_2_2          = $::cis_benchmark::4_2_2_2
-  $cis_4_2_2_3          = $::cis_benchmark::4_2_2_3
-  $cis_4_2_2_4          = $::cis_benchmark::4_2_2_4
-  $cis_4_2_2_5          = $::cis_benchmark::4_2_2_5
+  $cis_4_2_2_1          = $::cis_benchmark::cis_4_2_2_1
+  $cis_4_2_2_2          = $::cis_benchmark::cis_4_2_2_2
+  $cis_4_2_2_3          = $::cis_benchmark::cis_4_2_2_3
+  $cis_4_2_2_4          = $::cis_benchmark::cis_4_2_2_4
+  $cis_4_2_2_5          = $::cis_benchmark::cis_4_2_2_5
 
   ## CIS 4.2.2.1 Ensure syslog-ng service is enabled (Scored)
   if ($4_2_2_1) {

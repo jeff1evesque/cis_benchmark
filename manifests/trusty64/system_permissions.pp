@@ -14,20 +14,20 @@ class cis_benchmark::trusty64::system_permissions {
   $valid_sgid    = $::cis_benchmark::sgid
 
   ## local variables: stig items
-  $cis_6_1_1     = $::cis_benchmark::6_1_1
-  $cis_6_1_2     = $::cis_benchmark::6_1_2
-  $cis_6_1_3     = $::cis_benchmark::6_1_3
-  $cis_6_1_4     = $::cis_benchmark::6_1_4
-  $cis_6_1_5     = $::cis_benchmark::6_1_5
-  $cis_6_1_6     = $::cis_benchmark::6_1_6
-  $cis_6_1_7     = $::cis_benchmark::6_1_7
-  $cis_6_1_8     = $::cis_benchmark::6_1_8
-  $cis_6_1_9     = $::cis_benchmark::6_1_9
-  $cis_6_1_10    = $::cis_benchmark::6_1_10
-  $cis_6_1_11    = $::cis_benchmark::6_1_11
-  $cis_6_1_12    = $::cis_benchmark::6_1_12
-  $cis_6_1_13    = $::cis_benchmark::6_1_13
-  $cis_6_1_14    = $::cis_benchmark::6_1_14
+  $cis_6_1_1     = $::cis_benchmark::cis_6_1_1
+  $cis_6_1_2     = $::cis_benchmark::cis_6_1_2
+  $cis_6_1_3     = $::cis_benchmark::cis_6_1_3
+  $cis_6_1_4     = $::cis_benchmark::cis_6_1_4
+  $cis_6_1_5     = $::cis_benchmark::cis_6_1_5
+  $cis_6_1_6     = $::cis_benchmark::cis_6_1_6
+  $cis_6_1_7     = $::cis_benchmark::cis_6_1_7
+  $cis_6_1_8     = $::cis_benchmark::cis_6_1_8
+  $cis_6_1_9     = $::cis_benchmark::cis_6_1_9
+  $cis_6_1_10    = $::cis_benchmark::cis_6_1_10
+  $cis_6_1_11    = $::cis_benchmark::cis_6_1_11
+  $cis_6_1_12    = $::cis_benchmark::cis_6_1_12
+  $cis_6_1_13    = $::cis_benchmark::cis_6_1_13
+  $cis_6_1_14    = $::cis_benchmark::cis_6_1_14
 
   ## CIS 6.1.1 Audit system file permissions (Not Scored)
   if ($cis_6_1_1) {

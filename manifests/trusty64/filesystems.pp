@@ -7,14 +7,14 @@
 
 class cis_benchmark::trusty64::filesystems {
   ## local variables: stig items
-  $cis_1_1_1_1   = $::cis_benchmark::1_1_1_1
-  $cis_1_1_1_2   = $::cis_benchmark::1_1_1_2
-  $cis_1_1_1_3   = $::cis_benchmark::1_1_1_3
-  $cis_1_1_1_4   = $::cis_benchmark::1_1_1_4
-  $cis_1_1_1_5   = $::cis_benchmark::1_1_1_5
-  $cis_1_1_1_6   = $::cis_benchmark::1_1_1_6
-  $cis_1_1_1_7   = $::cis_benchmark::1_1_1_7
-  $cis_1_1_1_8   = $::cis_benchmark::1_1_1_8
+  $cis_1_1_1_1   = $::cis_benchmark::cis_1_1_1_1
+  $cis_1_1_1_2   = $::cis_benchmark::cis_1_1_1_2
+  $cis_1_1_1_3   = $::cis_benchmark::cis_1_1_1_3
+  $cis_1_1_1_4   = $::cis_benchmark::cis_1_1_1_4
+  $cis_1_1_1_5   = $::cis_benchmark::cis_1_1_1_5
+  $cis_1_1_1_6   = $::cis_benchmark::cis_1_1_1_6
+  $cis_1_1_1_7   = $::cis_benchmark::cis_1_1_1_7
+  $cis_1_1_1_8   = $::cis_benchmark::cis_1_1_1_8
 
   ## 1.1.1.1 Ensure mounting of cramfs filesystems is disabled (Scored)
   ## 1.1.1.2 Ensure mounting of freevxfs filesystems is disabled (Scored)
