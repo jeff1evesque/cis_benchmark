@@ -5,7 +5,7 @@
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-class cis::trusty64::ssh {
+class cis_benchmark::trusty64::ssh {
   ## local variables: stig items
   $cis_5_2_1   = $::cis_benchmark::5_2_1
   $cis_5_2_2   = $::cis_benchmark::5_2_2

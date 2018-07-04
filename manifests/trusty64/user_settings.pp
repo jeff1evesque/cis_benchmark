@@ -5,7 +5,7 @@
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-class cis::trusty64::user_settings {
+class cis_benchmark::trusty64::user_settings {
   ## local variables
   $exec_path     = $::cis_benchmark::exec_path
   $report_path   = $::cis_benchmark::report_path

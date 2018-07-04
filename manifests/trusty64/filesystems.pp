@@ -5,7 +5,7 @@
 ## https://github.com/jeff1evesque/machine-learning/files/629747/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf
 ##
 
-class cis::trusty64::filesystems {
+class cis_benchmark::trusty64::filesystems {
   ## local variables: stig items
   $cis_1_1_1_1   = $::cis_benchmark::1_1_1_1
   $cis_1_1_1_2   = $::cis_benchmark::1_1_1_2
