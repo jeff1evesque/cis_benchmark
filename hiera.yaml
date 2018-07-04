@@ -6,4 +6,4 @@ defaults:
 
 hierarchy:
   - name: 'Trusty64 configurations'
-    path: hiera/cis_trusty64.yaml
+    path: cis_trusty64.yaml
