@@ -7,7 +7,7 @@
 
 class cis_benchmark::trusty64::filesystem_integrity {
   ## local variables
-  $timestamp = generate('/bin/date', '+%Y-%d-%m-%H-%M-%S')
+  $timestamp        = generate('/bin/date', '+%Y-%d-%m-%H-%M-%S')
 
   ## local variables: stig items
   $cis_1_3_1        = $::cis_benchmark::cis_1_3_1
@@ -29,17 +29,17 @@ class cis_benchmark::trusty64::filesystem_integrity {
   ## 1.3.2 Ensure filesystem integrity is regularly checked (Scored)
   if ($cis_1_3_2) {
       file { '/var/log/aide':
-          ensure => 'directory',
-          owner  => 'root',
-          group  => 'root',
-          mode   => '0700',
+          ensure    => 'directory',
+          owner     => 'root',
+          group     => 'root',
+          mode      => '0700',
       }
 
       cron { 'aide-report':
-          command => "/usr/bin/aide --check > /var/log/aide/aidecheck_${timestamp}.txt",
-          user    => 'root',
-          hour    => 5,
-          minute  => 0,
+          command   => "/usr/bin/aide --check > /var/log/aide/aidecheck_${timestamp}.txt",
+          user      => 'root',
+          hour      => 5,
+          minute    => 0,
       }
   }
 }
