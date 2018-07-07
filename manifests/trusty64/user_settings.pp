@@ -141,9 +141,11 @@ class cis_benchmark::trusty64::user_settings {
       ensure      => 'present',
     }
 
+    ##
     ## 6.2.7 Ensure all users home directories exist (Scored)
     ## 6.2.8 Ensure users' home directories permissions are 750 or more restrictive (Scored)
     ## 6.2.9 Ensure users own their home directories (Scored)
+    ##
     if ($cis_6_2_8) and ($cis_6_2_9) {
         file { "/home/${user}":
             ensure  => directory,

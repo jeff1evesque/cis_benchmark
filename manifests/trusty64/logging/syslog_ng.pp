@@ -6,6 +6,7 @@
 ##
 
 class cis_benchmark::trusty64::logging::syslog_ng {
+  ##
   ## local variables
   ##
   ## @syslog_packages, includes 'syslog-ng' package dependencies.

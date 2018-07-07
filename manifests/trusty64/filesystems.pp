@@ -16,6 +16,7 @@ class cis_benchmark::trusty64::filesystems {
   $cis_1_1_1_7   = $::cis_benchmark::cis_1_1_1_7
   $cis_1_1_1_8   = $::cis_benchmark::cis_1_1_1_8
 
+  ##
   ## 1.1.1.1 Ensure mounting of cramfs filesystems is disabled (Scored)
   ## 1.1.1.2 Ensure mounting of freevxfs filesystems is disabled (Scored)
   ## 1.1.1.3 Ensure mounting of jffs2 filesystems is disabled (Scored)
