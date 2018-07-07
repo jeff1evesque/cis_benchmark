@@ -21,7 +21,7 @@ class cis_benchmark::trusty64::logging::syslog_ng {
   $cis_4_2_2_5          = $::cis_benchmark::cis_4_2_2_5
 
   ## CIS 4.2.2.1 Ensure syslog-ng service is enabled (Scored)
-  if ($4_2_2_1) {
+  if ($cis_4_2_2_1) {
     ## should not have multiple loggers
     package { 'rsyslog':
       ensure            => absent,
