@@ -156,26 +156,26 @@ class cis_benchmark (
         class { 'cis_benchmark::trusty64::dependencies': } ->
         class { 'cis_benchmark::trusty64::filesystem_integrity': } ->
         class { 'cis_benchmark::trusty64::filesystems': } ->
-        class { 'cis::trusty64::logging::auditd_rules': } ->
-        class { 'cis::trusty64::logging::rsyslog': } ->
-        class { 'cis::trusty64::logging::syslog_ng': } ->
-        class { 'cis::trusty64::logging::logging': } ->
-        class { 'cis::trusty64::logging': } ->
-        class { 'cis::trusty64::process_hardening': } ->
-        class { 'cis::trusty64::process_hardening': } ->
-        class { 'cis::trusty64::ssh': } ->
-        class { 'cis::trusty64::system_permissions': } ->
-        class { 'cis::trusty64::user_accounts': } ->
-        class { 'cis::trusty64::user_settings': } ->
-        class { 'cis::trusty64::aide::config': } ->
-        class { 'cis::trusty64::aide::cron': } ->
-        class { 'cis::trusty64::aide::firstrun': } ->
-        class { 'cis::trusty64::aide::install': } ->
-        class { 'cis::trusty64::logging::auditd_rules': } ->
-        class { 'cis::trusty64::logging::rsyslog': } ->
-        class { 'cis::trusty64::logging::syslog_ng': } ->
-        class { 'cis::trusty64::services::inetd': } ->
-        class { 'cis::trusty64::services': } ->
+        class { 'cis_benchmark::trusty64::logging::auditd_rules': } ->
+        class { 'cis_benchmark::trusty64::logging::rsyslog': } ->
+        class { 'cis_benchmark::trusty64::logging::syslog_ng': } ->
+        class { 'cis_benchmark::trusty64::logging::logging': } ->
+        class { 'cis_benchmark::trusty64::logging': } ->
+        class { 'cis_benchmark::trusty64::process_hardening': } ->
+        class { 'cis_benchmark::trusty64::process_hardening': } ->
+        class { 'cis_benchmark::trusty64::ssh': } ->
+        class { 'cis_benchmark::trusty64::system_permissions': } ->
+        class { 'cis_benchmark::trusty64::user_accounts': } ->
+        class { 'cis_benchmark::trusty64::user_settings': } ->
+        class { 'cis_benchmark::trusty64::aide::config': } ->
+        class { 'cis_benchmark::trusty64::aide::cron': } ->
+        class { 'cis_benchmark::trusty64::aide::firstrun': } ->
+        class { 'cis_benchmark::trusty64::aide::install': } ->
+        class { 'cis_benchmark::trusty64::logging::auditd_rules': } ->
+        class { 'cis_benchmark::trusty64::logging::rsyslog': } ->
+        class { 'cis_benchmark::trusty64::logging::syslog_ng': } ->
+        class { 'cis_benchmark::trusty64::services::inetd': } ->
+        class { 'cis_benchmark::trusty64::services': } ->
         Class['cis_benchmark']
     }
 }
