@@ -155,7 +155,7 @@ class cis_benchmark (
         class { 'cis_benchmark::trusty64::cron': } ->
         class { 'cis_benchmark::trusty64::dependencies': } ->
         class { 'cis_benchmark::trusty64::filesystem_integrity': } ->
-        class { 'cis_benchmark::trusty64::filesystem': } ->
+        class { 'cis_benchmark::trusty64::filesystems': } ->
         class { 'cis::trusty64::logging::auditd_rules': } ->
         class { 'cis::trusty64::logging::rsyslog': } ->
         class { 'cis::trusty64::logging::syslog_ng': } ->
