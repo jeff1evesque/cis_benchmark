@@ -161,7 +161,6 @@ class cis_benchmark (
         class { 'cis_benchmark::trusty64::logging::syslog_ng': } ->
         class { 'cis_benchmark::trusty64::logging': } ->
         class { 'cis_benchmark::trusty64::process_hardening': } ->
-        class { 'cis_benchmark::trusty64::process_hardening': } ->
         class { 'cis_benchmark::trusty64::ssh': } ->
         class { 'cis_benchmark::trusty64::system_permissions': } ->
         class { 'cis_benchmark::trusty64::user_accounts': } ->
