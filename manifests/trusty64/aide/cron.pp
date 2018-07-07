@@ -23,6 +23,7 @@ class cis_benchmark::trusty64::aide::cron {
         minute  => $minute,
         require => [Package['aide'], Exec['install-aide-db']]
     }
+  }
   else {
     cron { 'aide':
         command => "${path} --check",
