@@ -15,7 +15,7 @@ class cis_benchmark::trusty64::filesystem_integrity {
 
   ## 1.3.1 Ensure AIDE is installed (Scored)
   if ($cis_1_3_1) {
-    package { 'aide'
+    package { 'aide':
         ensure      => 'installed',
         notify      => Exec['aide-init']
     }
