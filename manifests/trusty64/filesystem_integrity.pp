@@ -21,7 +21,7 @@ class cis_benchmark::trusty64::filesystem_integrity {
     }
 
     exec { 'aide-init':
-        command     => 'aide --init'
+        command     => 'aide --init',
         refreshonly => true,
     }
   }
