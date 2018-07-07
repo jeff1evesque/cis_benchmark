@@ -332,7 +332,7 @@ class cis_benchmark::trusty64::user_settings {
         cwd      => $exec_path,
         path     => ['/bin', '/usr/bin'],
         onlyif   => './duplicate-gid-report check',
-       cis_ provider => shell,
+        provider => shell,
     }
   }
 
