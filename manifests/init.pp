@@ -160,7 +160,6 @@ class cis_benchmark (
         class { 'cis_benchmark::trusty64::logging::rsyslog': } ->
         class { 'cis_benchmark::trusty64::logging::syslog_ng': } ->
         class { 'cis_benchmark::trusty64::logging': } ->
-        class { 'cis_benchmark::trusty64::logging': } ->
         class { 'cis_benchmark::trusty64::process_hardening': } ->
         class { 'cis_benchmark::trusty64::process_hardening': } ->
         class { 'cis_benchmark::trusty64::ssh': } ->
