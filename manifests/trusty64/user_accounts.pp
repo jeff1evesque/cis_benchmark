@@ -97,8 +97,8 @@ class cis_benchmark::trusty64::user_accounts {
       owner        => 'root',
       group        => 'root',
       content      => multitemplate(
-        "cis/trusty64/cis_5_5/${trusted['certname']}.erb",
-        "cis/trusty64/securetty.erb",
+        "cis_benchmark/trusty64/cis_5_5/${trusted['certname']}.erb",
+        'cis_benchmark/trusty64/securetty.erb',
       ),
     }
   }
