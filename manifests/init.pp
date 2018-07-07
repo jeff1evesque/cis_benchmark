@@ -165,7 +165,6 @@ class cis_benchmark (
         class { 'cis_benchmark::trusty64::system_permissions': } ->
         class { 'cis_benchmark::trusty64::user_accounts': } ->
         class { 'cis_benchmark::trusty64::user_settings': } ->
-        class { 'cis_benchmark::trusty64::aide::config': } ->
         class { 'cis_benchmark::trusty64::aide::cron': } ->
         class { 'cis_benchmark::trusty64::aide::firstrun': } ->
         class { 'cis_benchmark::trusty64::aide::install': } ->
