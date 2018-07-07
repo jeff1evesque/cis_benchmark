@@ -337,7 +337,7 @@ class cis_benchmark::trusty64::user_settings {
   }
 
   ## 6.2.18 Ensure no duplicate user names exist (Scored)
-  if ($6_2_18) {
+  if ($cis_6_2_18) {
     file { 'file-cis-6-2-18':
         path     => "${exec_path}/duplicate-username-report",
         content  => dos2unix(template('cis_benchmark/trusty64/bash/duplicate-username-report.erb')),
