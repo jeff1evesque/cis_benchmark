@@ -165,8 +165,6 @@ class cis_benchmark (
         class { 'cis_benchmark::trusty64::system_permissions': } ->
         class { 'cis_benchmark::trusty64::user_accounts': } ->
         class { 'cis_benchmark::trusty64::user_settings': } ->
-        class { 'cis_benchmark::trusty64::logging::rsyslog': } ->
-        class { 'cis_benchmark::trusty64::logging::syslog_ng': } ->
         class { 'cis_benchmark::trusty64::services::inetd': } ->
         class { 'cis_benchmark::trusty64::services': } ->
         Class['cis_benchmark']
