@@ -7,5 +7,5 @@
 
 class cis_benchmark::trusty64::services {
   ## include
-  include cis::trusty64::services::xinetd
+  include cis_benchmark::trusty64::services::xinetd
 }
