@@ -166,7 +166,7 @@ class cis_benchmark (
         class { 'cis_benchmark::trusty64::user_accounts': } ->
         class { 'cis_benchmark::trusty64::user_settings': } ->
         class { 'cis_benchmark::trusty64::services::inetd': } ->
-        class { 'cis_benchmark::trusty64::services': } ->
+        class { 'cis_benchmark::trusty64::services::xinetd': } ->
         Class['cis_benchmark']
     }
 }
