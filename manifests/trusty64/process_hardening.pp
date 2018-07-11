@@ -53,6 +53,7 @@ class cis_benchmark::trusty64::process_hardening {
     }
   }
 
+  ##
   ## 1.5.3 Ensure address space layout randomization (ASLR) is enabled
   ##
   ## Note: the 'shell' provider allows the inline 'if' to be interpretted.
@@ -66,8 +67,10 @@ class cis_benchmark::trusty64::process_hardening {
     }
   }
 
+  ##
   ## 1.5.1 Ensure core dumps are restricted (Scored)
   ## 1.5.3 Ensure address space layout randomization (ASLR) is enabled
+  ##
   file { 'file-cis-sysctl':
       content       => dos2unix(template('cis_benchmark/trusty64/sysctl.conf.erb')),
       path          => '/etc/sysctl.conf',

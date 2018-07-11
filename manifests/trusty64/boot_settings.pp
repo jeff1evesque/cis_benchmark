@@ -26,6 +26,7 @@ class cis_benchmark::trusty64::boot_settings {
     }
   }
 
+  ##
   ## 1.4.2 Ensure permissions on bootloader config are configured (Scored)
   ##
   ## Note: the corresponding password can be (re)created as follows:
@@ -54,6 +55,7 @@ class cis_benchmark::trusty64::boot_settings {
     }
   }
 
+  ##
   ## update grub2 configuration
   ##
   ## Note: without the shell provider, the 'basename: not found' error exists.

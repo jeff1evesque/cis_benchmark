@@ -7,7 +7,7 @@
 
 class cis_benchmark::trusty64::user_accounts {
   ## local variables
-  $wheel_users     = $hiera_node['wheel']['users']
+  $wheel_users     = $::cis_benchmark::wheel_users
   $flattened_users = slice($wheel_users, 1).join(',')
 
   ## local variables: stig items
@@ -97,8 +97,8 @@ class cis_benchmark::trusty64::user_accounts {
       owner        => 'root',
       group        => 'root',
       content      => multitemplate(
-        "cis/trusty64/cis_5_5/${trusted['certname']}.erb",
-        "cis/trusty64/securetty.erb",
+        "cis_benchmark/trusty64/cis_5_5/${trusted['certname']}.erb",
+        'cis_benchmark/trusty64/securetty.erb',
       ),
     }
   }

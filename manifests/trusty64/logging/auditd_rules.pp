@@ -6,6 +6,7 @@
 ##
 
 class cis_benchmark::trusty64::logging::auditd_rules {
+  ##
   ## local variables
   ##
   ## @node_architecture, the following are assumed possible values:

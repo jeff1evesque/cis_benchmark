@@ -141,9 +141,11 @@ class cis_benchmark::trusty64::user_settings {
       ensure      => 'present',
     }
 
+    ##
     ## 6.2.7 Ensure all users home directories exist (Scored)
     ## 6.2.8 Ensure users' home directories permissions are 750 or more restrictive (Scored)
     ## 6.2.9 Ensure users own their home directories (Scored)
+    ##
     if ($cis_6_2_8) and ($cis_6_2_9) {
         file { "/home/${user}":
             ensure  => directory,
@@ -330,12 +332,12 @@ class cis_benchmark::trusty64::user_settings {
         cwd      => $exec_path,
         path     => ['/bin', '/usr/bin'],
         onlyif   => './duplicate-gid-report check',
-       cis_ provider => shell,
+        provider => shell,
     }
   }
 
   ## 6.2.18 Ensure no duplicate user names exist (Scored)
-  if ($6_2_18) {
+  if ($cis_6_2_18) {
     file { 'file-cis-6-2-18':
         path     => "${exec_path}/duplicate-username-report",
         content  => dos2unix(template('cis_benchmark/trusty64/bash/duplicate-username-report.erb')),

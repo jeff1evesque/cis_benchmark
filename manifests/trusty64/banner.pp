@@ -21,8 +21,10 @@ class cis_benchmark::trusty64::banner {
   $cis_1_7_2     = $::cis_benchmark::cis_1_7_2
   $cis_1_8       = $::cis_benchmark::cis_1_8
 
+  ##
   ## 1.7.1.1 Ensure message of the day is configured properly (Scored)
   ## 1.7.1.4 Ensure permissions on /etc/motd are configured (Not Scored)
+  ##
   if ($cis_1_7_1_1 and $cis_1_7_1_4) {
     file { '/etc/motd':
       ensure  => present,
@@ -47,8 +49,10 @@ class cis_benchmark::trusty64::banner {
     }
   }
 
+  ##
   ## 1.7.1.2 Ensure local login warning banner is configured properly (Not Scored)
   ## 1.7.1.5 Ensure permissions on /etc/issue are configured (Scored)
+  ##
   if ($cis_1_7_1_2 and $cis_1_7_1_5) {
     file { '/etc/issue':
       ensure  => present,
@@ -73,8 +77,10 @@ class cis_benchmark::trusty64::banner {
     }
   }
 
+  ##
   ## 1.7.1.3 Ensure remote login warning banner is configured properly (Not Scored)
   ## 1.7.1.6 Ensure permissions on /etc/issue.net are configured (Not Scored)
+  ##
   if ($cis_1_7_1_3 and $cis_1_7_1_6) {
     file { '/etc/issue.net':
       ensure  => present,
