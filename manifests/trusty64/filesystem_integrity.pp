@@ -8,6 +8,7 @@
 class cis_benchmark::trusty64::filesystem_integrity {
   ## local variables
   $timestamp        = generate('/bin/date', '+%Y-%d-%m-%H-%M-%S')
+  $aide_log_file    = "/var/log/aide/aidecheck_${timestamp}.txt"
 
   ## local variables: stig items
   $cis_1_3_1        = $::cis_benchmark::cis_1_3_1
@@ -17,13 +18,13 @@ class cis_benchmark::trusty64::filesystem_integrity {
   if ($cis_1_3_1) {
     package { 'aide':
         ensure      => 'installed',
-        notify      => Exec['aide-init']
+        notify      => Exec['aideinit'],
     }
 
-    exec { 'aide-init':
-        command     => 'aide --init',
+    exec { 'aideinit':
+        command     => 'aideinit',
         refreshonly => true,
-        path        => '/usr/bin',
+        path        => '/usr/sbin',
     }
   }
 
@@ -37,7 +38,7 @@ class cis_benchmark::trusty64::filesystem_integrity {
       }
 
       cron { 'aide-report':
-          command   => "/usr/bin/aide --check > /var/log/aide/aidecheck_${timestamp}.txt",
+          command   => "aide -c /etc/aide/aide.conf --check > ${aide_log_file}",
           user      => 'root',
           hour      => 5,
           minute    => 0,
