@@ -141,7 +141,7 @@ class cis_benchmark (
     $aide_cron_minute  = $::cis_benchmark::params::aide_cron_minute,
     $aide_db_path      = $::cis_benchmark::params::aide_db_path,
     $aide_db_temp_path = $::cis_benchmark::params::aide_db_temp_path,
-    $update_frequency  = $::cis_benchmark::update_frequency,
+    $update_frequency  = $::cis_benchmark::params::update_frequency,
 ) inherits ::cis_benchmark::params {
     if (downcase($operatingsystem) == 'centos' and $os_major_version == '7') {
 
