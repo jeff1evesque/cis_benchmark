@@ -6,21 +6,23 @@
 ##
 
 class cis_benchmark::trusty64::apt_get_update {
+  ## local variables
+  $frequency      = $::cis_benchmark::update_frequency
+
   ## local variables: stig items
   $cis_1_8        = $::cis_benchmark::cis_1_8
 
   ## 1.8 Ensure updates, patches, and additional security software are installed (Not Scored)
   if ($cis_1_8) {
-    exec { 'apt-get-update':
-      command     => 'apt-get -y update',
-      path        => '/usr/bin',
-      notify      => Exec['apt-get-upgrade'],
+    exec { 'stabilize-dpkg':
+      command     => 'dpkg --configure -a',
+      unless      => 'apt-get -y update',
     }
 
-    exec { 'apt-get-upgrade':
-      command     => 'apt-get -y upgrades',
-      path        => '/usr/bin',
-      refreshonly => true,
+    class { 'apt':
+      update => {
+        frequency => $frequency,
+      },
     }
   }
 }
