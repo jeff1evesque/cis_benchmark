@@ -349,6 +349,6 @@ class cis_benchmark::params {
         $aide_cron_minute  = 0
         $aide_db_path      = '/var/lib/aide/aide.db.gz'
         $aide_db_temp_path = '/var/lib/aide/aide.db.new'
-        $update_frequency  = 'daily'
+        $update_frequency  = 'weekly'
     }
 }
