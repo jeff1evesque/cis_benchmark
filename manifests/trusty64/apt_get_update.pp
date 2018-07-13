@@ -17,6 +17,7 @@ class cis_benchmark::trusty64::apt_get_update {
     exec { 'stabilize-dpkg':
       command     => 'dpkg --configure -a',
       unless      => 'apt-get -y update',
+      path        => '/usr/bin',
     }
 
     class { 'apt':
