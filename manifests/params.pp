@@ -19,6 +19,7 @@ class cis_benchmark::params {
     $suid                  = $hiera_node['suid']
     $sgid                  = $hiera_node['sgid']
     $wheel                 = $hiera_node['wheel']
+    $package_manager       = $hiera_node['package_manager']
 
     if $hiera {
         $cis_1_1_1_1       = $stig['1_1_1_1']
@@ -145,7 +146,7 @@ class cis_benchmark::params {
         $cis_6_2_18        = $stig['6_2_18']
         $cis_6_2_19        = $stig['6_2_19']
         $cis_6_2_20        = $stig['6_2_20']
-        $grub_user         =  $account['grub2']['user']
+        $grub_user         = $account['grub2']['user']
         $grub_password     = $account['grub2']['password']
         $root_password     = $account['account']['root']['password']
         $paths             = $report['stig']['paths']
@@ -161,6 +162,7 @@ class cis_benchmark::params {
         $aide_cron_minute  = $aide['aide_cron_minute']
         $aide_db_path      = $aide['aide_db_path']
         $aide_db_temp_path = $aide['aide_db_temp_path']
+        $update_frequency  = $package_manager['update_frequency']
     }
 
     else {
@@ -347,5 +349,6 @@ class cis_benchmark::params {
         $aide_cron_minute  = 0
         $aide_db_path      = '/var/lib/aide/aide.db.gz'
         $aide_db_temp_path = '/var/lib/aide/aide.db.new'
+        $update_frequency  = 'weekly'
     }
 }

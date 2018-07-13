@@ -141,6 +141,7 @@ class cis_benchmark (
     $aide_cron_minute  = $::cis_benchmark::params::aide_cron_minute,
     $aide_db_path      = $::cis_benchmark::params::aide_db_path,
     $aide_db_temp_path = $::cis_benchmark::params::aide_db_temp_path,
+    $update_frequency  = $::cis_benchmark::params::update_frequency,
 ) inherits ::cis_benchmark::params {
     if (downcase($operatingsystem) == 'centos' and $os_major_version == '7') {
 
@@ -149,12 +150,13 @@ class cis_benchmark (
         (downcase($operatingsystem) == 'ubuntu' and $os_major_version == '14') or
         (downcase($operatingsystem) == 'debian' and $os_major_version == '7')
     ) {
+        class { 'cis_benchmark::trusty64::apt_get_update': } ->
         class { 'cis_benchmark::trusty64::autofsconf': } ->
         class { 'cis_benchmark::trusty64::banner': } ->
         class { 'cis_benchmark::trusty64::boot_settings': } ->
         class { 'cis_benchmark::trusty64::cron': } ->
         class { 'cis_benchmark::trusty64::dependencies': } ->
-        class { 'cis_benchmark::trusty64::filesystem_integrity': } ->
+        class { 'cis_benchmark::trusty64::filesystem_integrity': }# ->
         class { 'cis_benchmark::trusty64::filesystems': } ->
         class { 'cis_benchmark::trusty64::logging::auditd_rules': } ->
         class { 'cis_benchmark::trusty64::logging::rsyslog': } ->

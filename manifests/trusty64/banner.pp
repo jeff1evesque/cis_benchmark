@@ -7,19 +7,18 @@
 
 class cis_benchmark::trusty64::banner {
   ## local variables
-  $grub_user     = $::cis_benchmark::grub_user
-  $grub_password = $::cis_benchmark::grub_password
-  $root_password = $::cis_benchmark::root_password
+  $grub_user      = $::cis_benchmark::grub_user
+  $grub_password  = $::cis_benchmark::grub_password
+  $root_password  = $::cis_benchmark::root_password
 
   ## local variables: stig items
-  $cis_1_7_1_1   = $::cis_benchmark::cis_1_1_21
-  $cis_1_7_1_2   = $::cis_benchmark::cis_1_7_1_2
-  $cis_1_7_1_3   = $::cis_benchmark::cis_1_7_1_3
-  $cis_1_7_1_4   = $::cis_benchmark::cis_1_7_1_4
-  $cis_1_7_1_5   = $::cis_benchmark::cis_1_7_1_5
-  $cis_1_7_1_6   = $::cis_benchmark::cis_1_7_1_6
-  $cis_1_7_2     = $::cis_benchmark::cis_1_7_2
-  $cis_1_8       = $::cis_benchmark::cis_1_8
+  $cis_1_7_1_1    = $::cis_benchmark::cis_1_1_21
+  $cis_1_7_1_2    = $::cis_benchmark::cis_1_7_1_2
+  $cis_1_7_1_3    = $::cis_benchmark::cis_1_7_1_3
+  $cis_1_7_1_4    = $::cis_benchmark::cis_1_7_1_4
+  $cis_1_7_1_5    = $::cis_benchmark::cis_1_7_1_5
+  $cis_1_7_1_6    = $::cis_benchmark::cis_1_7_1_6
+  $cis_1_7_2      = $::cis_benchmark::cis_1_7_2
 
   ##
   ## 1.7.1.1 Ensure message of the day is configured properly (Scored)
@@ -27,25 +26,25 @@ class cis_benchmark::trusty64::banner {
   ##
   if ($cis_1_7_1_1 and $cis_1_7_1_4) {
     file { '/etc/motd':
-      ensure  => present,
-      mode    => '0444',
-      owner   => 'root',
-      group   => 'root',
-      content => dos2unix(template('cis_benchmark/trusty64/motd.erb')),
+      ensure      => present,
+      mode        => '0444',
+      owner       => 'root',
+      group       => 'root',
+      content     => dos2unix(template('cis_benchmark/trusty64/motd.erb')),
     }
   }
   elsif ($cis_1_7_1_1) {
     file { '/etc/motd':
-      ensure  => present,
-      content => dos2unix(template('cis_benchmark/trusty64/motd.erb')),
+      ensure      => present,
+      content     => dos2unix(template('cis_benchmark/trusty64/motd.erb')),
     }
   }
   elsif ($cis_1_7_1_4) {
     file { '/etc/motd':
-      ensure  => present,
-      mode    => '0444',
-      owner   => 'root',
-      group   => 'root',
+      ensure      => present,
+      mode        => '0444',
+      owner       => 'root',
+      group       => 'root',
     }
   }
 
@@ -55,25 +54,25 @@ class cis_benchmark::trusty64::banner {
   ##
   if ($cis_1_7_1_2 and $cis_1_7_1_5) {
     file { '/etc/issue':
-      ensure  => present,
-      mode    => '0444',
-      owner   => 'root',
-      group   => 'root',
-      content => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
+      ensure      => present,
+      mode        => '0444',
+      owner       => 'root',
+      group       => 'root',
+      content     => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
     }
   }
   elsif ($cis_1_7_1_2) {
     file { '/etc/issue':
-      ensure  => present,
-      content => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
+      ensure      => present,
+      content     => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
     }
   }
   elsif ($cis_1_7_1_5) {
     file { '/etc/issue':
-      ensure  => present,
-      mode    => '0444',
-      owner   => 'root',
-      group   => 'root',
+      ensure      => present,
+      mode        => '0444',
+      owner       => 'root',
+      group       => 'root',
     }
   }
 
@@ -83,25 +82,25 @@ class cis_benchmark::trusty64::banner {
   ##
   if ($cis_1_7_1_3 and $cis_1_7_1_6) {
     file { '/etc/issue.net':
-      ensure  => present,
-      mode    => '0444',
-      owner   => 'root',
-      group   => 'root',
-      content => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
+      ensure      => present,
+      mode        => '0444',
+      owner       => 'root',
+      group       => 'root',
+      content     => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
     }
   }
   elsif ($cis_1_7_1_3) {
     file { '/etc/issue.net':
-      ensure  => present,
-      content => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
+      ensure      => present,
+      content     => dos2unix(template('cis_benchmark/trusty64/issue.erb')),
     }
   }
   elsif ($cis_1_7_1_6) {
     file { '/etc/issue.net':
-      ensure  => present,
-      mode    => '0444',
-      owner   => 'root',
-      group   => 'root',
+      ensure      => present,
+      mode        => '0444',
+      owner       => 'root',
+      group       => 'root',
     }
   }
 
@@ -133,21 +132,6 @@ class cis_benchmark::trusty64::banner {
 
     exec { 'update-system-database':
       command     => 'dconf update',
-      path        => '/usr/bin',
-      refreshonly => true,
-    }
-  }
-
-  ## 1.8 Ensure updates, patches, and additional security software are installed (Not Scored)
-  if ($cis_1_8) {
-    exec { 'apt-get-update':
-      command     => 'apt-get -y update',
-      path        => '/usr/bin',
-      notify      => Exec['apt-get-upgrade'],
-    }
-
-    exec { 'apt-get-upgrade':
-      command     => 'apt-get -y upgrades',
       path        => '/usr/bin',
       refreshonly => true,
     }
