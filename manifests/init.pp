@@ -152,8 +152,8 @@ class cis_benchmark (
     ) {
         class { 'cis_benchmark::trusty64::apt_get_update': } ->
         class { 'cis_benchmark::trusty64::autofsconf': } ->
-        class { 'cis_benchmark::trusty64::banner': } ->
         class { 'cis_benchmark::trusty64::boot_settings': } ->
+        class { 'cis_benchmark::trusty64::banner': } ->
         class { 'cis_benchmark::trusty64::cron': } ->
         class { 'cis_benchmark::trusty64::dependencies': } ->
         class { 'cis_benchmark::trusty64::filesystem_integrity': }# ->
