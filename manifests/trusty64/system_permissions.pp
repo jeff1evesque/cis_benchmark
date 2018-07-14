@@ -12,6 +12,8 @@ class cis_benchmark::trusty64::system_permissions {
   $paths         = $::cis_benchmark::paths
   $valid_suid    = $::cis_benchmark::suid
   $valid_sgid    = $::cis_benchmark::sgid
+  $wr_logdir     = '/var/log/world-writeable-files'
+  $wr_logfile    = "${wr_logdir}/`date +%Y.%m.%d.%H.%M.%S`_world_writeable_files.txt"
 
   ## local variables: stig items
   $cis_6_1_1     = $::cis_benchmark::cis_6_1_1
@@ -39,12 +41,25 @@ class cis_benchmark::trusty64::system_permissions {
         mode     => '0700',
     }
 
-    exec { 'exec-cis-6-1-1':
-        command  => './dpkg-report execute',
-        cwd      => $exec_path,
-        onlyif   => './dpkg-report check',
-        path     => '/usr/bin',
-        provider => shell,
+    ##
+    ## cronjob: many packages may be installed, so the common 'exec'
+    ##     pattern was converted to a cronjob, to ensure idempotency.
+    ##
+    ## dkpg -V: report output
+    ##
+    ##     @?, indicates that the check failed, usually due to lack of support
+    ##         or file permission issues.
+    ##     @., implies the check passed
+    ##     @5, an alphanumeric character implies a specific check failed; the
+    ##         only functional check is an md5sum verification denoted with a
+    ##         '5' on the third character.
+    ##
+    cron::daily { 'dpkg-report':
+        command   => './dpkg-report execute',
+        user      => 'root',
+        hour      => '5',
+        minute    => '0',
+        environment => [ 'PATH="/usr/bin"', ],
     }
   }
 
@@ -129,15 +144,34 @@ class cis_benchmark::trusty64::system_permissions {
   }
 
   ## CIS 6.1.10 Ensure no world writable files exist (Scored)
-  if ($cis_6_1_10) {
-    file { 'file-cis-6-1-10':
-        path     => "${exec_path}/world-writeable-files",
-        content  => dos2unix(template('cis_benchmark/trusty64/bash/world-writeable-files.erb')),
-        owner    => root,
-        group    => root,
-        mode     => '0700',
-    }
+  file { 'file-cis-6-1-10':
+      path     => "${exec_path}/world-writeable-files",
+      content  => dos2unix(template('cis_benchmark/trusty64/bash/world-writeable-files.erb')),
+      owner    => root,
+      group    => root,
+      mode     => '0700',
+  }
 
+  file { $wr_logdir:
+      ensure    => 'directory',
+      owner     => 'root',
+      group     => 'root',
+      mode      => '0700',
+  }
+
+  ##
+  ## cronjob: a system may contain fluctuating world writeable files, and
+  ##     sometimes these permissions cannot be reduced.
+  ##
+  cron::daily { 'world-writeable-report':
+      command   => "./world-writeable-files report ${wr_logfile}",
+      user      => 'root',
+      hour      => '5',
+      minute    => '0',
+      environment => [ 'PATH="/bin:/usr/bin:/usr/sbin"', ],
+  }
+
+  if ($cis_6_1_10) {
     exec { 'exec-cis-6-1-10':
         command  => './world-writeable-files execute',
         cwd      => $exec_path,
