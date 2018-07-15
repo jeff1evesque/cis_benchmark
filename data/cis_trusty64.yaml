@@ -163,6 +163,9 @@ cis_benchmark::trusty64:
         users:
             - root
 
+    package_manager:
+        update_frequency: 'weekly'
+
     report:
         stig:
             paths:

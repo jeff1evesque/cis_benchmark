@@ -16,8 +16,9 @@ class cis_benchmark::params {
 
     if $hiera_node {
         $stig              = $hiera_node['stig']
+        $aide              = $hiera_node['aide']
         $account           = $hiera_node['account']
-        $grub2             = $hiera_node['grub2']
+        $grub              = $hiera_node['grub2']
         $report            = $hiera_node['report']
         $suid              = $hiera_node['suid']
         $sgid              = $hiera_node['sgid']
@@ -149,8 +150,8 @@ class cis_benchmark::params {
         $cis_6_2_19        = $stig['cis_6_2_19']
         $cis_6_2_20        = $stig['cis_6_2_20']
 
-        $grub_user         = grub2['user']
-        $grub_password     = grub2['password']
+        $grub_user         = $grub['user']
+        $grub_password     = $grub['password']
         $root_password     = $account['root']['password']
         $paths             = $report['stig']['paths']
         $exec_path         = $report['stig']['exec_path']
@@ -158,10 +159,10 @@ class cis_benchmark::params {
         $wheel_users       = $wheel['users']
         $aide_config       = $aide['config_path']
         $aide_path         = $aide['aide_path']
-        $aide_cron_hour    = $aide['aide_cron_hour']
-        $aide_cron_minute  = $aide['aide_cron_minute']
-        $aide_db_path      = $aide['aide_db_path']
-        $aide_db_temp_path = $aide['aide_db_temp_path']
+        $aide_cron_hour    = $aide['cron']['hour']
+        $aide_cron_minute  = $aide['cron']['minute']
+        $aide_db_path      = $aide['db_path']
+        $aide_db_temp_path = $aide['db_temp_path']
         $update_frequency  = $package_manager['update_frequency']
     }
 
