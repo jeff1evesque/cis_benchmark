@@ -7,7 +7,8 @@
 
 class cis_benchmark::trusty64::filesystem_integrity {
   ## local variables
-  $aide_log_file    = "/var/log/aide/`date +%Y.%m.%d.%H.%M.%S`_aidecheck.txt"
+  $aide_logdir      = '/var/log/aide'
+  $aide_logfile     = "${aide_logdir}/`date +%Y.%m.%d.%H.%M.%S`_aidecheck.txt"
 
   ## local variables: stig items
   $cis_1_3_1        = $::cis_benchmark::cis_1_3_1
@@ -29,7 +30,7 @@ class cis_benchmark::trusty64::filesystem_integrity {
 
   ## 1.3.2 Ensure filesystem integrity is regularly checked (Scored)
   if ($cis_1_3_2) {
-      file { '/var/log/aide':
+      file { $aide_logdir:
           ensure    => 'directory',
           owner     => 'root',
           group     => 'root',
@@ -37,7 +38,7 @@ class cis_benchmark::trusty64::filesystem_integrity {
       }
 
       cron::daily { 'aide-report':
-          command   => "aide -c /etc/aide/aide.conf --check > ${aide_log_file}",
+          command   => "aide -c /etc/aide/aide.conf --check > ${aide_logfile}",
           user      => 'root',
           hour      => '5',
           minute    => '0',
