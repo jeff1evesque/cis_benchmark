@@ -21,7 +21,7 @@ class cis_benchmark::params {
     $wheel                 = $hiera_node['wheel']
     $package_manager       = $hiera_node['package_manager']
 
-    if $hiera {
+    if $hiera_node {
         $cis_1_1_1_1       = $stig['1_1_1_1']
         $cis_1_1_1_2       = $stig['1_1_1_2']
         $cis_1_1_1_3       = $stig['1_1_1_3']
@@ -265,7 +265,7 @@ class cis_benchmark::params {
         $cis_6_1_7         = true
         $cis_6_1_8         = true
         $cis_6_1_9         = true
-        $cis_6_1_10        = true
+        $cis_6_1_10        = false
         $cis_6_1_11        = true
         $cis_6_1_12        = true
         $cis_6_1_13        = true
