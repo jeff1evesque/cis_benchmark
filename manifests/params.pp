@@ -12,7 +12,7 @@ class cis_benchmark::params {
         regsubst($trusted['certname'], '\.', '_', 'G'),
         'trusty64',
         'cis_benchmark::trusty64'
-    ])
+    ], 'default_value' => false)
 
     if $hiera_node {
         $stig              = $hiera_node['stig']
