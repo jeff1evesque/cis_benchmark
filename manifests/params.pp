@@ -155,9 +155,6 @@ class cis_benchmark::params {
         $paths             = $report['stig']['paths']
         $exec_path         = $report['stig']['exec_path']
         $report_path       = $report['stig']['report_path']
-        $paths             = $report['stig']['paths']
-        $suid              = $suid
-        $sgid              = $sgid
         $wheel_users       = $wheel['users']
         $aide_config       = $aide['config_path']
         $aide_path         = $aide['aide_path']
