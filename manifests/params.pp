@@ -11,17 +11,19 @@ class cis_benchmark::params {
     $hiera_node            = lookup([
         regsubst($trusted['certname'], '\.', '_', 'G'),
         'trusty64',
-        'cis_benchmark::trusty64',
+        'cis_benchmark::trusty64'
     ])
-    $stig                  = $hiera_node['stig']
-    $account               = $hiera_node['account']
-    $report                = $hiera_node['report']
-    $suid                  = $hiera_node['suid']
-    $sgid                  = $hiera_node['sgid']
-    $wheel                 = $hiera_node['wheel']
-    $package_manager       = $hiera_node['package_manager']
 
     if $hiera_node {
+        $stig              = $hiera_node['stig']
+        $account           = $hiera_node['account']
+        $grub2             = $hiera_node['grub2']
+        $report            = $hiera_node['report']
+        $suid              = $hiera_node['suid']
+        $sgid              = $hiera_node['sgid']
+        $wheel             = $hiera_node['wheel']
+        $package_manager   = $hiera_node['package_manager']
+
         $cis_1_1_1_1       = $stig['1_1_1_1']
         $cis_1_1_1_2       = $stig['1_1_1_2']
         $cis_1_1_1_3       = $stig['1_1_1_3']
@@ -146,8 +148,9 @@ class cis_benchmark::params {
         $cis_6_2_18        = $stig['6_2_18']
         $cis_6_2_19        = $stig['6_2_19']
         $cis_6_2_20        = $stig['6_2_20']
-        $grub_user         = $account['grub2']['user']
-        $grub_password     = $account['grub2']['password']
+
+        $grub_user         = grub2['user']
+        $grub_password     = grub2['password']
         $root_password     = $account['account']['root']['password']
         $paths             = $report['stig']['paths']
         $exec_path         = $report['stig']['exec_path']
@@ -290,6 +293,7 @@ class cis_benchmark::params {
         $cis_6_2_18        = true
         $cis_6_2_19        = true
         $cis_6_2_20        = true
+
         $grub_user         = 'root'
         $grub_password     = 'grub.pbkdf2.sha512.10000.F2FD2EE0B11137C1AA614B4610E038E67D925E6AFF3987BB0B9BAC5E0E231B835D1B33FC0999226EEEEBBA7A8308CD4B34EA1AB3B82CD53A1D2AE94BE1D494C3.2CECD078C459898879E2B733A6939E1FE64BEAEFB5C096BD6F1F54D7E0C7F6F2B571CF033876BF5721377735CF1E9044048590CE56ECFFC6F8191980BF908031'
         $root_password     = 'password'
