@@ -151,7 +151,7 @@ class cis_benchmark::params {
 
         $grub_user         = grub2['user']
         $grub_password     = grub2['password']
-        $root_password     = $account['account']['root']['password']
+        $root_password     = $account['root']['password']
         $paths             = $report['stig']['paths']
         $exec_path         = $report['stig']['exec_path']
         $report_path       = $report['stig']['report_path']
