@@ -191,7 +191,7 @@ class cis_benchmark::params {
         $cis_1_7_1_4       = true
         $cis_1_7_1_5       = true
         $cis_1_7_1_6       = true
-        $cis_1_7_2         = true
+        $cis_1_7_2         = false
         $cis_1_8           = true
         $cis_2_1_1         = true
         $cis_2_1_2         = true
