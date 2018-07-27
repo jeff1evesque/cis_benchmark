@@ -122,15 +122,16 @@ class cis_benchmark::trusty64::user_settings {
         mode     => '0700',
     }
 
-    exec { 'exec-cis-6-2-6':
-        command  => "./root-path-report execute ${path}",
-        cwd      => $exec_path,
-        path     => [
-            '/bin',
-            '/usr/bin',
-        ],
-        onlyif   => './root-path-report check',
-        provider => shell,
+    ##
+    ## cronjob: many packages may be installed, so the common 'exec'
+    ##     pattern was converted to a cronjob, to ensure idempotency.
+    ##
+    cron::daily { 'root-path-report':
+        command   => "cd ${exec_path} && ./root-path-report execute ${path}",
+        user      => 'root',
+        hour      => '5',
+        minute    => '0',
+        environment => [ 'PATH="/bin:/usr/bin"', ],
     }
   }
 
