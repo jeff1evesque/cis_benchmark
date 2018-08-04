@@ -33,7 +33,7 @@ class cis_benchmark::trusty64::user_accounts {
 
     file { '/root/chage':
       ensure       => present,
-      mode         => '0644',
+      mode         => '0600',
       owner        => 'root',
       group        => 'root',
       content      => dos2unix(template('cis_benchmark/trusty64/bash/chage.erb')),
