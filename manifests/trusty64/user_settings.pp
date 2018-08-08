@@ -93,22 +93,19 @@ class cis_benchmark::trusty64::user_settings {
   ## 6.2.5 Ensure root is the only UID 0 account (Scored)
   if ($cis_6_2_5) {
     file { 'file-cis-6-2-5':
-        path     => "${exec_path}/superuser-privilege",
+        path     => '/root/superuser-privilege',
         content  => dos2unix(template('cis_benchmark/trusty64/bash/superuser-privilege.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
     }
 
-    exec { 'exec-cis-6-2-5':
-        command  => './superuser-privilege execute',
-        cwd      => $exec_path,
-        path     => [
-            '/bin',
-            '/usr/bin',
-        ],
-        onlyif   => './superuser-privilege check',
-        provider => shell,
+    cron::daily { 'remove-superuser-privilege':
+      command   => 'cd /root && ./superuser-privilege execute',
+      user      => 'root',
+      hour      => '5',
+      minute    => '0',
+      environment => [ 'PATH="/bin:/usr/bin', ],
     }
   }
   
@@ -320,19 +317,19 @@ class cis_benchmark::trusty64::user_settings {
   ## 6.2.17 Ensure no duplicate GIDs exist (Scored)
   if ($cis_6_2_17) {
     file { 'file-cis-6-2-17':
-        path     => "${exec_path}/duplicate-gid-report",
+        path     => '/root/duplicate-gid-report',
         content  => dos2unix(template('cis_benchmark/trusty64/bash/duplicate-gid-report.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
     }
 
-    exec { 'exec-cis-6-2-17':
-        command  => './duplicate-gid-report execute',
-        cwd      => $exec_path,
-        path     => ['/bin', '/usr/bin'],
-        onlyif   => './duplicate-gid-report check',
-        provider => shell,
+    cron::daily { 'report-duplicate-gid':
+      command   => 'cd /root && ./duplicate-gid-report execute',
+      user      => 'root',
+      hour      => '5',
+      minute    => '0',
+      environment => [ 'PATH="/bin:/usr/bin', ],
     }
   }
 
