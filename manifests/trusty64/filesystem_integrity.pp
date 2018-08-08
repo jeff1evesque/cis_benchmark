@@ -24,7 +24,7 @@ class cis_benchmark::trusty64::filesystem_integrity {
     exec { 'aideinit':
         command     => 'aideinit',
         refreshonly => true,
-        path        => '/usr/sbin',
+        path        => ['/bin', '/usr/sbin', '/usr/bin'],
     }
   }
 

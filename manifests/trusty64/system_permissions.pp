@@ -55,7 +55,7 @@ class cis_benchmark::trusty64::system_permissions {
     ##         '5' on the third character.
     ##
     cron::daily { 'dpkg-report':
-        command   => './dpkg-report execute',
+        command   => "cd ${exec_path} && ./dpkg-report execute",
         user      => 'root',
         hour      => '5',
         minute    => '0',
@@ -164,7 +164,7 @@ class cis_benchmark::trusty64::system_permissions {
   ##     sometimes these permissions cannot be reduced.
   ##
   cron::daily { 'world-writeable-report':
-      command   => "./world-writeable-files report ${wr_logfile}",
+      command   => "cd ${exec_path} && ./world-writeable-files report ${wr_logfile}",
       user      => 'root',
       hour      => '5',
       minute    => '0',

@@ -119,12 +119,16 @@ class cis_benchmark::trusty64::user_settings {
         mode     => '0700',
     }
 
-    cron::daily { 'report-permission-ownership':
-      command   => 'cd /root && ./root-path-report execute',
-      user      => 'root',
-      hour      => '5',
-      minute    => '0',
-      environment => [ 'PATH="/bin:/usr/bin', ],
+    ##
+    ## cronjob: many packages may be installed, so the common 'exec'
+    ##     pattern was converted to a cronjob, to ensure idempotency.
+    ##
+    cron::daily { 'root-path-report':
+        command   => "cd ${exec_path} && ./root-path-report execute ${path}",
+        user      => 'root',
+        hour      => '5',
+        minute    => '0',
+        environment => [ 'PATH="/bin:/usr/bin"', ],
     }
   }
 
