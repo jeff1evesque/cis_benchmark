@@ -112,22 +112,19 @@ class cis_benchmark::trusty64::user_settings {
   ## 6.2.6 Ensure root PATH Integrity (Scored)
   if ($cis_6_2_6) {
     file { 'file-cis-6-2-6':
-        path     => "${exec_path}/root-path-report",
+        path     => '/root/root-path-report',
         content  => dos2unix(template('cis_benchmark/trusty64/bash/root-path-report.erb')),
         owner    => root,
         group    => root,
         mode     => '0700',
     }
 
-    exec { 'exec-cis-6-2-6':
-        command  => "./root-path-report execute ${path}",
-        cwd      => $exec_path,
-        path     => [
-            '/bin',
-            '/usr/bin',
-        ],
-        onlyif   => './root-path-report check',
-        provider => shell,
+    cron::daily { 'report-permission-ownership':
+      command   => 'cd /root && ./root-path-report execute',
+      user      => 'root',
+      hour      => '5',
+      minute    => '0',
+      environment => [ 'PATH="/bin:/usr/bin', ],
     }
   }
 
