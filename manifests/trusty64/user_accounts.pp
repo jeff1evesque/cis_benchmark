@@ -29,27 +29,35 @@ class cis_benchmark::trusty64::user_accounts {
       owner        => 'root',
       group        => 'root',
       content      => dos2unix(template('cis_benchmark/trusty64/login.defs.erb')),
-      notify       => Exec['chage-pass'],
     }
 
-    exec { 'chage-pass':
-      command      => dos2unix(template('cis_benchmark/trusty64/bash/chage.erb')),
-      refreshonly  => true,
-      path         => '/usr/bin',
-      provider     => shell,
+    file { '/root/chage':
+      ensure       => present,
+      mode         => '0600',
+      owner        => 'root',
+      group        => 'root',
+      content      => dos2unix(template('cis_benchmark/trusty64/bash/chage.erb')),
+    }
+
+    cron::daily { 'cron-chage':
+      command   => 'cd /root && ./chage',
+      user      => 'root',
+      hour      => '5',
+      minute    => '0',
+      environment => [ 'PATH="/usr/bin', ],
     }
   }
 
   ## 5.4.2 Ensure system accounts are non-login (Scored)
   if ($cis_5_4_2) {
     file { 'file-cis-5-4-2':
-        path       => '/root',
+        path       => '/root/usermod-nologin',
         content    => dos2unix(template('cis_benchmark/trusty64/bash/usermod-nologin.erb')),
         owner      => root,
         group      => root,
         mode       => '0600',
+        before     => Exec['exec-cis-5-4-2'],
     }
-
     exec { 'exec-cis-5-4-2':
       command      => './usermod-nologin change',
       cwd          => '/root',

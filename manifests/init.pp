@@ -150,23 +150,23 @@ class cis_benchmark (
         (downcase($operatingsystem) == 'ubuntu' and $os_major_version == '14') or
         (downcase($operatingsystem) == 'debian' and $os_major_version == '7')
     ) {
-        class { 'cis_benchmark::trusty64::apt_get_update': } ->
-        class { 'cis_benchmark::trusty64::autofsconf': } ->
-        class { 'cis_benchmark::trusty64::boot_settings': } ->
-        class { 'cis_benchmark::trusty64::banner': } ->
-        class { 'cis_benchmark::trusty64::cron': } ->
-        class { 'cis_benchmark::trusty64::dependencies': } ->
-        class { 'cis_benchmark::trusty64::filesystem_integrity': } ->
-        class { 'cis_benchmark::trusty64::filesystems': } ->
-        class { 'cis_benchmark::trusty64::logging::auditd_rules': } ->
-        class { 'cis_benchmark::trusty64::logging::rsyslog': } ->
-        class { 'cis_benchmark::trusty64::logging::syslog_ng': } ->
-        class { 'cis_benchmark::trusty64::logging': } ->
-        class { 'cis_benchmark::trusty64::process_hardening': } ->
-        class { 'cis_benchmark::trusty64::ssh': } ->
-        class { 'cis_benchmark::trusty64::system_permissions': } ->
-        class { 'cis_benchmark::trusty64::user_accounts': } ->
-        class { 'cis_benchmark::trusty64::user_settings': } ->
+        class { 'cis_benchmark::trusty64::apt_get_update': }
+        class { 'cis_benchmark::trusty64::autofsconf': }
+        class { 'cis_benchmark::trusty64::boot_settings': }
+        class { 'cis_benchmark::trusty64::banner': }
+        class { 'cis_benchmark::trusty64::cron': }
+        class { 'cis_benchmark::trusty64::dependencies': }
+        class { 'cis_benchmark::trusty64::filesystem_integrity': }
+        class { 'cis_benchmark::trusty64::filesystems': }
+        class { 'cis_benchmark::trusty64::logging::auditd_rules': }
+        class { 'cis_benchmark::trusty64::logging::rsyslog': }
+        class { 'cis_benchmark::trusty64::logging::syslog_ng': }
+        class { 'cis_benchmark::trusty64::logging': }
+        class { 'cis_benchmark::trusty64::process_hardening': }
+        class { 'cis_benchmark::trusty64::ssh': }
+        class { 'cis_benchmark::trusty64::system_permissions': }
+        class { 'cis_benchmark::trusty64::user_accounts': }
+        class { 'cis_benchmark::trusty64::user_settings': }
         class { 'cis_benchmark::trusty64::services::inetd': } ->
         class { 'cis_benchmark::trusty64::services::xinetd': } ->
         Class['cis_benchmark']

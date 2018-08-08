@@ -19,7 +19,7 @@ TEMP=($(cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'))
 
 ## check existence
 if [ "$OPERATION" == 'check' ]; then
-    if [[ -n "${TEMP[@]}" ]]; then
+    if [[ -n "${TEMP[@]}" ]] && [[ "${TEMP[@]}" != 'root' ]]; then
         exit 0
     else
         exit 1
