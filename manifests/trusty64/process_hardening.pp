@@ -48,8 +48,9 @@ class cis_benchmark::trusty64::process_hardening {
 
     exec { 'exec-cis-1-5-2':
       command       => './xdnx-report execute',
+      cwd           => $exec_path,
       onlyif        => './xdnx-report report',
-      path          => $exec_path,
+      provider      => shell,
     }
   }
 
