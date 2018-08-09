@@ -22,7 +22,7 @@ class cis_benchmark::trusty64::filesystem_integrity {
     }
 
     exec { 'aideinit':
-        command     => 'aideinit',
+        command     => 'apt-get -y update && aideinit',
         refreshonly => true,
         path        => ['/bin', '/usr/sbin', '/usr/bin'],
     }
