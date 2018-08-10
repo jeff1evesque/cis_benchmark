@@ -39,7 +39,7 @@ class cis_benchmark::trusty64::process_hardening {
   if ($cis_1_5_2) {
     file { 'file-cis-1-5-2':
       content       => dos2unix(template('cis_benchmark/trusty64/bash/xdnx-report.erb')),
-      path          => "${exec_path}/xdnx-report",
+      path          => '/root/xdnx-report',
       mode          => '0700',
       owner         => root,
       group         => root,
@@ -48,7 +48,7 @@ class cis_benchmark::trusty64::process_hardening {
 
     exec { 'exec-cis-1-5-2':
       command       => './xdnx-report execute',
-      cwd           => $exec_path,
+      cwd           => '/root',
       onlyif        => './xdnx-report report',
       provider      => shell,
     }
