@@ -49,7 +49,7 @@ class cis_benchmark::trusty64::process_hardening {
     exec { 'exec-cis-1-5-2':
       command       => './xdnx-report execute',
       cwd           => '/root',
-      onlyif        => './xdnx-report report',
+      unless        => './xdnx-report report',
       provider      => shell,
     }
   }
