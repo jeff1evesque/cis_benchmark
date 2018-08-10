@@ -19,7 +19,7 @@ TEMP=$(dmesg | grep -q 'NX (Execute Disable) protection: active'; echo $?)
 
 ## check existence
 if [ "$OPERATION" == 'check' ]; then
-    if [ ! "$TEMP" ]; then
+    if [ "$TEMP" ]; then
         exit 0
     else
         exit 1
