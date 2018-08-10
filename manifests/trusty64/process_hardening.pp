@@ -43,7 +43,7 @@ class cis_benchmark::trusty64::process_hardening {
       mode          => '0700',
       owner         => root,
       group         => root,
-      require       => File[$paths],
+      before        => Exec['exec-cis-1-5-2'],
     }
 
     exec { 'exec-cis-1-5-2':
