@@ -25,7 +25,7 @@ class cis_benchmark::trusty64::banner {
   ## 1.7.1.4 Ensure permissions on /etc/motd are configured (Not Scored)
   ##
   if ($cis_1_7_1_1 and $cis_1_7_1_4) {
-    file { '/etc/motd':
+    file { '/etc/profile.d/motd':
       ensure      => present,
       mode        => '0444',
       owner       => 'root',
@@ -34,13 +34,13 @@ class cis_benchmark::trusty64::banner {
     }
   }
   elsif ($cis_1_7_1_1) {
-    file { '/etc/motd':
+    file { '/etc/profile.d/motd':
       ensure      => present,
       content     => dos2unix(template('cis_benchmark/trusty64/motd.erb')),
     }
   }
   elsif ($cis_1_7_1_4) {
-    file { '/etc/motd':
+    file { '/etc/profile.d/motd':
       ensure      => present,
       mode        => '0444',
       owner       => 'root',
