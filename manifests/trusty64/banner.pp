@@ -12,7 +12,7 @@ class cis_benchmark::trusty64::banner {
   $root_password  = $::cis_benchmark::root_password
 
   ## local variables: stig items
-  $cis_1_7_1_1    = $::cis_benchmark::cis_1_1_21
+  $cis_1_7_1_1    = $::cis_benchmark::cis_1_7_1_1
   $cis_1_7_1_2    = $::cis_benchmark::cis_1_7_1_2
   $cis_1_7_1_3    = $::cis_benchmark::cis_1_7_1_3
   $cis_1_7_1_4    = $::cis_benchmark::cis_1_7_1_4
