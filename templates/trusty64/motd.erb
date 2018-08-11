@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 UPTIME_DAYS=$(expr `cat /proc/uptime | cut -d '.' -f1` % 31556926 / 86400)
 UPTIME_HOURS=$(expr `cat /proc/uptime | cut -d '.' -f1` % 31556926 % 86400 / 3600)
 UPTIME_MINUTES=$(expr `cat /proc/uptime | cut -d '.' -f1` % 31556926 % 86400 % 3600 / 60)
 
-cat << EOF
+echo "
 #################################################################################
 ##                                                                             ##
 ## CIS Ubuntu 14.04 LTS Server Benchmark                                       ##
@@ -28,4 +28,4 @@ cat << EOF
 
               Public Address: `ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
               Cloud Address: `ifconfig eth1 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
-EOF
+"

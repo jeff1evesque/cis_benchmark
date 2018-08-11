@@ -7,6 +7,7 @@
 
 class cis_benchmark::trusty64::ssh {
   ## local variables: stig items
+  $cis_1_7_1_1 = $::cis_benchmark::cis_1_7_1_1
   $cis_5_2_1   = $::cis_benchmark::cis_5_2_1
   $cis_5_2_2   = $::cis_benchmark::cis_5_2_2
   $cis_5_2_3   = $::cis_benchmark::cis_5_2_3
@@ -45,6 +46,15 @@ class cis_benchmark::trusty64::ssh {
       path     => '/etc/ssh/sshd_config',
       line     => $line,
       multiple => true,
+    }
+  }
+
+  ## 1.7.1.1 Ensure message of the day is configured properly (Scored)
+  if ($cis_1_7_1_1) {
+    file_line { 'sshd_config_printmodt_no':
+      path     => '/etc/ssh/sshd_config',
+      line     => 'PrintMotd no',
+      match    => '^PrintMotd[[:space:]]*(?!no\b)\S+$',
     }
   }
 
