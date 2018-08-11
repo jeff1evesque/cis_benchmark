@@ -1,0 +1,30 @@
+sudo: required
+
+## install packages for linting
+#
+#  @trusty-backports, allows additional packages (i.e. shellcheck) to be installed
+#
+#  Note: in the future, centos can be used within docker containers, should
+#        unit tests be required:
+#
+#        - https://github.com/jeff1evesque/machine-learning/blob/0.4/.travis.yml#L101-L112
+#
+install:
+  - sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ trusty-backports restricted main universe"
+  - sudo apt-get update
+  - sudo apt-get install shellcheck=0.3.3-1~ubuntu14.04.1
+  - gem install mdl -v 0.3.1
+  - gem install puppet-lint -v 2.3.6
+  - gem install r10k -v 2.2.0
+
+## implement linting / unit tests
+script:
+  # lint codebase
+  - find . -type f -exec grep -l '^#!/bin/bash' {} + | xargs shellcheck -e SC2053 -e SC1090
+  - find . -name '*.sh' -type f -exec shellcheck {} \;
+  - mdl . --style test/lint/markdown.rb
+  - sudo find code -name '*.pp' -type f -exec /opt/puppetlabs/bin/puppet parser validate {} \;
+  - sudo find puppet -name '*.pp' -type f -exec /opt/puppetlabs/bin/puppet parser validate {} \;
+  - puppet-lint --no-variable_scope-check --no-ensure_first_param-check code
+  - puppet-lint --no-variable_scope-check --no-ensure_first_param-check puppet
+  - find puppet -name Puppetfile -exec sh -c 'cd "${1%/*}" && r10k puppetfile check Puppetfile' _ {} \;
