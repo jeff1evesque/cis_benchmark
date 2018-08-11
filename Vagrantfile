@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
   ##
   ##        required_plugins = %w(plugin1 plugin2 plugin3)
   ##
-  required_plugins  = %w(vagrant-r10k vagrant-triggers)
+  required_plugins  = %w(vagrant-r10k)
   plugin_installed  = false
   ENV['TEST_ENV']  = 'Trusty64'
 
@@ -41,9 +41,6 @@ Vagrant.configure(2) do |config|
     config.vm.box_download_checksum_type = 'md5'
 
   end
-
-  ## Ensure puppet installed within guest
-  config.puppet_install.puppet_version = '4.3.2'
 
   ## increase RAM to ensure scrypt doesn't exhaust memory
   config.vm.provider 'virtualbox' do |v|
