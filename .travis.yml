@@ -16,15 +16,16 @@ install:
   - gem install mdl -v 0.3.1
   - gem install puppet-lint -v 2.3.6
   - gem install r10k -v 2.2.0
+  - gem install ruby-lint -v 2.0.4
 
 ## implement linting / unit tests
 script:
   # lint codebase
   - find . -type f -exec grep -l '^#!/bin/bash' {} + | xargs shellcheck -e SC2053 -e SC1090
   - find . -name '*.sh' -type f -exec shellcheck {} \;
+  - find lib/facter -name '*.rb' -type f -exec ruby-lint {} \;
   - mdl . --style test/lint/markdown.rb
   - sudo find code -name '*.pp' -type f -exec /opt/puppetlabs/bin/puppet parser validate {} \;
   - sudo find puppet -name '*.pp' -type f -exec /opt/puppetlabs/bin/puppet parser validate {} \;
-  - puppet-lint --no-variable_scope-check --no-ensure_first_param-check code
-  - puppet-lint --no-variable_scope-check --no-ensure_first_param-check puppet
+  - puppet-lint --no-variable_scope-check --no-ensure_first_param-check manifest
   - find puppet -name Puppetfile -exec sh -c 'cd "${1%/*}" && r10k puppetfile check Puppetfile' _ {} \;

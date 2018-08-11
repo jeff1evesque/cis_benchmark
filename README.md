@@ -1,4 +1,4 @@
-# cis-benchmark
+# cis-benchmark [![Build Status](https://travis-ci.org/jeff1evesque/cis_benchmark.svg?branch=master)](https://travis-ci.org/jeff1evesque/cis_benchmark)
 
 Puppet hardening module premised on cis benchmark
 
