@@ -143,7 +143,8 @@ cis_benchmark::trusty64:
         cis_6_2_20: true
 ```
 
-Similar rules can be defined directly in the environment's `site.pp`:
+Similar rules can be defined directly in the environment's `site.pp`, as an alternative
+approach to the hiera implementation:
 
 ```puppet
 class { 'cis_benchmark':
