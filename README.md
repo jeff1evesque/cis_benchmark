@@ -1,17 +1,18 @@
 # cis-benchmark [![Build Status](https://travis-ci.org/jeff1evesque/cis_benchmark.svg?branch=master)](https://travis-ci.org/jeff1evesque/cis_benchmark)
 
-Puppet hardening module premised on cis benchmark. Specific rules can be implemented
-through the following yaml files, placed on the hiera path:
+Puppet hardening module premised on cis benchmark. Specific rules can be nested under
+the following yaml keys, placed within a yaml file defined by the `hiera.yaml` of the
+corresponding puppetserver:
 
-- `[node-certificate].yaml`
-- `cis_benchmark.yaml`
-- `trusty64.yaml`
+- `[node-certificate]`
+- `cis_benchmark`
+- `trusty64`
 
-If a yaml key exists, by the name of the nodes certificate, then the corresponding cis
-rules will take precedence. Otherwise, if the `cis_benchmark`, or the `trusty64` yaml
-key exists, it will be loaded.
+If the yaml key exists, by the name of the nodes certificate (delimited by underscores),
+then the corresponding cis rules will take precedence. Otherwise, if the `cis_benchmark`,
+or the `trusty64` yaml key exists, it will load respectively.
 
-The following is an example of the Ubuntu 14.04 hiera implementation:
+The following is the Ubuntu 14.04 implementation:
 
 ```yaml
 cis_benchmark::trusty64:
