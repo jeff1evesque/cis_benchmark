@@ -10,7 +10,7 @@ of a yaml file defined from the `hiera.yaml`, of the corresponding puppetserver:
 
 If the yaml key exists, by the name of the nodes certificate (delimited by underscores),
 then the corresponding cis rules will take precedence. Otherwise, if the `cis_benchmark`,
-or the `trusty64` yaml key exists, it will load respectively.
+or the `trusty64` yaml key exists, it will load the respective rules.
 
 The following is the [Ubuntu 14.04](http://releases.ubuntu.com/14.04/) implementation:
 
@@ -36,8 +36,8 @@ class { 'cis_benchmark':
 }
 ```
 
-**Note:** additional [properties](https://github.com/jeff1evesque/cis_benchmark/blob/e1fe35ddc0d00ae2b09c2a3cf408c4ed3dab3b8d/data/cis_trusty64.yaml#L12-L135)
-can be implemented with the above `cis_benchmark` class.
+**Note:** the [`params.pp`](https://github.com/jeff1evesque/cis_benchmark/blob/master/manifests/params.pp)
+can be further reviewed in order to override additional cis rules.
 
 ## Puppetfile
 
