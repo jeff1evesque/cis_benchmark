@@ -2,7 +2,7 @@
 
 Puppet hardening module premised on [cis benchmark](https://www.cisecurity.org/cis-benchmarks/).
 Specific rules can be nested under the following [yaml keys](https://github.com/jeff1evesque/cis_benchmark/blob/a8e94846d048cf8b500886333a4babb9c14cf8ed/manifests/params.pp#L11-L15),
-of a yaml file defined from the `hiera.yaml` of the corresponding puppetserver:
+of a yaml file defined from the `hiera.yaml`, of the corresponding puppetserver:
 
 - `[node-certificate]`
 - `cis_benchmark`
@@ -12,7 +12,7 @@ If the yaml key exists, by the name of the nodes certificate (delimited by under
 then the corresponding cis rules will take precedence. Otherwise, if the `cis_benchmark`,
 or the `trusty64` yaml key exists, it will load respectively.
 
-The following is the Ubuntu 14.04 implementation:
+The following is the [Ubuntu 14.04](http://releases.ubuntu.com/14.04/) implementation:
 
 ```yaml
 cis_benchmark::trusty64:
