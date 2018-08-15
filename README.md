@@ -2,9 +2,9 @@
 
 Puppet hardening module premised on [cis benchmark](https://www.cisecurity.org/cis-benchmarks/).
 
-## Dependencies
+## Dependency
 
-The following modules need to be implemented within the `Puppetfile`:
+The `Puppetfile` requires the following:
 
 - [`comment_line`](https://forge.puppet.com/geoffwilliams/comment_line) 
 - [`multitemplate`](https://forge.puppet.com/deanwilson/multitemplate/types)
