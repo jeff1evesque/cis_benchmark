@@ -1,7 +1,7 @@
 # cis-benchmark [![Build Status](https://travis-ci.org/jeff1evesque/cis_benchmark.svg?branch=master)](https://travis-ci.org/jeff1evesque/cis_benchmark)
 
-Puppet hardening module premised on cis benchmark. Specific rules can be nested under
-the following [yaml keys](https://github.com/jeff1evesque/cis_benchmark/blob/a8e94846d048cf8b500886333a4babb9c14cf8ed/manifests/params.pp#L11-L15),
+Puppet hardening module premised on [cis benchmark](https://www.cisecurity.org/cis-benchmarks/).
+Specific rules can be nested under the following [yaml keys](https://github.com/jeff1evesque/cis_benchmark/blob/a8e94846d048cf8b500886333a4babb9c14cf8ed/manifests/params.pp#L11-L15),
 of a yaml file defined from the `hiera.yaml` of the corresponding puppetserver:
 
 - `[node-certificate]`
