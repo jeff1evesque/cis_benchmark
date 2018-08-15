@@ -23,7 +23,7 @@ cis_benchmark::trusty64:
 ```
 
 **Note:** the [`params.pp`](https://github.com/jeff1evesque/cis_benchmark/blob/master/manifests/params.pp)
-can be further reviewed in order to override additional cis rules.
+can be further reviewed in order to override default cis rules.
 
 Similar rules can be defined directly in the environment's `site.pp`, as an alternative
 approach to the hiera implementation:
@@ -37,11 +37,11 @@ class { 'cis_benchmark':
 ```
 
 **Note:** the [`params.pp`](https://github.com/jeff1evesque/cis_benchmark/blob/master/manifests/params.pp)
-can be further reviewed in order to override additional cis rules.
+can be further reviewed in order to override default cis rules.
 
-## Puppetfile
+## Dependencies
 
-The following are module dependencies:
+The following modules need to be implemented within the `Puppetfile`:
 
 - [`comment_line`](https://forge.puppet.com/geoffwilliams/comment_line) 
 - [`multitemplate`](https://forge.puppet.com/deanwilson/multitemplate/types)
