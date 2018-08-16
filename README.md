@@ -4,7 +4,7 @@ Puppet hardening module premised on [cis benchmark](https://www.cisecurity.org/c
 
 - [Ubuntu 14.04](https://github.com/jeff1evesque/cis_benchmark/raw/master/doc/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf)
 
-**Note:** implemented rules, will have a puppet numbering scheme, matching the corresponding benchmark.
+**Note:** the puppet numbering scheme, matches the corresponding benchmark.
 
 ## Dependency
 
