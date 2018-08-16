@@ -1,11 +1,10 @@
 # cis-benchmark [![Build Status](https://travis-ci.org/jeff1evesque/cis_benchmark.svg?branch=master)](https://travis-ci.org/jeff1evesque/cis_benchmark)
 
-Puppet hardening module premised on [cis benchmark](https://www.cisecurity.org/cis-benchmarks/).
-Rules can be reviewed per distribution:
+Puppet hardening module premised on [cis benchmark](https://www.cisecurity.org/cis-benchmarks/):
 
 - [Ubuntu 14.04](https://github.com/jeff1evesque/cis_benchmark/raw/master/doc/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf)
 
-**Note:** implemented rules, will have a puppet numbering scheme, matcheing the above benchmark.
+**Note:** implemented rules, will have a puppet numbering scheme, matching the corresponding benchmark.
 
 ## Dependency
 
