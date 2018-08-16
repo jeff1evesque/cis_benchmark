@@ -28,7 +28,8 @@ If the yaml key exists, by the name of the nodes certificate (delimited by under
 then the corresponding cis rules will take precedence. Otherwise, if the `cis_benchmark`,
 or the `trusty64` yaml key exists, it will load the respective rules.
 
-The following is the [Ubuntu 14.04](http://releases.ubuntu.com/14.04/) implementation:
+The following is the [Ubuntu 14.04](https://github.com/jeff1evesque/cis_benchmark/raw/master/doc/CIS_Ubuntu_Linux_14.04_LTS_Benchmark_v2.0.0.pdf)
+implementation:
 
 ```yaml
 cis_benchmark::trusty64:
