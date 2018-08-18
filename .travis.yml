@@ -25,7 +25,7 @@ script:
   - find . -name '*.sh' -type f -exec shellcheck {} \;
   - find lib/facter -name '*.rb' -type f -exec ruby-lint {} \;
   - mdl . --style test/lint/markdown.rb
-  - sudo find code -name '*.pp' -type f -exec /opt/puppetlabs/bin/puppet parser validate {} \;
-  - sudo find puppet -name '*.pp' -type f -exec /opt/puppetlabs/bin/puppet parser validate {} \;
+  - sudo find modules -name '*.pp' -type f -exec /opt/puppetlabs/bin/puppet parser validate {} \;
+  - sudo find manifests -name '*.pp' -type f -exec /opt/puppetlabs/bin/puppet parser validate {} \;
   - puppet-lint --no-variable_scope-check --no-ensure_first_param-check manifest
   - find puppet -name Puppetfile -exec sh -c 'cd "${1%/*}" && r10k puppetfile check Puppetfile' _ {} \;
