@@ -1,6 +1,6 @@
 {
   "name": "jeff1evesque-cis_benchmark",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Jeff Levesque",
   "summary": "Hardens linux environment using cis benchmark.",
   "license": "BSD",
