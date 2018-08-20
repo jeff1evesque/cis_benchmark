@@ -10,7 +10,7 @@ class cis_benchmark::params {
     ##
     $hiera_node            = lookup([
         regsubst($trusted['certname'], '\.', '_', 'G'),
-        'cis_benchmark',
+        'cis_benchmark::trusty64',
         'trusty64'
     ], 'default_value' => false)
 
